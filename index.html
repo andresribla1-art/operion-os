@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OPERION LLC · Autonomes Betriebssystem · operion.llc</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap"/>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#FFFFFF;color:#0D0D0D;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.fade{opacity:0;transform:translateY(18px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
+.fade.visible{opacity:1;transform:translateY(0)}
+.fd1{transition-delay:.1s}.fd2{transition-delay:.18s}.fd3{transition-delay:.26s}.fd4{transition-delay:.34s}.fd5{transition-delay:.42s}
+@keyframes shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+.btn-obs{display:inline-flex;align-items:center;justify-content:center;padding:14px 36px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:#FFFFFF;background:#0D0D0D;border:1px solid #0D0D0D;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.btn-obs::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);background-size:200% auto;opacity:0;transition:opacity .3s}
+.btn-obs:hover::after{opacity:1;animation:shimmer 1.4s linear infinite}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;padding:13px 35px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:#0D0D0D;background:transparent;border:1px solid rgba(13,13,13,.14);cursor:pointer;transition:border-color .2s}
+.btn-ghost:hover{border-color:rgba(13,13,13,.35)}
+.glass{background:rgba(255,255,255,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.55);box-shadow:0 1px 2px rgba(13,13,13,.04),0 4px 20px rgba(13,13,13,.03)}
+@keyframes dash{to{stroke-dashoffset:-40}}
+.cf{animation:dash 2s linear infinite}
+@keyframes ring-in{from{stroke-dashoffset:283}to{stroke-dashoffset:28}}
+.ring{animation:ring-in 1.8s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes np{0%{r:18;opacity:.5}100%{r:30;opacity:0}}
+.npulse{animation:np 2.2s ease-out infinite}
+#tp{display:none;position:fixed;bottom:24px;right:24px;z-index:9999;background:#fff;border:1px solid rgba(13,13,13,.08);padding:20px;width:190px;box-shadow:0 8px 40px rgba(13,13,13,.08)}
+#tp.on{display:block}
+.tph{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#0D0D0D;margin-bottom:14px;font-family:'Inter',sans-serif}
+.tpg{display:flex;gap:3px}
+.tpb{flex:1;padding:7px 0;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(13,13,13,.10);background:transparent;color:#6B6B6B;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif}
+.tpb.on{background:#0D0D0D;color:#fff;border-color:#0D0D0D}
+</style>
+</head>
+<body>
+
+<div id="tp">
+  <div class="tph">Tweaks</div>
+  <div class="tpg">
+    <button class="tpb" data-lang="de">DE</button>
+    <button class="tpb" data-lang="en">EN</button>
+    <button class="tpb" data-lang="es">ES</button>
+  </div>
+</div>
+<div id="root"></div>
+
+<script type="text/babel">
+const C={white:'#FFFFFF',snow:'#F7F7F5',obs:'#0D0D0D',ti:'#6B6B6B',ch:'#C4C4C4',ln:'rgba(13,13,13,.07)',lns:'rgba(13,13,13,.14)'};
+const FB="'Inter',system-ui,sans-serif";
+const FM="'JetBrains Mono',monospace";
+const W={maxWidth:1080,margin:'0 auto',padding:'0 64px'};
+const S=(bg=C.white,extra={})=>({background:bg,padding:'112px 0',borderBottom:`1px solid ${C.ln}`,...extra});
+
+const T={
+de:{
+  nav:{links:[['Architektur','#arch'],['Preise','#pricing'],['Investor','#investor']],cta:'Demo anfragen'},
+  hero:{
+    story:'23:00 · Samstag · Ingolstadt. Ein Student aus Nigeria schreibt an ein Fitnessstudio. Der Inhaber schläft. OPERION antwortet in 4 Sekunden — auf Englisch. Der Lead ist geschlossen, bevor der Inhaber aufwacht.',
+    eyebrow:'Ingolstadt, DE · operion.llc',
+    h1:'Ihr Betrieb.',h1b:'Autonom.',
+    h1desc:'Paz Mental.',
+    sub:'OPERION ist kein Software-Produkt, kein Chatbot, keine Automatisierungsplattform. Es ist die Gewissheit, dass Ihr Betrieb nie schläft, nie vergisst und nie aufhört, in der Sprache Ihres Kunden zu antworten.',
+    cta:'Demo ansehen',ghost:'Gespräch anfragen',
+    note:'Einsatzbereit in 14 Tagen · Kein Kundencode · DE / EN / ES',
+    stats:[['<5 Min','Reaktionszeit'],['24/7','Verfügbarkeit'],['14 Tage','Deployment'],['≥90%','HDR-Ziel']],
+  },
+  proof:{
+    badge:'Produktionsbetrieb · April 2026',client:'Clever Fit Ingolstadt',
+    metrics:[['240 Min → 4 Sek.','Reaktionszeit'],['≥80% HDR','30 Tage'],['DE · EN · ES','Aktiv']],
+    note:'Erster Produktionsklient. Der Beachhead ist validiert.',
+  },
+  thesis:{
+    label:'01 · Autonomiethese',h:'Operative Arbeit',hb:'ist eine strukturelle Ineffizienz.',
+    sub:'Jede Aufgabe, die vollständig in einem Entscheidungsbaum beschrieben werden kann, hat kein Recht, von einem Menschen ausgeführt zu werden.',
+    principles:[
+      {n:'I',t:'Ausführung geht vor Existenz.',b:'Ein Prozess, der vollständig beschrieben werden kann, wird von OPERION ausgeführt. Nicht von einer Person.'},
+      {n:'II',t:'Überwachung ist keine Eliminierung.',b:'Ein System, das einen Menschen zur Überwachung erfordert, hat den Menschen nicht ersetzt — es hat ihm einen neuen Job gegeben.'},
+      {n:'III',t:'Substitution ist permanent.',b:'Die Rollen, die OPERION eliminiert, kehren nicht zurück. Es ist eine Transformation der Betriebsarchitektur, kein Abonnementdienst.'},
+    ],
+  },
+  lane:{
+    label:'02 · Wettbewerbspositionierung',h:'Lane 4.',hb:'Unbesetzt.',
+    sub:'Kein anderer Anbieter besetzt diese Position heute: Done-for-you, DSGVO-nativ, trilingüe, zu KMU-Preisen.',
+    lanes:[
+      {n:'Lane 1',who:'Horizontale Plattformen',ex:'Lindy · Relevance AI · Make · n8n',why:'Erfordern einen technischen Käufer. Unsere Kunden wissen nicht, was ein API-Endpunkt ist.'},
+      {n:'Lane 2',who:'KI-Mitarbeiter-Bundles',ex:'GoHighLevel · Marblism',why:'Nur Englisch, US-fokussiert, Selbstbedienung. Nicht DSGVO-nativ. Nicht trilingüe.'},
+      {n:'Lane 3',who:'Enterprise-Lösungen',ex:'Sierra · Intercom Fin',why:'€1.000+/Monat, erfordern Integrationsteams. Dimensioniert für Unternehmen, die 10× größer sind.'},
+      {n:'Lane 4',who:'OPERION',ex:'operion.llc',why:'Done-for-you · DSGVO-nativ · DE/EN/ES · €200K–€2M Umsatz. Kein Konkurrent in dieser Position.',active:true},
+    ],
+  },
+  arch:{
+    label:'03 · Systemarchitektur',h:'Drei Schichten.',hb:'Ein Urteil.',
+    sub:'Jede Entscheidung durchläuft drei unabhängige Ebenen. Keine Halluzination gelangt in die Produktion.',
+    nodes:[
+      {id:'KB',full:'Knowledge Base',desc:'Verifizierte Wissensbasis. Unternehmensdaten, Preise, SOPs, Eskalationsregeln.'},
+      {id:'ADE',full:'Autonomous Decision Engine',desc:'Klassifiziert, gewichtet, entscheidet. Der Richtermechanismus.'},
+      {id:'OUT',full:'Output Layer',desc:'Verifizierter, trilingüer Response. Kein ungeprüfter Text gelangt nach außen.'},
+    ],
+  },
+  metrics:{
+    label:'04 · Sovereign Metriken',
+    hdr:{h:'90%.',hb:'HDR.',sub:'Human Displacement Ratio: Autonome Ausführungen ÷ Gesamtaufgaben im Scope. Ziel: ≥90% bis Tag 90.',note:'Gemessen über 90 Tage Produktionsbetrieb · Clever Fit Ingolstadt'},
+    oii:{h:'5/5.',hb:'OII.',sub:'Operational Immunity Index: Kann der Betrieb bei vollständiger menschlicher Abwesenheit auf vollem Niveau operieren?',scenarios:['DM-Anfrage · 23:00 Samstag','Buchung auf Englisch','Reklamation · Sofortreaktion','Content-Posting · Kein Briefing','Wochenbericht · Montagmorgen']},
+  },
+  agents:{
+    label:'05 · Agentensuite',h:'Fünf Agenten.',hb:'Null Ausfallzeiten.',
+    names:['TRIAGE','CONTENT','ANALYTICS','OUTREACH','OPS'],
+    roles:['Erster Responder auf allen Kanälen. Spracherkennung, Intent-Klassifizierung, Antwort <5 Min.','10+ Posts/Woche aus einem einzigen Brief. Bilingual. API-gesteuerte Publikation.','Meta Insights & IG API. Wochenbericht jeden Montag 08:00 CET. Anomalieerkennung.','Prospect-Scoring ≥12/15. 3-Touch-Sequenz. Autonomes Pipeline-Management.','HDR/OII-Berechnung, SLA-Audit, API-Kostenüberwachung, Retrospektive.'],
+    status:['Live','Monat 2','Monat 3','Monat 4','Monat 6'],
+    autonomy:['≥80% inbound','≥90% Content','100% Reporting','Tier 2 — Felix sendet','Tier 1 intern'],
+  },
+  moat:{
+    label:'06 · Knowledge Moat',h:'Tag 1',hb:'vs. Monat 6.',
+    sub:'Das Wettbewerbsschutzmoat wächst automatisch. Jeden Tag, den die Agenten operieren, wird der Wechsel teurer.',
+    rows:[
+      ['KB-Einträge','~50 (Kickoff)','400+ (akkumuliert)'],
+      ['Intent-Genauigkeit','~82% (allg. LLM)','~94% (domänenspezifisch)'],
+      ['Eskalationsregeln','Generisch (SOPs)','Kalibriert auf Kundengrenzfälle'],
+      ['Ton & Stimme','Markenkorrekt (KB)','Markenexakt (6 Monate Signale)'],
+      ['Wechselkosten','Niedrig (früh)','Annähernd null (Daten nicht portierbar)'],
+    ],
+    note:'Ein Wettbewerber, der in Monat 7 eintritt, startet bei Tag 1. Ihr Betrieb startet bei Monat 7.',
+    items:[
+      {icon:'shield',title:'Docker-Isolation',body:'Jeder Agent läuft in einem dedizierten Container. Keine Querkontamination möglich.'},
+      {icon:'law',title:'BayLDA Ansbach',body:'Vollständige DSGVO-Konformität. Europäische Server. 30-Tage-Datenlöschung automatisiert.'},
+      {icon:'lock',title:'Zero-Trust API',body:'Kein persistenter Zugang. Jeder API-Call wird einzeln authentifiziert und geloggt.'},
+    ],
+  },
+  roadmap:{
+    label:'07 · Roadmap',h:'Deliberate',hb:'Execution.',
+    sub:'"Slow is smooth. Smooth is fast." — Jede Phase muss HDR ≥90% und OII 100% nachweisen, bevor geografisch oder vertikal skaliert wird.',
+    phases:[
+      {n:'Phase 1',t:'Ingolstadt Beachhead',d:'Monat 1–6',b:'Beachhead validieren. Clever Fit vollständig souverän. Eine verifizierte Fallstudie. Infrastruktur stabil.',done:true},
+      {n:'Phase 2',t:'München Metro',d:'Monat 7–12',b:'Modell replizieren. 8–10 Kunden. Fitness + angrenzende Vertikalen. MRR >€4.000. Wyoming LLC.'},
+      {n:'Phase 3',t:'DACH Sovereign',d:'Monat 13–18',b:'15 Kunden. MRR >€8.000. Erster VA. Operations-Agent live. Österreich + Schweiz.'},
+      {n:'Phase 4',t:'LATAM Entry',d:'Monat 19–24',b:'Lima, Peru als Einstiegspunkt. LATAM-Fiskalwillkür: Teilzeitkraft $400–600 vs. OPERION Starter $180–220.'},
+      {n:'Phase 5',t:'Hardware Horizon',d:'2028–2030',b:'Jeder Command Interface (CI-012) ist hardware-agnostisch gebaut. Humanoid-Empfangseinheiten. Voice-Kioske. Die Software-Schicht ist der Moat.'},
+    ],
+  },
+  fiscal:{
+    label:'08 · Fiskalisches Argument',h:'€375.',hb:'Gegen €1.602.',
+    sub:'Für KMUs in Deutschland ist OPERION eine vollständig absetzbare Betriebsausgabe (EStG §4 Abs. 4).',
+    col1:'OPERION Growth',tag:'Empfohlen',col2:'Teilzeit-Mitarbeiter (Ø Int.)',
+    rows1:[['Monatliche Gebühr','€500'],['Steuerersparnis ~25 %','−€125']],
+    rows2:[['Bruttogehalt (Ø 20h/Woche)','€1.100'],['Lohnnebenkosten (~22%)','+ €242'],['Fehlzeiten / Urlaub','+ €180'],['Einarbeitung (amort.)','+ €80']],
+    net:'Reale Nettokosten',netVal:'€375',total:'Gesamtkosten Ø',totalVal:'€1.602',
+    note:'Internationaler Referenzdurchschnitt. Tatsächliche Kosten variieren je nach Markt zwischen €900 und €2.200 / Monat.',
+    savings:'€1.227 / Monat gespart · €14.724 jährlich.',
+  },
+  pricing:{
+    label:'09 · Preise',h:'Transparent.',hb:'Keine Überraschungen.',
+    note:'Erste 5 Kunden: 50% Rabatt auf Lebenszeit gegen öffentliche Fallstudie + Video-Testimonial.',
+    tiers:[
+      {name:'Starter',price:'€200',p:'/mo',setup:'Setup: €500',feats:['1 Agent (TRIAGE)','1 Kanal (WhatsApp/IG)','Autom. Wochenbericht','SLA <10 Min.','E-Mail-Support'],cta:'Anfragen'},
+      {name:'Growth',price:'€500',p:'/mo',setup:'Setup: €1.500',feats:['3 Agenten','Multi-Kanal','Zweiwöch. Strategieanruf','SLA <5 Min.','PDF-Berichte'],cta:'Anfragen',feat:true},
+      {name:'Enterprise',price:'Custom',p:'',setup:'Setup ab €3.000',feats:['5 Agenten (Full Suite)','Custom-Integrationen','Dedizierter Slack-Kanal','SLA <2 Min.','Früher Zugang'],cta:'Gespräch'},
+    ],
+  },
+  founder:{
+    label:'10 · Gründer',h:'Felix Andres',hb:'Rios Blanco.',
+    role:'Gründer & CEO · OPERION LLC',
+    bio:'Native-Spanischsprecher. Deutscher Einwohner. Englisch fließend. Die drei Sprachen des OPERION-Marktes sind seine drei Muttersprachen.',
+    creds:[['Python 3.12, Anthropic SDK, Flask, MCP','Technische Tiefe'],['Clever Fit Ingolstadt — Minijob (Social Media) + Freelancer (KI-Architektur)','Insider-Zugang zum exakten Kundenprofil'],['DE / EN / ES native','Trilingualer Betrieb'],['Quechua-Identität — OPERION bedeutet: tun, machen, ausführen.','Persönliches Commitment zur Ausführung']],
+    contact:'felix@operion.llc',
+  },
+  cta:{label:'11 · Erste 5 Kunden',h:'Bereit,',hb:'wenn Sie es sind.',sub:'Gründerpreis: 50% Rabatt auf Lebenszeit gegen eine öffentliche Fallstudie. Begrenzte Plätze.',btn:'Gründerzugang anfragen'},
+  footer:{q:'"OPERION" — aus dem Quechua: tun, machen, ausführen.'},
+},
+en:{
+  nav:{links:[['Architecture','#arch'],['Pricing','#pricing'],['Investors','#investor']],cta:'Request Demo'},
+  hero:{
+    story:"23:00 · Saturday · Ingolstadt. A student from Nigeria messages a gym. The owner is asleep. OPERION responds in 4 seconds — in English. The lead is closed before the owner wakes up.",
+    eyebrow:'Ingolstadt, DE · operion.llc',
+    h1:'Your business.',h1b:'Autonomous.',
+    h1desc:'Paz Mental.',
+    sub:"OPERION is not software, not a chatbot, not an automation platform. It is the certainty that your business never sleeps, never forgets, and never fails to respond in your customer's language.",
+    cta:'Watch the demo',ghost:'Request a call',
+    note:'Deployed in 14 days · No client code · DE / EN / ES',
+    stats:[['<5 min','Response time'],['24/7','Availability'],['14 days','Deployment'],['≥90%','HDR target']],
+  },
+  proof:{
+    badge:'Production · April 2026',client:'Clever Fit Ingolstadt',
+    metrics:[['240 min → 4 sec','Response time'],['≥80% HDR','30 days'],['DE · EN · ES','Active']],
+    note:'First production client. The beachhead is validated.',
+  },
+  thesis:{
+    label:'01 · Autonomy Thesis',h:'Operational labor',hb:'is a structural inefficiency.',
+    sub:'Every task that can be fully described in a decision tree has no business being executed by a human being.',
+    principles:[
+      {n:'I',t:'Execution precedes existence.',b:'A process that can be fully described is run by OPERION. Not by a person.'},
+      {n:'II',t:'Oversight is not elimination.',b:"A system that requires a human to monitor it has not replaced the human — it has given them a new job."},
+      {n:'III',t:'Substitution is permanent.',b:'The roles OPERION eliminates do not return when the contract ends. This is an architectural transformation, not a subscription service.'},
+    ],
+  },
+  lane:{
+    label:'02 · Competitive Position',h:'Lane 4.',hb:'Unoccupied.',
+    sub:'No other provider occupies this position today: done-for-you, GDPR-native, trilingual, at SMB pricing.',
+    lanes:[
+      {n:'Lane 1',who:'Horizontal platforms',ex:'Lindy · Relevance AI · Make · n8n',why:'Require a technical buyer. Our clients do not know what an API endpoint is.'},
+      {n:'Lane 2',who:'AI employee bundles',ex:'GoHighLevel · Marblism',why:'English-only, US-focused, self-serve. Not GDPR-native. Not trilingual.'},
+      {n:'Lane 3',who:'Enterprise solutions',ex:'Sierra · Intercom Fin',why:'€1,000+/month, require integration teams. Sized for companies 10× larger.'},
+      {n:'Lane 4',who:'OPERION',ex:'operion.llc',why:'Done-for-you · GDPR-native · DE/EN/ES · €200K–€2M revenue. No competitor in this position.',active:true},
+    ],
+  },
+  arch:{
+    label:'03 · System Architecture',h:'Three layers.',hb:'One verdict.',
+    sub:'Every decision passes through three independent layers. No hallucination reaches production.',
+    nodes:[
+      {id:'KB',full:'Knowledge Base',desc:'Verified knowledge base. Business data, pricing, SOPs, escalation rules.'},
+      {id:'ADE',full:'Autonomous Decision Engine',desc:'Classifies, weights, decides. The arbitration mechanism.'},
+      {id:'OUT',full:'Output Layer',desc:'Verified, trilingual response. No unreviewed text reaches the client.'},
+    ],
+  },
+  metrics:{
+    label:'04 · Sovereign Metrics',
+    hdr:{h:'90%.',hb:'HDR.',sub:'Human Displacement Ratio: Autonomous executions ÷ Total tasks in scope. Target: ≥90% by Day 90.',note:'Measured over 90 days of production · Clever Fit Ingolstadt'},
+    oii:{h:'5/5.',hb:'OII.',sub:'Operational Immunity Index: Can the business operate at full capacity during complete human absence?',scenarios:['DM inquiry · 23:00 Saturday','Booking in English','Complaint · Immediate response','Content posting · No brief','Weekly report · Monday 08:00']},
+  },
+  agents:{
+    label:'05 · Agent Suite',h:'Five agents.',hb:'Zero downtime.',
+    names:['TRIAGE','CONTENT','ANALYTICS','OUTREACH','OPS'],
+    roles:['First responder on all channels. Language detection, intent classification, response <5 min.','10+ posts/week from a single brief. Bilingual. API-scheduled publication.','Meta Insights & IG API. Weekly report every Monday 08:00 CET. Anomaly detection.','Prospect scoring ≥12/15. 3-touch sequence. Autonomous pipeline management.','HDR/OII calculation, SLA audit, API cost monitoring, retrospective prep.'],
+    status:['Live','Month 2','Month 3','Month 4','Month 6'],
+    autonomy:['≥80% inbound','≥90% content','100% reporting','Tier 2 — Felix sends','Tier 1 internal'],
+  },
+  moat:{
+    label:'06 · Knowledge Moat',h:'Day 1',hb:'vs. Month 6.',
+    sub:'The competitive moat grows automatically. Every day the agents operate, switching costs increase.',
+    rows:[
+      ['KB entries','~50 (kickoff)','400+ (accumulated)'],
+      ['Intent accuracy','~82% (general LLM)','~94% (domain-tuned)'],
+      ['Escalation rules','Generic (SOPs)','Calibrated to client edge cases'],
+      ['Tone & voice','Brand-correct (KB)','Brand-exact (6 months of signals)'],
+      ['Switching cost','Low (early)','Near-zero (data not portable)'],
+    ],
+    note:'A competitor entering in Month 7 starts at Day 1. Your business starts at Month 7.',
+    items:[
+      {icon:'shield',title:'Docker Isolation',body:'Each agent runs in a dedicated container. No cross-client contamination possible.'},
+      {icon:'law',title:'BayLDA Ansbach',body:'Full GDPR compliance. European servers only. 30-day data purge automated.'},
+      {icon:'lock',title:'Zero-Trust API',body:'No persistent connection. Every API call individually authenticated and logged.'},
+    ],
+  },
+  roadmap:{
+    label:'07 · Roadmap',h:'Deliberate',hb:'Execution.',
+    sub:'"Slow is smooth. Smooth is fast." — Each phase must demonstrate HDR ≥90% and OII 100% before geographic or vertical scaling is authorized.',
+    phases:[
+      {n:'Phase 1',t:'Ingolstadt Beachhead',d:'Month 1–6',b:'Prove the model. One client, fully sovereign. One verified case study. Infrastructure stable.',done:true},
+      {n:'Phase 2',t:'Munich Metro',d:'Month 7–12',b:'Replicate the model. 8–10 clients. Fitness + adjacent verticals. MRR >€4,000. Wyoming LLC.'},
+      {n:'Phase 3',t:'DACH Sovereign',d:'Month 13–18',b:'15 clients. MRR >€8,000. First VA. Operations agent live. Austria + Switzerland.'},
+      {n:'Phase 4',t:'LATAM Entry',d:'Month 19–24',b:'Lima, Peru as entry point. LATAM arbitrage: part-time admin $400–600 vs. OPERION Starter $180–220.'},
+      {n:'Phase 5',t:'Hardware Horizon',d:'2028–2030',b:'Every Command Interface (CI-012) is built hardware-agnostic. Humanoid reception units. Voice kiosks. The software layer is the moat.'},
+    ],
+  },
+  fiscal:{
+    label:'08 · Fiscal Case',h:'€375.',hb:'Versus €1,602.',
+    sub:'For German SMBs, OPERION is a fully deductible business expense under EStG §4 Abs. 4.',
+    col1:'OPERION Growth',tag:'Recommended',col2:'Part-time employee (Avg. intl.)',
+    rows1:[['Monthly fee','€500'],['Tax deduction ~25%','−€125']],
+    rows2:[['Base salary (avg. 20h/week)','€1,100'],['Payroll taxes (~22%)','+ €242'],['Absence & PTO','+ €180'],['Onboarding amort.','+ €80']],
+    net:'Real net cost',netVal:'€375',total:'Avg. total cost',totalVal:'€1,602',
+    note:'International reference average. Actual costs range €900–€2,200/month by market.',
+    savings:'€1,227 / month saved · €14,724 annually.',
+  },
+  pricing:{
+    label:'09 · Pricing',h:'Transparent.',hb:'No surprises.',
+    note:'First 5 clients: 50% off for life in exchange for public case study + video testimonial.',
+    tiers:[
+      {name:'Starter',price:'€200',p:'/mo',setup:'One-time: €500',feats:['1 agent (TRIAGE)','1 channel','Automated weekly report','SLA <10 min','Email support'],cta:'Request'},
+      {name:'Growth',price:'€500',p:'/mo',setup:'One-time: €1,500',feats:['3 agents','Multi-channel','Bi-weekly strategy call','SLA <5 min','PDF reports'],cta:'Request',feat:true},
+      {name:'Enterprise',price:'Custom',p:'',setup:'From €3,000',feats:['Full suite (5 agents)','Custom integrations','Slack channel','SLA <2 min','Early access'],cta:'Talk'},
+    ],
+  },
+  founder:{
+    label:'10 · Founder',h:'Felix Andres',hb:'Rios Blanco.',
+    role:'Founder & CEO · OPERION LLC',
+    bio:"Native Spanish speaker. German resident. English-fluent. The three languages of OPERION's primary market are his three native languages.",
+    creds:[['Python 3.12, Anthropic SDK, Flask, MCP','Technical depth'],['Clever Fit Ingolstadt — Minijob (social media) + Freelancer (AI architecture)','Insider access to exact client profile'],['DE / EN / ES native','Trilingual operation'],['Quechua identity — OPERION means: to do, to make, to execute.','Personal commitment to execution']],
+    contact:'felix@operion.llc',
+  },
+  cta:{label:'11 · First 5 clients',h:'Ready,',hb:'when you are.',sub:'Founding price: 50% off for life in exchange for a public case study. Limited spots.',btn:'Request Founding Access'},
+  footer:{q:'"OPERION" — from Quechua: to do, to make, to execute.'},
+},
+es:{
+  nav:{links:[['Arquitectura','#arch'],['Precios','#pricing'],['Inversores','#investor']],cta:'Solicitar Demo'},
+  hero:{
+    story:'23:00 · Sábado · Ingolstadt. Un estudiante de Nigeria escribe al gimnasio. El dueño duerme. OPERION responde en 4 segundos — en inglés. El lead se cierra antes de que el dueño despierte.',
+    eyebrow:'Ingolstadt, DE · operion.llc',
+    h1:'Su negocio.',h1b:'Autónomo.',
+    h1desc:'Paz Mental.',
+    sub:'OPERION no es software, no es un chatbot, no es una plataforma de automatización. Es la certeza de que su negocio nunca duerme, nunca olvida y nunca deja de responder en el idioma de su cliente.',
+    cta:'Ver la demo',ghost:'Solicitar llamada',
+    note:'Desplegado en 14 días · Sin código del cliente · DE / EN / ES',
+    stats:[['<5 min','Tiempo respuesta'],['24/7','Disponibilidad'],['14 días','Despliegue'],['≥90%','Objetivo HDR']],
+  },
+  proof:{
+    badge:'Producción · Abril 2026',client:'Clever Fit Ingolstadt',
+    metrics:[['240 min → 4 seg.','Tiempo respuesta'],['≥80% HDR','30 días'],['DE · EN · ES','Activo']],
+    note:'Primer cliente en producción. El beachhead está validado.',
+  },
+  thesis:{
+    label:'01 · Tesis de Autonomía',h:'El trabajo operativo',hb:'es una ineficiencia estructural.',
+    sub:'Toda tarea que puede describirse completamente en un árbol de decisión no tiene razón de ser ejecutada por un ser humano.',
+    principles:[
+      {n:'I',t:'La ejecución precede a la existencia.',b:'Un proceso que puede describirse completamente lo ejecuta OPERION. No una persona.'},
+      {n:'II',t:'Supervisar no es eliminar.',b:'Un sistema que requiere supervisión humana para funcionar no ha reemplazado al humano — le ha dado un nuevo trabajo.'},
+      {n:'III',t:'La sustitución es permanente.',b:'Los roles que OPERION elimina no regresan cuando termina el contrato. Es una transformación arquitectónica, no un servicio de suscripción.'},
+    ],
+  },
+  lane:{
+    label:'02 · Posicionamiento Competitivo',h:'Lane 4.',hb:'Sin ocupar.',
+    sub:'Ningún otro proveedor ocupa esta posición hoy: done-for-you, nativo en RGPD, trilingüe, a precios de pyme.',
+    lanes:[
+      {n:'Lane 1',who:'Plataformas horizontales',ex:'Lindy · Relevance AI · Make · n8n',why:'Requieren un comprador técnico. Nuestros clientes no saben qué es un endpoint de API.'},
+      {n:'Lane 2',who:'Bundles de empleados IA',ex:'GoHighLevel · Marblism',why:'Solo inglés, enfocados en EE.UU., autoservicio. No nativos en RGPD. No trilingüe.'},
+      {n:'Lane 3',who:'Soluciones Enterprise',ex:'Sierra · Intercom Fin',why:'€1.000+/mes, requieren equipos de integración. Dimensionados para empresas 10× más grandes.'},
+      {n:'Lane 4',who:'OPERION',ex:'operion.llc',why:'Done-for-you · RGPD nativo · DE/EN/ES · €200K–€2M de ingresos. Sin competidor en esta posición.',active:true},
+    ],
+  },
+  arch:{
+    label:'03 · Arquitectura del Sistema',h:'Tres capas.',hb:'Un veredicto.',
+    sub:'Cada decisión pasa por tres capas independientes. Ninguna alucinación llega a producción.',
+    nodes:[
+      {id:'KB',full:'Knowledge Base',desc:'Base de conocimiento verificada. Datos del negocio, precios, SOPs, reglas de escalación.'},
+      {id:'ADE',full:'Autonomous Decision Engine',desc:'Clasifica, pondera, decide. El mecanismo de arbitraje.'},
+      {id:'OUT',full:'Output Layer',desc:'Respuesta verificada y trilingüe. Ningún texto no revisado llega al cliente.'},
+    ],
+  },
+  metrics:{
+    label:'04 · Métricas Soberanas',
+    hdr:{h:'90 %.',hb:'HDR.',sub:'Human Displacement Rate: Ejecuciones autónomas ÷ Tareas totales en scope. Objetivo: ≥90% al Día 90.',note:'Medido en 90 días de producción · Clever Fit Ingolstadt'},
+    oii:{h:'5/5.',hb:'OII.',sub:'Operational Immunity Index: ¿Puede el negocio operar a plena capacidad durante ausencia humana completa?',scenarios:['Consulta DM · 23:00 sábado','Reserva en inglés','Reclamación · Respuesta inmediata','Publicación de contenido · Sin brief','Informe semanal · Lunes 08:00']},
+  },
+  agents:{
+    label:'05 · Suite de Agentes',h:'Cinco agentes.',hb:'Cero interrupciones.',
+    names:['TRIAGE','CONTENT','ANALYTICS','OUTREACH','OPS'],
+    roles:['Primer respondedor en todos los canales. Detección de idioma, clasificación de intención, respuesta <5 min.','10+ posts/semana desde un brief único. Bilingüe. Publicación programada por API.','Meta Insights e IG API. Informe semanal cada lunes 08:00 CET. Detección de anomalías.','Scoring de prospectos ≥12/15. Secuencia de 3 contactos. Gestión autónoma del pipeline.','Cálculo HDR/OII, auditoría SLA, monitoreo costes API, preparación de retrospectivas.'],
+    status:['Live','Mes 2','Mes 3','Mes 4','Mes 6'],
+    autonomy:['≥80% inbound','≥90% contenido','100% reportes','Tier 2 — Felix envía','Tier 1 interno'],
+  },
+  moat:{
+    label:'06 · Knowledge Moat',h:'Día 1',hb:'vs. Mes 6.',
+    sub:'El foso competitivo crece automáticamente. Cada día que los agentes operan, el coste de cambio aumenta.',
+    rows:[
+      ['Entradas KB','~50 (kickoff)','400+ (acumulado)'],
+      ['Precisión de intención','~82% (LLM general)','~94% (dominio específico)'],
+      ['Reglas de escalación','Genéricas (SOPs)','Calibradas a casos límite del cliente'],
+      ['Tono y voz','Correcto de marca (KB)','Exacto de marca (6 meses de señales)'],
+      ['Coste de cambio','Bajo (inicial)','Casi cero (datos no portables)'],
+    ],
+    note:'Un competidor que entra en el Mes 7 empieza en el Día 1. Su negocio empieza en el Mes 7.',
+    items:[
+      {icon:'shield',title:'Aislamiento Docker',body:'Cada agente en un contenedor dedicado. Sin contaminación cruzada posible.'},
+      {icon:'law',title:'BayLDA Ansbach',body:'Conformidad RGPD total. Solo servidores europeos. Purga automática a 30 días.'},
+      {icon:'lock',title:'API Zero-Trust',body:'Sin conexión persistente. Cada llamada API autenticada individualmente y registrada.'},
+    ],
+  },
+  roadmap:{
+    label:'07 · Roadmap',h:'Deliberate',hb:'Execution.',
+    sub:'"Slow is smooth. Smooth is fast." — Cada fase debe demostrar HDR ≥90% y OII 100% antes de autorizar escala geográfica o vertical.',
+    phases:[
+      {n:'Fase 1',t:'Ingolstadt Beachhead',d:'Mes 1–6',b:'Probar el modelo. Un cliente, completamente soberano. Un caso de estudio verificado.',done:true},
+      {n:'Fase 2',t:'Metro Múnich',d:'Mes 7–12',b:'Replicar el modelo. 8–10 clientes. Fitness + verticales adyacentes. MRR >€4.000. LLC Wyoming.'},
+      {n:'Fase 3',t:'DACH Soberano',d:'Mes 13–18',b:'15 clientes. MRR >€8.000. Primer asistente virtual. Agente Operations activo. Austria + Suiza.'},
+      {n:'Fase 4',t:'Entrada LATAM',d:'Mes 19–24',b:'Lima, Perú como punto de entrada. Arbitraje LATAM: empleado parcial $400–600 vs. OPERION Starter $180–220.'},
+      {n:'Fase 5',t:'Hardware Horizon',d:'2028–2030',b:'Cada Command Interface (CI-012) construido hardware-agnóstico. Unidades de recepción humanoide. Quioscos de voz. La capa de software es el foso.'},
+    ],
+  },
+  fiscal:{
+    label:'08 · Argumento Fiscal',h:'€375.',hb:'Frente a €1.602.',
+    sub:'Para pymes alemanas, OPERION es una Betriebsausgabe totalmente deducible bajo EStG §4 Abs. 4.',
+    col1:'OPERION Growth',tag:'Recomendado',col2:'Empleado parcial (Prom. int.)',
+    rows1:[['Tarifa mensual','€500'],['Deducción fiscal ~25%','−€125']],
+    rows2:[['Salario base (prom. 20h/semana)','€1.100'],['Cargas sociales (~22%)','+ €242'],['Ausentismo / vacaciones','+ €180'],['Incorporación amort.','+ €80']],
+    net:'Coste neto real',netVal:'€375',total:'Coste total promedio',totalVal:'€1.602',
+    note:'Promedio de referencia internacional. El coste real varía entre €900 y €2.200/mes según el mercado.',
+    savings:'€1.227 / mes ahorrado · €14.724 anuales.',
+  },
+  pricing:{
+    label:'09 · Pricing',h:'Transparente.',hb:'Sin sorpresas.',
+    note:'Primeros 5 clientes: 50% de descuento de por vida a cambio de caso de estudio público + testimonial en video.',
+    tiers:[
+      {name:'Starter',price:'€200',p:'/mo',setup:'Setup único: €500',feats:['1 agente (TRIAGE)','1 canal','Informe semanal autom.','SLA <10 min','Soporte email'],cta:'Solicitar'},
+      {name:'Growth',price:'€500',p:'/mo',setup:'Setup único: €1.500',feats:['3 agentes','Multi-canal','Llamada quincenal','SLA <5 min','Informes PDF'],cta:'Solicitar',feat:true},
+      {name:'Enterprise',price:'Custom',p:'',setup:'Desde €3.000',feats:['5 agentes (suite completa)','Integraciones custom','Canal Slack','SLA <2 min','Acceso anticipado'],cta:'Llamada'},
+    ],
+  },
+  founder:{
+    label:'10 · Fundador',h:'Felix Andres',hb:'Rios Blanco.',
+    role:'Fundador & CEO · OPERION LLC',
+    bio:'Hispanohablante nativo. Residente en Alemania. Inglés fluido. Los tres idiomas del mercado primario de OPERION son sus tres lenguas nativas.',
+    creds:[['Python 3.12, Anthropic SDK, Flask, MCP','Profundidad técnica'],['Clever Fit Ingolstadt — Minijob (redes sociales) + Freelancer (arquitectura IA)','Acceso insider al perfil exacto del cliente'],['DE / EN / ES nativo','Operación trilingüe'],['Identidad quechua — OPERION significa: hacer, ejecutar, llevar a cabo.','Compromiso personal con la ejecución']],
+    contact:'felix@operion.llc',
+  },
+  cta:{label:'11 · Primeros 5 clientes',h:'Listo,',hb:'cuando usted lo esté.',sub:'Precio fundacional: 50% de descuento de por vida a cambio de un caso de estudio público.',btn:'Solicitar Acceso Fundacional'},
+  footer:{q:'"OPERION" — del quechua: hacer, ejecutar, llevar a cabo.'},
+},
+};
+
+/* ── HOOKS & ATOMS ──────────────────────────────────────────────────── */
+function useFadeIn() {
+  React.useEffect(() => {
+    const t = setTimeout(() => {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+      }, { threshold:0, rootMargin:'0px 0px -40px 0px' });
+      document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+    }, 120);
+    return () => clearTimeout(t);
+  }, []);
+}
+
+/* ── EMBLEM — logo component ──────────────────────────────────────── */
+/* ghost=true uses the transparent SVG (for low-opacity watermark uses) */
+function Emblem({ size=40, opacity=1, ghost=false }) {
+  const style = { width:'auto', height:size, objectFit:'contain', display:'block', opacity };
+  if (ghost) {
+    return <img src="brand_assets/operion_emblem_light.svg" alt="OPERION" style={style}/>;
+  }
+  return <img
+    src="brand_assets/OPERION_REDUCED.png"
+    alt="OPERION"
+    style={style}
+    onError={e => { e.target.onerror = null; e.target.src = 'brand_assets/operion_emblem_light.svg'; }}
+  />;
+}
+
+function SL({ text }) {
+  const parts = text.split('·');
+  return (
+    <div style={{ display:'flex', alignItems:'center', gap:12, marginBottom:52 }}>
+      <span style={{ fontFamily:FM, fontSize:10, color:C.ti, letterSpacing:'.06em' }}>{parts[0]?.trim()}</span>
+      <div style={{ width:16, height:'1px', background:C.ln }}/>
+      <span style={{ fontFamily:FB, fontSize:10, fontWeight:500, letterSpacing:'.18em', textTransform:'uppercase', color:C.ti }}>{parts[1]?.trim()}</span>
+      <div style={{ flex:1, height:'1px', background:C.ln }}/>
+    </div>
+  );
+}
+
+function H({ h, hb, size='clamp(32px,4vw,52px)' }) {
+  return (
+    <div>
+      <div style={{ fontFamily:FB, fontSize:size, fontWeight:800, textTransform:'uppercase', lineHeight:1.0, letterSpacing:'-.025em', color:C.obs }}>{h}</div>
+      {hb && <div style={{ fontFamily:FB, fontSize:size, fontWeight:200, textTransform:'uppercase', lineHeight:1.0, letterSpacing:'-.025em', color:C.ti, marginTop:2 }}>{hb}</div>}
+    </div>
+  );
+}
+
+function Icon({ type, size=20 }) {
+  const s = { width:size, height:size, display:'block', strokeWidth:1, stroke:C.ti, fill:'none', strokeLinecap:'round', strokeLinejoin:'round' };
+  if(type==='shield') return <svg viewBox="0 0 24 24" style={s}><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z"/></svg>;
+  if(type==='law')    return <svg viewBox="0 0 24 24" style={s}><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>;
+  if(type==='lock')   return <svg viewBox="0 0 24 24" style={s}><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>;
+  return null;
+}
+
+/* ── NAV ──────────────────────────────────────────────────────────── */
+function Nav({ lang, setLang }) {
+  const t = T[lang].nav;
+  return (
+    <nav style={{ background:'rgba(255,255,255,.90)', backdropFilter:'blur(24px)', WebkitBackdropFilter:'blur(24px)', borderBottom:`1px solid ${C.ln}`, position:'sticky', top:0, zIndex:100 }}>
+      <div style={{ ...W, height:60, display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+        <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+          <Emblem size={40}/>
+          <span style={{ fontFamily:FB, fontSize:12, fontWeight:700, letterSpacing:'.24em', textTransform:'uppercase', color:C.obs }}>OPERION</span>
+        </div>
+        <ul style={{ display:'flex', gap:32, listStyle:'none' }}>
+          {t.links.map(([label,href],i) => <li key={i}><a href={href} style={{ fontFamily:FB, fontSize:12, color:C.ti, textDecoration:'none', letterSpacing:'.03em', transition:'color .2s' }}>{label}</a></li>)}
+        </ul>
+        <div style={{ display:'flex', alignItems:'center', gap:14 }}>
+          <div style={{ display:'flex', border:`1px solid ${C.ln}` }}>
+            {['de','en','es'].map(l => <button key={l} onClick={()=>setLang(l)} style={{ fontFamily:FB, fontSize:10, fontWeight:500, letterSpacing:'.10em', textTransform:'uppercase', padding:'6px 10px', background:lang===l?C.obs:'transparent', border:'none', borderRight:l!=='es'?`1px solid ${C.ln}`:'none', cursor:'pointer', color:lang===l?'#fff':C.ti, transition:'all .15s' }}>{l.toUpperCase()}</button>)}
+          </div>
+          <a href="mailto:felix@operion.llc" className="btn-obs" style={{ padding:'9px 20px' }}>{t.cta}</a>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+/* ── HERO ─────────────────────────────────────────────────────────── */
+function Hero({ lang }) {
+  const t = T[lang].hero;
+  return (
+    <section style={{ background:C.white, padding:'96px 0 0', borderBottom:`1px solid ${C.ln}` }}>
+      <div style={W}>
+        {/* Saturday story */}
+        <div className="fade" style={{ background:C.snow, border:`1px solid ${C.ln}`, padding:'20px 28px', marginBottom:48, display:'flex', gap:16, alignItems:'flex-start' }}>
+          <div style={{ width:3, flexShrink:0, alignSelf:'stretch', background:C.obs }}/>
+          <p style={{ fontFamily:FM, fontSize:12, color:C.ti, lineHeight:1.75, fontStyle:'italic', letterSpacing:'.02em' }}>{t.story}</p>
+        </div>
+
+        <div style={{ display:'grid', gridTemplateColumns:'1fr 360px', gap:80, alignItems:'center', marginBottom:80 }}>
+          <div>
+            <div className="fade fd1" style={{ display:'flex', alignItems:'center', gap:8, marginBottom:32 }}>
+              <div style={{ width:5, height:5, background:'#22C55E', borderRadius:'50%', boxShadow:'0 0 8px rgba(34,197,94,.7)' }}/>
+              <span style={{ fontFamily:FM, fontSize:11, color:C.ti, letterSpacing:'.08em' }}>{t.eyebrow}</span>
+            </div>
+            <div className="fade fd1">
+              <div style={{ fontFamily:FB, fontSize:'clamp(48px,6.5vw,84px)', fontWeight:900, textTransform:'uppercase', lineHeight:1.0, letterSpacing:'-.03em', color:C.obs }}>{t.h1}</div>
+              <div style={{ fontFamily:FB, fontSize:'clamp(48px,6.5vw,84px)', fontWeight:200, textTransform:'uppercase', lineHeight:1.0, letterSpacing:'-.03em', color:C.ti, marginBottom:8 }}>{t.h1b}</div>
+              <div style={{ fontFamily:FM, fontSize:16, fontWeight:400, color:C.ch, letterSpacing:'.16em', textTransform:'uppercase', marginBottom:32 }}>{t.h1desc}</div>
+            </div>
+            <p className="fade fd2" style={{ fontFamily:FB, fontSize:16, fontWeight:300, color:C.ti, maxWidth:460, lineHeight:1.8, marginBottom:40 }}>{t.sub}</p>
+            <div className="fade fd3" style={{ display:'flex', gap:12, marginBottom:18 }}>
+              <a href="#" className="btn-obs">{t.cta}</a>
+              <a href="mailto:felix@operion.llc" className="btn-ghost">{t.ghost}</a>
+            </div>
+            <p className="fade fd4" style={{ fontFamily:FM, fontSize:10, color:'rgba(13,13,13,.28)', letterSpacing:'.06em' }}>{t.note}</p>
+          </div>
+          {/* Hero logo — 80px height per brand spec */}
+          <div className="fade fd2" style={{ display:'flex', justifyContent:'center', alignItems:'center' }}>
+            <Emblem size={80} opacity={1}/>
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div className="fade" style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', borderTop:`1px solid ${C.ln}`, borderLeft:`1px solid ${C.ln}` }}>
+          {t.stats.map(([val,label],i) => (
+            <div key={i} style={{ padding:'26px 32px', borderRight:`1px solid ${C.ln}`, borderBottom:`1px solid ${C.ln}` }}>
+              <div style={{ fontFamily:FB, fontSize:28, fontWeight:800, color:C.obs, letterSpacing:'-.02em', lineHeight:1, marginBottom:6 }}>{val}</div>
+              <div style={{ fontFamily:FB, fontSize:11, color:C.ti, letterSpacing:'.03em' }}>{label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── PROOF BAR ────────────────────────────────────────────────────── */
+function ProofBar({ lang }) {
+  const t = T[lang].proof;
+  return (
+    <section style={{ background:C.obs, padding:'32px 0', borderBottom:`1px solid ${C.ln}` }}>
+      <div style={{ ...W, display:'flex', alignItems:'center', gap:40, flexWrap:'wrap' }}>
+        <div style={{ display:'flex', alignItems:'center', gap:10 }}>
+          <div style={{ width:5, height:5, background:'#22C55E', borderRadius:'50%', boxShadow:'0 0 6px rgba(34,197,94,.8)' }}/>
+          <span style={{ fontFamily:FM, fontSize:10, color:'rgba(255,255,255,.45)', letterSpacing:'.10em' }}>{t.badge}</span>
+        </div>
+        <span style={{ fontFamily:FB, fontSize:13, fontWeight:600, color:'rgba(255,255,255,.85)', letterSpacing:'.02em' }}>{t.client}</span>
+        <div style={{ display:'flex', gap:0, border:'1px solid rgba(255,255,255,.10)', marginLeft:'auto' }}>
+          {t.metrics.map(([val,label],i) => (
+            <div key={i} style={{ padding:'10px 24px', borderRight:i<2?'1px solid rgba(255,255,255,.08)':undefined, textAlign:'center' }}>
+              <div style={{ fontFamily:FM, fontSize:13, fontWeight:500, color:'rgba(255,255,255,.90)', letterSpacing:'.03em' }}>{val}</div>
+              <div style={{ fontFamily:FM, fontSize:9, color:'rgba(255,255,255,.35)', letterSpacing:'.08em', textTransform:'uppercase', marginTop:2 }}>{label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── THESIS ───────────────────────────────────────────────────────── */
+function Thesis({ lang }) {
+  const t = T[lang].thesis;
+  return (
+    <section style={S(C.white)}>
+      <div style={W}>
+        <SL text={t.label}/>
+        <div className="fade" style={{ marginBottom:64 }}>
+          <H h={t.h} hb={t.hb} size='clamp(28px,3.8vw,48px)'/>
+          <p style={{ fontFamily:FB, fontSize:16, fontWeight:300, color:C.ti, maxWidth:560, lineHeight:1.8, marginTop:16 }}>{t.sub}</p>
+        </div>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', border:`1px solid ${C.ln}` }}>
+          {t.principles.map((p,i) => (
+            <div key={i} className="fade" style={{ padding:'40px 32px', borderRight:i<2?`1px solid ${C.ln}`:'none' }}>
+              <div style={{ fontFamily:FM, fontSize:10, color:C.ch, letterSpacing:'.10em', marginBottom:20 }}>{p.n}</div>
+              <div style={{ fontFamily:FB, fontSize:14, fontWeight:600, color:C.obs, marginBottom:12, lineHeight:1.4, letterSpacing:'.01em' }}>{p.t}</div>
+              <p style={{ fontFamily:FB, fontSize:13, fontWeight:300, color:C.ti, lineHeight:1.75 }}>{p.b}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── COMPETITIVE LANE ─────────────────────────────────────────────── */
+function Lane({ lang }) {
+  const t = T[lang].lane;
+  return (
+    <section style={S(C.snow)}>
+      <div style={W}>
+        <SL text={t.label}/>
+        <div className="fade" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:80, marginBottom:52 }}>
+          <H h={t.h} hb={t.hb}/>
+          <p style={{ fontFamily:FB, fontSize:15, fontWeight:300, color:C.ti, lineHeight:1.8, paddingTop:4 }}>{t.sub}</p>
+        </div>
+        <div style={{ border:`1px solid ${C.ln}` }}>
+          <div style={{ display:'grid', gridTemplateColumns:'80px 180px 1fr 1fr', borderBottom:`1px solid ${C.ln}`, background:C.snow }}>
+            {['','Categoria','Ejemplo','¿Por qué falla?'].map((h,i) => (
+              <div key={i} style={{ padding:'10px 20px', fontFamily:FM, fontSize:9, color:C.ch, letterSpacing:'.10em', textTransform:'uppercase', borderRight:i<3?`1px solid ${C.ln}`:'none' }}>{h}</div>
+            ))}
+          </div>
+          {t.lanes.map((l,i) => {
+            const act = l.active;
+            return (
+              <div key={i} className="fade" style={{ display:'grid', gridTemplateColumns:'80px 180px 1fr 1fr', borderBottom:i<3?`1px solid ${C.ln}`:'none', background:act?C.obs:C.white }}>
+                <div style={{ padding:'20px 20px', borderRight:`1px solid ${act?'rgba(255,255,255,.08)':C.ln}`, fontFamily:FM, fontSize:10, color:C.ch, letterSpacing:'.06em', display:'flex', alignItems:'center' }}>{l.n}</div>
+                <div style={{ padding:'20px 20px', borderRight:`1px solid ${act?'rgba(255,255,255,.08)':C.ln}`, fontFamily:FB, fontSize:13, fontWeight:act?600:400, color:act?'#FFFFFF':C.obs, display:'flex', alignItems:'center' }}>{l.who}</div>
+                <div style={{ padding:'20px 20px', borderRight:`1px solid ${act?'rgba(255,255,255,.08)':C.ln}`, fontFamily:FM, fontSize:11, color:act?'rgba(255,255,255,.5)':C.ch, display:'flex', alignItems:'center' }}>{l.ex}</div>
+                <div style={{ padding:'20px 20px', fontFamily:FB, fontSize:12, fontWeight:300, color:act?'rgba(255,255,255,.70)':C.ti, lineHeight:1.6, display:'flex', alignItems:'center' }}>{l.why}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── TRIAD ────────────────────────────────────────────────────────── */
+function Triad({ lang }) {
+  const t = T[lang].arch;
+  const nodes = [{x:80,y:110,id:'KB'},{x:260,y:36,id:'ADE'},{x:440,y:110,id:'OUT'}];
+  const paths = [
+    `M ${nodes[0].x} ${nodes[0].y} C 160 ${nodes[0].y} 180 ${nodes[1].y} ${nodes[1].x} ${nodes[1].y}`,
+    `M ${nodes[1].x} ${nodes[1].y} C 340 ${nodes[1].y} 360 ${nodes[2].y} ${nodes[2].x} ${nodes[2].y}`,
+    `M ${nodes[0].x} ${nodes[0].y} L ${nodes[2].x} ${nodes[2].y}`,
+  ];
+  return (
+    <section id="arch" style={S(C.white,{scrollMarginTop:60})}>
+      <div style={W}>
+        <SL text={t.label}/>
+        <div className="fade" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:80, marginBottom:52 }}>
+          <H h={t.h} hb={t.hb}/>
+          <p style={{ fontFamily:FB, fontSize:15, fontWeight:300, color:C.ti, lineHeight:1.8, paddingTop:4 }}>{t.sub}</p>
+        </div>
+        <div className="fade" style={{ background:C.white, border:`1px solid ${C.ln}`, padding:'40px 0' }}>
+          <svg viewBox="0 0 520 200" style={{ width:'100%', maxHeight:200 }} fill="none">
+            {Array.from({length:11},(_,i) => <line key={`v${i}`} x1={i*52} y1={0} x2={i*52} y2={200} stroke="rgba(13,13,13,.04)" strokeWidth="0.5"/>)}
+            {Array.from({length:4},(_,i) => <line key={`h${i}`} x1={0} y1={i*67} x2={520} y2={i*67} stroke="rgba(13,13,13,.04)" strokeWidth="0.5"/>)}
+            {paths.map((d,i) => (
+              <g key={i}>
+                <path d={d} stroke="rgba(13,13,13,.09)" strokeWidth="0.5"/>
+                <path d={d} stroke="rgba(13,13,13,.20)" strokeWidth="0.5" strokeDasharray="4 8" className="cf" style={{ animationDelay:`${i*.6}s` }}/>
+              </g>
+            ))}
+            {nodes.map((n,i) => (
+              <g key={n.id}>
+                <circle cx={n.x} cy={n.y} r={18} fill={C.white} stroke="rgba(13,13,13,.12)" strokeWidth="0.75"/>
+                <circle cx={n.x} cy={n.y} r={18} className="npulse" fill="none" stroke="rgba(13,13,13,.05)" strokeWidth="0.5" style={{ animationDelay:`${i*.7}s` }}/>
+                <text x={n.x} y={n.y+4} textAnchor="middle" fontFamily={FM} fontSize="8" fill={C.obs} letterSpacing=".06em">{n.id}</text>
+              </g>
+            ))}
+          </svg>
+        </div>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', border:`1px solid ${C.ln}`, borderTop:'none' }}>
+          {t.nodes.map((n,i) => (
+            <div key={i} className="fade" style={{ padding:'24px 28px', borderRight:i<2?`1px solid ${C.ln}`:'none' }}>
+              <div style={{ fontFamily:FM, fontSize:10, color:C.ti, letterSpacing:'.08em', marginBottom:8 }}>{n.id} · {n.full}</div>
+              <p style={{ fontFamily:FB, fontSize:13, fontWeight:300, color:C.ti, lineHeight:1.7 }}>{n.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── METRICS (HDR + OII) ──────────────────────────────────────────── */
+function Metrics({ lang }) {
+  const t = T[lang].metrics;
+  const R=45; const circ=2*Math.PI*R;
+  return (
+    <section style={S(C.snow)}>
+      <div style={W}>
+        <SL text={t.label}/>
+        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:0, border:`1px solid ${C.ln}` }}>
+          <div className="fade" style={{ padding:'48px 40px', borderRight:`1px solid ${C.ln}` }}>
+            <div style={{ display:'grid', gridTemplateColumns:'auto 1fr', gap:40, alignItems:'center' }}>
+              <div className="glass" style={{ width:140, height:140, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', position:'relative', flexShrink:0 }}>
+                <svg width="110" height="110" viewBox="0 0 110 110" style={{ position:'absolute', transform:'rotate(-90deg)' }}>
+                  <circle cx="55" cy="55" r={R} fill="none" stroke={C.ln} strokeWidth="1.5"/>
+                  <circle cx="55" cy="55" r={R} fill="none" stroke={C.ch} strokeWidth="1.5" strokeDasharray={circ} strokeDashoffset={circ*.10} className="ring" strokeLinecap="round"/>
+                </svg>
+                <div style={{ textAlign:'center', position:'relative', zIndex:1 }}>
+                  <div style={{ fontFamily:FM, fontSize:26, fontWeight:400, color:C.obs, lineHeight:1 }}>90%</div>
+                  <div style={{ fontFamily:FM, fontSize:8, color:C.ti, letterSpacing:'.10em', textTransform:'uppercase', marginTop:3 }}>HDR</div>
+                </div>
+              </div>
+              <div>
+                <H h={t.hdr.h} hb={t.hdr.hb} size='clamp(28px,3.5vw,44px)'/>
+                <p style={{ fontFamily:FB, fontSize:13, fontWeight:300, color:C.ti, lineHeight:1.7, marginTop:12 }}>{t.hdr.sub}</p>
+                <p style={{ fontFamily:FM, fontSize:10, color:C.ch, marginTop:12 }}>{t.hdr.note}</p>
+              </div>
+            </div>
+          </div>
+          <div className="fade" style={{ padding:'48px 40px' }}>
+            <div style={{ display:'grid', gridTemplateColumns:'auto 1fr', gap:40, alignItems:'center' }}>
+              <div style={{ display:'flex', flexDirection:'column', gap:8, flexShrink:0 }}>
+                {t.oii.scenarios.map((_,i) => (
+                  <div key={i} style={{ display:'flex', alignItems:'center', gap:8 }}>
+                    <div style={{ width:8, height:8, border:`1px solid ${C.obs}`, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center' }}>
+                      <div style={{ width:4, height:4, background:C.obs, borderRadius:'50%' }}/>
+                    </div>
+                    <span style={{ fontFamily:FM, fontSize:10, color:C.ti, letterSpacing:'.04em', whiteSpace:'nowrap' }}>{t.oii.scenarios[i]}</span>
+                  </div>
+                ))}
+              </div>
+              <div>
+                <H h={t.oii.h} hb={t.oii.hb} size='clamp(28px,3.5vw,44px)'/>
+                <p style={{ fontFamily:FB, fontSize:13, fontWeight:300, color:C.ti, lineHeight:1.7, marginTop:12 }}>{t.oii.sub}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── AGENTS ───────────────────────────────────────────────────────── */
+function Agents({ lang }) {
+  const t = T[lang].agents;
+  return (
+    <section style={S(C.white)}>
+      <div style={W}>
+        <SL text={t.label}/>
+        <div className="fade" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:80, marginBottom:52 }}>
+          <H h={t.h} hb={t.hb}/>
+          <div/>
+        </div>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(5,1fr)', border:`1px solid ${C.ln}` }}>
+          {t.names.map((name,i) => {
+            const live = i===0;
+            const bg = live?'rgba(34,197,94,.07)':`rgba(13,13,13,.03)`;
+            const fg = live?'#22C55E':C.ch;
+            const bd = live?'rgba(34,197,94,.18)':C.ln;
+            return (
+              <div key={i} className="fade" style={{ padding:'26px 18px', borderRight:i<4?`1px solid ${C.ln}`:'none', display:'flex', flexDirection:'column', gap:12, background:C.white }}>
+                <span style={{ fontFamily:FM, fontSize:9, color:C.ch, letterSpacing:'.08em' }}>AG-0{i+1}</span>
+                <div style={{ fontFamily:FB, fontSize:11, fontWeight:700, textTransform:'uppercase', letterSpacing:'.10em', color:C.obs, lineHeight:1.2 }}>{name}</div>
+                <div style={{ fontFamily:FB, fontSize:11, fontWeight:300, color:C.ti, lineHeight:1.65, flex:1 }}>{t.roles[i]}</div>
+                <div style={{ fontFamily:FM, fontSize:9, color:C.ch, letterSpacing:'.04em' }}>{t.autonomy[i]}</div>
+                <div style={{ display:'inline-flex', alignItems:'center', gap:5, fontSize:9, fontWeight:500, letterSpacing:'.10em', textTransform:'uppercase', padding:'3px 8px', background:bg, color:fg, border:`1px solid ${bd}`, width:'fit-content' }}>
+                  {live && <div style={{ width:4, height:4, background:'#22C55E', borderRadius:'50%', boxShadow:'0 0 5px rgba(34,197,94,.6)' }}/>}
+                  {t.status[i]}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── KNOWLEDGE MOAT ───────────────────────────────────────────────── */
+function Moat({ lang }) {
+  const t = T[lang].moat;
+  return (
+    <section style={S(C.snow)}>
+      <div style={W}>
+        <SL text={t.label}/>
+        <div className="fade" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:80, marginBottom:52 }}>
+          <H h={t.h} hb={t.hb}/>
+          <p style={{ fontFamily:FB, fontSize:15, fontWeight:300, color:C.ti, lineHeight:1.8, paddingTop:4 }}>{t.sub}</p>
+        </div>
+        <div className="fade" style={{ border:`1px solid ${C.ln}`, marginBottom:24 }}>
+          <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', borderBottom:`1px solid ${C.ln}`, background:C.white }}>
+            {['Dimensión','Día 1','Mes 6'].map((h,i) => (
+              <div key={i} style={{ padding:'10px 20px', fontFamily:FM, fontSize:9, color:C.ch, letterSpacing:'.10em', textTransform:'uppercase', borderRight:i<2?`1px solid ${C.ln}`:'none' }}>{h}</div>
+            ))}
+          </div>
+          {t.rows.map((r,i) => (
+            <div key={i} className="fade" style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', borderBottom:i<t.rows.length-1?`1px solid ${C.ln}`:'none', background:C.white }}>
+              <div style={{ padding:'14px 20px', fontFamily:FB, fontSize:12, color:C.ti, fontWeight:400, borderRight:`1px solid ${C.ln}` }}>{r[0]}</div>
+              <div style={{ padding:'14px 20px', fontFamily:FM, fontSize:11, color:C.ch, borderRight:`1px solid ${C.ln}` }}>{r[1]}</div>
+              <div style={{ padding:'14px 20px', fontFamily:FM, fontSize:11, color:C.obs, fontWeight:500 }}>{r[2]}</div>
+            </div>
+          ))}
+        </div>
+        <p className="fade" style={{ fontFamily:FM, fontSize:11, color:C.ti, fontStyle:'italic', marginBottom:40 }}>{t.note}</p>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', border:`1px solid ${C.ln}` }}>
+          {t.items.map((item,i) => (
+            <div key={i} className="fade glass" style={{ padding:'32px 28px', borderRight:i<2?`1px solid ${C.ln}`:'none', display:'flex', gap:16, alignItems:'flex-start' }}>
+              <Icon type={item.icon} size={18}/>
+              <div>
+                <div style={{ fontFamily:FB, fontSize:12, fontWeight:600, color:C.obs, marginBottom:8 }}>{item.title}</div>
+                <p style={{ fontFamily:FB, fontSize:12, fontWeight:300, color:C.ti, lineHeight:1.7 }}>{item.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── ROADMAP ──────────────────────────────────────────────────────── */
+function Roadmap({ lang }) {
+  const t = T[lang].roadmap;
+  return (
+    <section style={S(C.white)}>
+      <div style={W}>
+        <SL text={t.label}/>
+        <div className="fade" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:80, marginBottom:60 }}>
+          <H h={t.h} hb={t.hb}/>
+          <p style={{ fontFamily:FB, fontSize:15, fontWeight:300, color:C.ti, lineHeight:1.8, paddingTop:4 }}>{t.sub}</p>
+        </div>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(5,1fr)', border:`1px solid ${C.ln}` }}>
+          {t.phases.map((ph,i) => {
+            const done = ph.done;
+            return (
+              <div key={i} className="fade" style={{ padding:'32px 22px', borderRight:i<4?`1px solid ${C.ln}`:'none', background:done?C.obs:C.white }}>
+                <div style={{ fontFamily:FM, fontSize:9, color:done?'rgba(255,255,255,.35)':C.ch, letterSpacing:'.10em', textTransform:'uppercase', marginBottom:12 }}>{ph.n}</div>
+                <div style={{ fontFamily:FB, fontSize:12, fontWeight:600, color:done?'#FFFFFF':C.obs, marginBottom:4, letterSpacing:'.01em' }}>{ph.t}</div>
+                <div style={{ fontFamily:FM, fontSize:10, color:done?'rgba(255,255,255,.40)':C.ch, letterSpacing:'.04em', marginBottom:16 }}>{ph.d}</div>
+                <p style={{ fontFamily:FB, fontSize:12, fontWeight:300, color:done?'rgba(255,255,255,.55)':C.ti, lineHeight:1.7 }}>{ph.b}</p>
+                {done && <div style={{ marginTop:16, display:'inline-flex', alignItems:'center', gap:5, fontSize:9, fontWeight:500, letterSpacing:'.10em', textTransform:'uppercase', padding:'3px 8px', background:'rgba(34,197,94,.12)', color:'#22C55E', border:'1px solid rgba(34,197,94,.25)' }}><div style={{ width:4, height:4, background:'#22C55E', borderRadius:'50%' }}/>Live</div>}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── FISCAL ───────────────────────────────────────────────────────── */
+function Fiscal({ lang }) {
+  const t = T[lang].fiscal;
+  const row = { display:'flex', justifyContent:'space-between', padding:'11px 24px', borderBottom:`1px solid ${C.ln}`, fontFamily:FB, fontSize:13 };
+  return (
+    <section style={S(C.snow)}>
+      <div style={W}>
+        <SL text={t.label}/>
+        <div className="fade" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:80, marginBottom:52 }}>
+          <H h={t.h} hb={t.hb}/>
+          <p style={{ fontFamily:FB, fontSize:15, fontWeight:300, color:C.ti, lineHeight:1.8, paddingTop:4 }}>{t.sub}</p>
+        </div>
+        <div className="fade" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', border:`1px solid ${C.ln}` }}>
+          <div style={{ borderRight:`1px solid ${C.ln}` }}>
+            <div style={{ padding:'16px 24px', borderBottom:`1px solid ${C.ln}`, display:'flex', justifyContent:'space-between', alignItems:'center', background:C.white }}>
+              <span style={{ fontFamily:FB, fontSize:11, fontWeight:700, textTransform:'uppercase', letterSpacing:'.14em', color:C.obs }}>{t.col1}</span>
+              <span style={{ fontFamily:FM, fontSize:9, letterSpacing:'.10em', textTransform:'uppercase', padding:'3px 9px', background:`rgba(13,13,13,.05)`, color:C.ti, border:`1px solid ${C.ln}` }}>{t.tag}</span>
+            </div>
+            {t.rows1.map(([l,v],i) => <div key={i} style={row}><span style={{color:C.ti,fontWeight:300}}>{l}</span><span style={{color:C.obs,fontWeight:500}}>{v}</span></div>)}
+            <div style={{ padding:'16px 24px', display:'flex', justifyContent:'space-between', alignItems:'center', background:`rgba(13,13,13,.025)` }}>
+              <span style={{ fontFamily:FM, fontSize:10, letterSpacing:'.08em', textTransform:'uppercase', color:C.ti }}>{t.net}</span>
+              <span style={{ fontFamily:FB, fontSize:28, fontWeight:800, color:C.obs }}>{t.netVal}</span>
+            </div>
+          </div>
+          <div>
+            <div style={{ padding:'16px 24px', borderBottom:`1px solid ${C.ln}`, background:C.white }}>
+              <span style={{ fontFamily:FB, fontSize:11, fontWeight:700, textTransform:'uppercase', letterSpacing:'.14em', color:C.ti }}>{t.col2}</span>
+            </div>
+            {t.rows2.map(([l,v],i) => <div key={i} style={row}><span style={{color:C.ti,fontWeight:300}}>{l}</span><span style={{color:C.obs,fontWeight:500}}>{v}</span></div>)}
+            <div style={{ padding:'16px 24px', display:'flex', justifyContent:'space-between', alignItems:'center', background:C.snow }}>
+              <span style={{ fontFamily:FM, fontSize:10, letterSpacing:'.08em', textTransform:'uppercase', color:C.ti }}>{t.total}</span>
+              <span style={{ fontFamily:FB, fontSize:28, fontWeight:800, color:C.ti }}>{t.totalVal}</span>
+            </div>
+          </div>
+        </div>
+        <div className="fade" style={{ marginTop:16, display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+          <p style={{ fontFamily:FM, fontSize:10, color:C.ch, fontStyle:'italic' }}>{t.note}</p>
+          <p style={{ fontFamily:FB, fontSize:13, fontWeight:600, color:C.obs }}>{t.savings}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── PRICING ──────────────────────────────────────────────────────── */
+function Pricing({ lang }) {
+  const t = T[lang].pricing;
+  return (
+    <section id="pricing" style={S(C.white,{scrollMarginTop:60})}>
+      <div style={W}>
+        <SL text={t.label}/>
+        <div className="fade" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:80, marginBottom:52 }}>
+          <H h={t.h} hb={t.hb}/>
+          <p style={{ fontFamily:FM, fontSize:12, color:C.ti, lineHeight:1.7, paddingTop:4, fontStyle:'italic' }}>{t.note}</p>
+        </div>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', border:`1px solid ${C.ln}` }}>
+          {t.tiers.map((tier,i) => {
+            const f = tier.feat;
+            return (
+              <div key={i} className="fade" style={{ padding:'40px 28px', borderRight:i<2?`1px solid ${C.ln}`:'none', display:'flex', flexDirection:'column', background:f?C.obs:C.white }}>
+                <div style={{ fontFamily:FM, fontSize:10, letterSpacing:'.18em', textTransform:'uppercase', color:f?C.ch:C.ti, marginBottom:24 }}>{tier.name}</div>
+                <div style={{ fontFamily:FB, fontSize:40, fontWeight:f?800:300, color:f?'#FFFFFF':C.obs, lineHeight:1 }}>{tier.price}</div>
+                <div style={{ fontFamily:FM, fontSize:11, color:f?'rgba(255,255,255,.35)':C.ch, marginBottom:6 }}>{tier.p}</div>
+                <div style={{ fontFamily:FM, fontSize:10, color:f?'rgba(255,255,255,.30)':C.ch, marginBottom:24, paddingBottom:24, borderBottom:`1px solid ${f?'rgba(255,255,255,.08)':C.ln}` }}>{tier.setup}</div>
+                <ul style={{ listStyle:'none', flex:1 }}>
+                  {tier.feats.map((feat,j) => (
+                    <li key={j} style={{ fontFamily:FB, fontSize:13, fontWeight:300, color:f?'rgba(255,255,255,.45)':C.ti, padding:'9px 0', borderBottom:`1px solid ${f?'rgba(255,255,255,.06)':C.ln}`, display:'flex', gap:10 }}>
+                      <span style={{ color:f?C.ch:'rgba(13,13,13,.15)', flexShrink:0 }}>—</span>{feat}
+                    </li>
+                  ))}
+                </ul>
+                <a href="mailto:felix@operion.llc" style={{ marginTop:24, display:'flex', justifyContent:'center', padding:'12px 20px', fontFamily:FB, fontSize:12, fontWeight:500, letterSpacing:'.08em', textTransform:'uppercase', background:f?C.white:'transparent', border:f?'none':`1px solid ${C.ln}`, color:f?C.obs:C.obs, textDecoration:'none' }}>{tier.cta}</a>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── FOUNDER ──────────────────────────────────────────────────────── */
+function Founder({ lang }) {
+  const t = T[lang].founder;
+  return (
+    <section style={S(C.snow)}>
+      <div style={W}>
+        <SL text={t.label}/>
+        <div className="fade" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:80, alignItems:'start' }}>
+          <div>
+            <H h={t.h} hb={t.hb}/>
+            <p style={{ fontFamily:FM, fontSize:11, color:C.ch, letterSpacing:'.06em', marginTop:8, marginBottom:20 }}>{t.role}</p>
+            <p style={{ fontFamily:FB, fontSize:15, fontWeight:300, color:C.ti, lineHeight:1.8, marginBottom:28 }}>{t.bio}</p>
+            <a href={`mailto:${t.contact}`} style={{ fontFamily:FM, fontSize:12, color:C.obs, textDecoration:'none', letterSpacing:'.04em', borderBottom:`1px solid ${C.lns}`, paddingBottom:2 }}>{t.contact}</a>
+          </div>
+          <div style={{ border:`1px solid ${C.ln}` }}>
+            {t.creds.map(([val,label],i) => (
+              <div key={i} className="fade" style={{ padding:'18px 24px', borderBottom:i<t.creds.length-1?`1px solid ${C.ln}`:'none', background:C.white }}>
+                <div style={{ fontFamily:FM, fontSize:11, color:C.obs, fontWeight:400, marginBottom:4 }}>{val}</div>
+                <div style={{ fontFamily:FB, fontSize:11, color:C.ch, fontWeight:300 }}>{label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── CTA ──────────────────────────────────────────────────────────── */
+function CTA({ lang }) {
+  const t = T[lang].cta;
+  return (
+    <section id="investor" style={S(C.white,{scrollMarginTop:60})}>
+      <div style={{ ...W, display:'grid', gridTemplateColumns:'1fr auto', gap:80, alignItems:'center' }}>
+        <div>
+          <span className="fade" style={{ fontFamily:FM, fontSize:10, color:C.ch, letterSpacing:'.10em', display:'block', marginBottom:20 }}>{t.label}</span>
+          <div className="fade fd1">
+            <div style={{ fontFamily:FB, fontSize:'clamp(36px,5vw,68px)', fontWeight:900, textTransform:'uppercase', lineHeight:1.0, letterSpacing:'-.025em', color:C.obs }}>{t.h}</div>
+            <div style={{ fontFamily:FB, fontSize:'clamp(36px,5vw,68px)', fontWeight:200, textTransform:'uppercase', lineHeight:1.0, letterSpacing:'-.025em', color:C.ti, marginBottom:32 }}>{t.hb}</div>
+          </div>
+          <p className="fade fd2" style={{ fontFamily:FB, fontSize:16, fontWeight:300, color:C.ti, maxWidth:480, lineHeight:1.8, marginBottom:44 }}>{t.sub}</p>
+          <a href="mailto:felix@operion.llc" className="btn-obs fade fd3">{t.btn}</a>
+        </div>
+        {/* Ghost watermark — transparent SVG, no background box at low opacity */}
+        <div style={{ opacity:.06 }}><Emblem size={200} opacity={1} ghost={true}/></div>
+      </div>
+    </section>
+  );
+}
+
+/* ── FOOTER ───────────────────────────────────────────────────────── */
+function Footer({ lang }) {
+  const t = T[lang].footer;
+  return (
+    <footer style={{ background:C.white, borderTop:`1px solid ${C.ln}`, padding:'36px 0' }}>
+      <div style={{ ...W, display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+        <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+          {/* Ghost SVG — transparent, reads cleanly at low opacity */}
+          <Emblem size={24} opacity={0.3} ghost={true}/>
+          <span style={{ fontFamily:FB, fontSize:11, fontWeight:700, letterSpacing:'.24em', textTransform:'uppercase', color:'rgba(13,13,13,.28)' }}>OPERION LLC</span>
+        </div>
+        <div style={{ textAlign:'right' }}>
+          <p style={{ fontFamily:FM, fontSize:11, color:C.ch, fontStyle:'italic', marginBottom:3 }}>{t.q}</p>
+          <p style={{ fontFamily:FM, fontSize:10, color:'rgba(13,13,13,.25)', letterSpacing:'.04em' }}>© 2026 OPERION LLC · felix@operion.llc · operion.llc · Ingolstadt, DE</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ── APP ──────────────────────────────────────────────────────────── */
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "lang": "es"
+}/*EDITMODE-END*/;
+
+function App() {
+  const saved = (() => { try { return JSON.parse(localStorage.getItem('op-v6')||'{}'); } catch(e){ return {}; }})();
+  const [lang, setLangRaw] = React.useState(saved.lang || TWEAK_DEFAULTS.lang);
+
+  function setLang(l) {
+    setLangRaw(l);
+    try { localStorage.setItem('op-v6', JSON.stringify({lang:l})); } catch(e){}
+    window.parent.postMessage({type:'__edit_mode_set_keys', edits:{lang:l}}, '*');
+    document.querySelectorAll('[data-lang]').forEach(b => b.classList.toggle('on', b.dataset.lang===l));
+  }
+
+  useFadeIn();
+
+  React.useEffect(() => {
+    document.documentElement.lang = lang;
+    window.addEventListener('message', e => {
+      if(e.data?.type==='__activate_edit_mode')   document.getElementById('tp').classList.add('on');
+      if(e.data?.type==='__deactivate_edit_mode') document.getElementById('tp').classList.remove('on');
+    });
+    window.parent.postMessage({type:'__edit_mode_available'}, '*');
+    document.querySelectorAll('[data-lang]').forEach(b => {
+      b.classList.toggle('on', b.dataset.lang===lang);
+      b.addEventListener('click', () => setLang(b.dataset.lang));
+    });
+  }, []);
+
+  return (
+    <>
+      <Nav lang={lang} setLang={setLang}/>
+      <Hero lang={lang}/>
+      <ProofBar lang={lang}/>
+      <Thesis lang={lang}/>
+      <Lane lang={lang}/>
+      <Triad lang={lang}/>
+      <Metrics lang={lang}/>
+      <Agents lang={lang}/>
+      <Moat lang={lang}/>
+      <Roadmap lang={lang}/>
+      <Fiscal lang={lang}/>
+      <Pricing lang={lang}/>
+      <Founder lang={lang}/>
+      <CTA lang={lang}/>
+      <Footer lang={lang}/>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
