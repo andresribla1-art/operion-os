@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 360" role="img">
+  <title>OPERION — The Synthetic Core</title>
+  <desc>OPERION primary mark: hexagonal precision container, central execution core with six radial vectors. Carbon black variant.</desc>
+
+  <!-- Background: carbon black -->
+  <rect x="0" y="0" width="300" height="360" fill="#121212"/>
+
+  <!-- Hexagon: outer precision boundary, flat-top, r=95, center (150,155) -->
+  <polygon
+    points="232.25,107.5 150,60 67.75,107.5 67.75,202.5 150,250 232.25,202.5"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="2"
+    stroke-linejoin="miter"
+  />
+
+  <!-- Execution core: inner circle, r=32 -->
+  <circle
+    cx="150" cy="155"
+    r="32"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="2"
+  />
+
+  <!-- Six radial vectors: from core edge (r=32) to r=70 — 27px negative space before hex wall -->
+  <!-- 30° -->
+  <line x1="177.7" y1="139" x2="210.6" y2="120" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="square"/>
+  <!-- 90° -->
+  <line x1="150" y1="123" x2="150" y2="85" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="square"/>
+  <!-- 150° -->
+  <line x1="122.3" y1="139" x2="89.4" y2="120" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="square"/>
+  <!-- 210° -->
+  <line x1="122.3" y1="171" x2="89.4" y2="190" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="square"/>
+  <!-- 270° -->
+  <line x1="150" y1="187" x2="150" y2="225" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="square"/>
+  <!-- 330° -->
+  <line x1="177.7" y1="171" x2="210.6" y2="190" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="square"/>
+
+  <!-- Wordmark: Helvetica Neue Light, very wide tracking -->
+  <text
+    x="150"
+    y="314"
+    font-family="'Helvetica Neue', 'Arial', sans-serif"
+    font-weight="200"
+    font-size="24"
+    letter-spacing="12"
+    fill="#FFFFFF"
+    dominant-baseline="middle"
+    text-anchor="middle"
+  >OPERION</text>
+</svg>

@@ -1,0 +1,208 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 400" role="img">
+  <title>OPERION — Sovereign Mark</title>
+  <desc>OPERION sovereign mark: titanium-finish hexagonal precision boundary, deep cobalt execution core, six radial vectors. Obsidian matte field.</desc>
+
+  <defs>
+
+    <!-- ── BACKGROUND GRAIN ──────────────────────────────────────── -->
+    <filter id="grain" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.78" numOctaves="4" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="saturate" values="0" in="noise"/>
+    </filter>
+
+    <!-- ── SHADOW BLUR ───────────────────────────────────────────── -->
+    <filter id="shadowBlur" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+
+    <!-- ── TITANIUM LIQUID METAL ─────────────────────────────────── -->
+    <!-- 9-stop gradient: diagonal top-left → bottom-right (11 o'clock studio source) -->
+    <linearGradient id="titaniumGrad"
+      x1="73" y1="70" x2="247" y2="270"
+      gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#383848"/>
+      <stop offset="11%"  stop-color="#888898"/>
+      <stop offset="22%"  stop-color="#C4C4D8"/>
+      <stop offset="32%"  stop-color="#E8E8F6"/>
+      <stop offset="41%"  stop-color="#F8F8FF"/>
+      <stop offset="48%"  stop-color="#FFFFFF"/>
+      <stop offset="58%"  stop-color="#E2E2F0"/>
+      <stop offset="72%"  stop-color="#A8A8C0"/>
+      <stop offset="86%"  stop-color="#686878"/>
+      <stop offset="100%" stop-color="#2C2C3C"/>
+    </linearGradient>
+
+    <!-- ── DEEP COBALT CORE ──────────────────────────────────────── -->
+    <!-- Dark chrome: near-black with deep blue undertone, catch-light displaced top-left -->
+    <radialGradient id="coreGrad"
+      cx="151" cy="160" r="40"
+      gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#1A2244"/>
+      <stop offset="28%"  stop-color="#121830"/>
+      <stop offset="60%"  stop-color="#0C101E"/>
+      <stop offset="100%" stop-color="#050710"/>
+    </radialGradient>
+
+    <!-- Core specular catch-light: iridescent cobalt bloom, top-left position -->
+    <radialGradient id="coreCatch"
+      cx="147" cy="156" r="20"
+      gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#5870B8" stop-opacity="0.60"/>
+      <stop offset="45%"  stop-color="#2C3C80" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#101828" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- ── BEVEL / SPECULAR LIFT ──────────────────────────────────── -->
+    <!-- Reads SourceAlpha as height map, fires point light at top-left above plane -->
+    <filter id="metalBevel"
+      x="-35%" y="-35%" width="170%" height="170%"
+      color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.2" result="bumpMap"/>
+      <feSpecularLighting
+        in="bumpMap"
+        surfaceScale="5"
+        specularConstant="1.9"
+        specularExponent="42"
+        lighting-color="#FFFFFF"
+        result="specularOut">
+        <fePointLight x="68" y="32" z="140"/>
+      </feSpecularLighting>
+      <feComposite in="specularOut" in2="SourceAlpha" operator="in" result="specularClipped"/>
+      <feBlend in="SourceGraphic" in2="specularClipped" mode="screen"/>
+    </filter>
+
+    <!-- ── WORDMARK METALLIC SWEEP ───────────────────────────────── -->
+    <!-- Horizontal titanium brush across letterforms -->
+    <linearGradient id="wordmarkGrad"
+      x1="55" y1="334" x2="265" y2="334"
+      gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#505060"/>
+      <stop offset="25%"  stop-color="#A8A8B8"/>
+      <stop offset="47%"  stop-color="#D4D4E0"/>
+      <stop offset="62%"  stop-color="#B0B0C0"/>
+      <stop offset="100%" stop-color="#484858"/>
+    </linearGradient>
+
+  </defs>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       FIELD
+  ═══════════════════════════════════════════════════════════════════ -->
+  <rect width="320" height="400" fill="#0D0D0D"/>
+  <!-- Obsidian grain: fractalNoise at 3.5% opacity -->
+  <rect width="320" height="400" fill="#909090" opacity="0.035" filter="url(#grain)"/>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       HEXAGON — flat-top, r=100, center (160, 170)
+       Vertices: 30°→(246.6,120)  90°→(160,70)  150°→(73.4,120)
+                210°→(73.4,220)  270°→(160,270) 330°→(246.6,220)
+  ═══════════════════════════════════════════════════════════════════ -->
+
+  <!-- Depth shadow: offset 2,2 — pressed-metal inset illusion -->
+  <polygon
+    points="246.6,120 160,70 73.4,120 73.4,220 160,270 246.6,220"
+    fill="none"
+    stroke="#000000"
+    stroke-width="10"
+    stroke-linejoin="miter"
+    transform="translate(2.5, 2.5)"
+    opacity="0.55"
+    filter="url(#shadowBlur)"
+  />
+
+  <!-- Main titanium hex with specular bevel -->
+  <polygon
+    points="246.6,120 160,70 73.4,120 73.4,220 160,270 246.6,220"
+    fill="none"
+    stroke="url(#titaniumGrad)"
+    stroke-width="3"
+    stroke-linejoin="miter"
+    filter="url(#metalBevel)"
+  />
+
+  <!-- Top-edge ambient catch: the two upper faces catch ceiling light -->
+  <path
+    d="M73.4,120 L160,70 L246.6,120"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="0.8"
+    stroke-linejoin="miter"
+    opacity="0.28"
+  />
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       CORE CIRCLE — r=34, center (160, 170)
+  ═══════════════════════════════════════════════════════════════════ -->
+
+  <!-- Deep cobalt fill -->
+  <circle cx="160" cy="170" r="34" fill="url(#coreGrad)"/>
+
+  <!-- Iridescent catch-light on dark chrome surface -->
+  <circle cx="160" cy="170" r="34" fill="url(#coreCatch)"/>
+
+  <!-- Titanium ring with bevel -->
+  <circle
+    cx="160" cy="170" r="34"
+    fill="none"
+    stroke="url(#titaniumGrad)"
+    stroke-width="2.5"
+    filter="url(#metalBevel)"
+  />
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       RADIAL VECTORS — r_start=34, r_end=75, gap=25 before hex wall
+       Center (160,170) · angles aligned with hex vertices
+  ═══════════════════════════════════════════════════════════════════ -->
+
+  <!-- 30° : (189.4, 153.0) → (224.9, 132.5) -->
+  <line x1="189.4" y1="153.0" x2="224.9" y2="132.5"
+    stroke="url(#titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+
+  <!-- 90° : (160.0, 136.0) → (160.0,  95.0) -->
+  <line x1="160.0" y1="136.0" x2="160.0" y2="95.0"
+    stroke="url(#titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+
+  <!-- 150°: (130.6, 153.0) → ( 95.1, 132.5) -->
+  <line x1="130.6" y1="153.0" x2="95.1" y2="132.5"
+    stroke="url(#titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+
+  <!-- 210°: (130.6, 187.0) → ( 95.1, 207.5) -->
+  <line x1="130.6" y1="187.0" x2="95.1" y2="207.5"
+    stroke="url(#titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+
+  <!-- 270°: (160.0, 204.0) → (160.0, 245.0) -->
+  <line x1="160.0" y1="204.0" x2="160.0" y2="245.0"
+    stroke="url(#titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+
+  <!-- 330°: (189.4, 187.0) → (224.9, 207.5) -->
+  <line x1="189.4" y1="187.0" x2="224.9" y2="207.5"
+    stroke="url(#titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       DIVIDER — engraved rule
+  ═══════════════════════════════════════════════════════════════════ -->
+  <line x1="112" y1="300" x2="208" y2="300" stroke="#282838" stroke-width="0.75"/>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       WORDMARK — Helvetica Neue 200, very wide tracking
+       x=151 compensates letter-spacing/2 right-shift of text-anchor
+  ═══════════════════════════════════════════════════════════════════ -->
+  <text
+    x="151"
+    y="334"
+    font-family="'Helvetica Neue', 'Arial', sans-serif"
+    font-weight="200"
+    font-size="21"
+    letter-spacing="18"
+    fill="url(#wordmarkGrad)"
+    dominant-baseline="middle"
+    text-anchor="middle"
+  >OPERION</text>
+
+</svg>
