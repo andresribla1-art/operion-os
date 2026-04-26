@@ -475,7 +475,7 @@ function Nav({ lang, setLang }) {
     <nav style={{ background:'rgba(255,255,255,.90)', backdropFilter:'blur(24px)', WebkitBackdropFilter:'blur(24px)', borderBottom:`1px solid ${C.ln}`, position:'sticky', top:0, zIndex:100 }}>
       <div style={{ ...W, height:60, display:'flex', alignItems:'center', justifyContent:'space-between' }}>
         <div style={{ display:'flex', alignItems:'center', gap:12, flexShrink:0 }}>
-          <Emblem size={40}/>
+          <Emblem size={40} ghost={true}/>
           <span style={{ fontFamily:FB, fontSize:12, fontWeight:700, letterSpacing:'.24em', textTransform:'uppercase', color:C.obs, marginLeft:4 }}>OPERION</span>
         </div>
         <ul style={{ display:'flex', gap:32, listStyle:'none' }}>
