@@ -1,0 +1,1230 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OPERION OS — Investor Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:          #000000;
+  --surface:     rgba(15,23,41,0.40);
+  --surface2:    rgba(10,10,24,0.70);
+  --text:        #FFFFFF;
+  --dim:         rgba(255,255,255,0.42);
+  --faint:       rgba(255,255,255,0.18);
+  /* ── IDENTITY v2 · Cobalt replaces amber ── */
+  --cobalt:      #5870CC;               /* bright cobalt — readable on pure black */
+  --cobalt-dim:  rgba(88,112,204,0.30);
+  --cobalt-glow: rgba(88,112,204,0.08);
+  --border:      rgba(255,255,255,0.09);
+  --border-cobalt: rgba(88,112,204,0.28);
+  --green:       #22C55E;
+  --display:     'Space Grotesk', sans-serif;
+  --body:        'Inter', system-ui, sans-serif;
+  --mono:        'JetBrains Mono', 'Fira Code', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: radial-gradient(ellipse at 50% 0%, #0A0E1F 0%, #000000 55%);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 48px; }
+
+/* ── UTILITIES ──────────────────────────────────────────────────── */
+.label {
+  font-family: var(--body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.label-sol { color: var(--cobalt); }
+
+/* ── NAV ─────────────────────────────────────────────────────────── */
+nav {
+  border-bottom: 1px solid var(--border);
+  background: rgba(0,0,0,0.80);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+}
+.nav-left { display: flex; align-items: center; gap: 24px; }
+.nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-emblem { width: 20px; height: 26px; object-fit: contain; }
+.nav-name {
+  font-family: var(--display);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.nav-div { width: 1px; height: 20px; background: var(--border); }
+.nav-doc { font-size: 11px; color: var(--dim); letter-spacing: .06em; }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-classified {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--cobalt);
+  border: 1px solid var(--border-cobalt);
+  padding: 4px 12px;
+  border-radius: 2px;
+}
+
+/* ── LANG SWITCHER (dark variant) ───────────────────────────────── */
+.lang-switcher {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.lang-btn {
+  font-family: var(--body);
+  font-size: 10px; font-weight: 500;
+  letter-spacing: .10em; text-transform: uppercase;
+  padding: 6px 10px;
+  background: transparent; border: none;
+  border-right: 1px solid var(--border);
+  cursor: pointer; color: var(--dim);
+  transition: color .15s, background .15s;
+}
+.lang-btn:last-child { border-right: none; }
+.lang-btn.active { color: var(--text); background: rgba(255,255,255,.05); }
+.lang-btn:hover:not(.active) { color: var(--text); }
+
+/* ── SECTION HEADER ─────────────────────────────────────────────── */
+.sec-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 56px;
+  padding-top: 80px;
+  border-top: 1px solid var(--border);
+}
+.sec-header-first { border-top: none; padding-top: 0; }
+.sec-line { flex: 1; height: 1px; background: var(--border); }
+.sec-index { font-family: var(--mono); font-size: 11px; color: var(--faint); }
+
+/* ── BRIEFING — STATS GRID ──────────────────────────────────────── */
+.briefing { padding: 72px 0 80px; }
+.briefing-emblem-wrap { margin-bottom: 48px; }
+.briefing-emblem-img { height: 96px; width: auto; display: block; opacity: 0.90; }
+.briefing-pre { margin-bottom: 56px; }
+.briefing-title {
+  font-family: var(--display);
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.0;
+  letter-spacing: -.01em;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+.briefing-title em { font-style: normal; color: var(--cobalt); }
+.briefing-sub {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--dim);
+  max-width: 560px;
+  line-height: 1.65;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--border);
+}
+.stat-cell {
+  padding: 36px 32px;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-cell.live {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(15,23,41,0.40);
+  box-shadow: 0 0 40px var(--cobalt-glow);
+}
+.stat-cell.live::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--cobalt);
+  opacity: .5;
+}
+.stat-number {
+  font-family: var(--display);
+  font-size: 44px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--cobalt);
+  line-height: 1;
+  margin-bottom: 12px;
+  letter-spacing: -.01em;
+}
+.stat-number.white { color: var(--text); }
+.stat-label {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--dim);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+/* ── ASSESSMENT ─────────────────────────────────────────────────── */
+.assessment { padding-bottom: 80px; }
+.assessment-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.assessment-intro {
+  padding: 40px 40px 40px 0;
+  border-right: 1px solid var(--border);
+}
+.assessment-headline {
+  font-family: var(--display);
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.assessment-p {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--dim);
+  line-height: 1.75;
+}
+.assessment-p strong { color: rgba(255,255,255,.80); font-weight: 400; }
+.assessment-list { padding: 0 0 0 40px; }
+.threat-item {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.threat-item:last-child { border-bottom: none; }
+.threat-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--cobalt);
+  padding-top: 3px;
+  letter-spacing: .08em;
+}
+.threat-text {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--dim);
+  line-height: 1.6;
+}
+.threat-text strong { color: var(--text); font-weight: 400; }
+.threat-stat {
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--cobalt);
+  letter-spacing: .05em;
+}
+
+/* ── ARCHITECTURE ───────────────────────────────────────────────── */
+.architecture { padding-bottom: 80px; }
+.arch-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: 1px solid var(--border);
+}
+.arch-card {
+  padding: 28px 22px;
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  transition: background .15s;
+}
+.arch-card:last-child { border-right: none; }
+.arch-card:hover {
+  background: rgba(15,23,41,0.50);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.arch-designation {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--faint);
+  letter-spacing: .10em;
+  margin-bottom: 16px;
+}
+.arch-name {
+  font-family: var(--display);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.arch-role {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--dim);
+  line-height: 1.55;
+  flex: 1;
+  margin-bottom: 20px;
+}
+.status-indicator {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.status-indicator.live { color: var(--green); }
+.status-indicator.live::before { content: '●'; font-size: 7px; }
+.status-indicator.pending { color: var(--faint); }
+.status-indicator.pending::before { content: '○'; font-size: 7px; }
+.status-indicator.phase { color: var(--cobalt); }
+.status-indicator.phase::before { content: '◐'; font-size: 7px; }
+
+/* ── LIVE ENGAGEMENT ────────────────────────────────────────────── */
+.engagement { padding-bottom: 80px; }
+.terminal-wrap {
+  border: 1px solid var(--border-cobalt);
+  box-shadow: 0 0 60px var(--cobalt-glow);
+  position: relative;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.terminal-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 20px;
+  background: rgba(10,10,24,0.88);
+  border-bottom: 1px solid var(--border);
+}
+.terminal-dots { display: flex; gap: 7px; }
+.terminal-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+}
+.terminal-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dim);
+  letter-spacing: .08em;
+}
+.terminal-replay {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--cobalt);
+  border: 1px solid var(--border-cobalt);
+  background: transparent;
+  padding: 5px 14px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background .15s;
+}
+.terminal-replay:hover { background: var(--cobalt-glow); }
+.terminal-body {
+  padding: 28px 24px;
+  background: rgba(0,0,12,0.88);
+  min-height: 280px;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--cobalt);
+  overflow: hidden;
+}
+.t-dim   { color: var(--faint); }
+.t-white { color: rgba(255,255,255,.75); }
+.t-green { color: var(--green); }
+.t-red   { color: #EF4444; }
+.terminal-counter {
+  display: flex; gap: 0;
+  border-top: 1px solid var(--border);
+  background: rgba(0,0,12,0.70);
+}
+.counter-cell {
+  flex: 1;
+  padding: 16px 24px;
+  border-right: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.counter-cell:last-child { border-right: none; }
+.counter-label { font-size: 11px; color: var(--dim); letter-spacing: .08em; text-transform: uppercase; }
+.counter-val {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--cobalt);
+}
+
+/* ── ECONOMICS ──────────────────────────────────────────────────── */
+.economics { padding-bottom: 80px; }
+.econ-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); }
+.econ-col { border-right: 1px solid var(--border); }
+.econ-col:last-child { border-right: none; }
+.econ-col-head {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.econ-col-name {
+  font-family: var(--display);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+}
+.econ-col.operion .econ-col-name { color: var(--cobalt); }
+.econ-col.human .econ-col-name { color: var(--dim); }
+.econ-tag {
+  font-size: 9px; font-weight: 500;
+  letter-spacing: .10em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 2px;
+  background: rgba(88,112,204,.10);
+  color: var(--cobalt);
+  border: 1px solid var(--border-cobalt);
+}
+.econ-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 28px;
+  border-bottom: 1px solid var(--border);
+}
+.econ-row:last-child { border-bottom: none; }
+.econ-row-label { font-size: 13px; color: var(--dim); font-weight: 300; }
+.econ-row-val { font-size: 14px; font-weight: 400; color: var(--text); }
+.econ-col.operion .econ-row-val { color: var(--cobalt); }
+.econ-total {
+  padding: 20px 28px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(255,255,255,.02);
+}
+.econ-total-label { font-size: 11px; font-weight: 500; letter-spacing: .10em; text-transform: uppercase; color: var(--dim); }
+.econ-total-val {
+  font-family: var(--display);
+  font-size: 32px;
+  font-weight: 800;
+}
+.econ-col.operion .econ-total-val { color: var(--cobalt); }
+.econ-col.human .econ-total-val { color: var(--text); }
+.econ-savings {
+  margin-top: 1px;
+  display: flex; align-items: center; justify-content: flex-end;
+  padding: 16px 28px;
+  border: 1px solid var(--border);
+  border-top: none;
+}
+.econ-savings-text { font-size: 13px; color: var(--dim); }
+.econ-savings-text strong { color: var(--green); font-weight: 500; }
+
+/* ── AUTHORIZATION / PRICING ────────────────────────────────────── */
+.authorization { padding-bottom: 80px; }
+.auth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); }
+.auth-card { padding: 40px 36px; border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+.auth-card:last-child { border-right: none; }
+.auth-card.featured {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(15,23,41,0.50);
+  box-shadow: 0 0 40px var(--cobalt-glow);
+  position: relative;
+}
+.auth-card.featured::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: var(--cobalt); opacity: .6;
+}
+.auth-tier {
+  font-family: var(--display);
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .18em;
+  margin-bottom: 24px;
+}
+.auth-card.standard .auth-tier { color: var(--dim); }
+.auth-card.featured .auth-tier { color: var(--cobalt); }
+.auth-price {
+  font-family: var(--display);
+  font-size: 52px; font-weight: 800;
+  line-height: 1; margin-bottom: 4px;
+  color: var(--text);
+}
+.auth-period { font-size: 13px; color: var(--dim); margin-bottom: 8px; }
+.auth-setup {
+  font-size: 12px; color: var(--dim); letter-spacing: .03em;
+  margin-bottom: 32px; padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+.auth-features { list-style: none; flex: 1; }
+.auth-features li {
+  font-size: 13px; font-weight: 300;
+  color: var(--dim); padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 10px;
+  line-height: 1.5;
+}
+.auth-features li::before { content: '—'; color: var(--faint); flex-shrink: 0; }
+.auth-card.featured .auth-features li::before { color: var(--cobalt); }
+.auth-cta {
+  margin-top: 32px;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 13px 24px;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  border-radius: 2px;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  color: var(--dim);
+  transition: border-color .15s, color .15s;
+}
+.auth-cta:hover { border-color: rgba(255,255,255,.40); color: var(--text); }
+.auth-card.featured .auth-cta {
+  background: var(--cobalt);
+  border-color: var(--cobalt);
+  color: var(--bg);
+}
+.auth-card.featured .auth-cta:hover { opacity: .88; }
+
+/* ── FOOTER ──────────────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 0;
+}
+.footer-inner {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-brand { display: flex; align-items: center; gap: 10px; }
+.footer-name {
+  font-family: var(--display);
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .20em; text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+}
+.footer-right { text-align: right; }
+.footer-coords {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(255,255,255,.20);
+  letter-spacing: .05em;
+  margin-bottom: 4px;
+}
+.footer-quechua {
+  font-size: 11px;
+  color: rgba(255,255,255,.18);
+  font-style: italic;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────── */
+@media (max-width: 1000px) {
+  .wrap { padding: 0 24px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-cell:nth-child(2) { border-right: none; }
+  .stat-cell:nth-child(3) { border-top: 1px solid var(--border); }
+  .assessment-body { grid-template-columns: 1fr; }
+  .assessment-intro { border-right: none; padding: 0 0 40px 0; border-bottom: 1px solid var(--border); }
+  .assessment-list { padding: 40px 0 0 0; }
+  .arch-grid { grid-template-columns: 1fr 1fr; }
+  .arch-card { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .arch-card:nth-child(2n) { border-right: none; }
+  .arch-card:nth-last-child(-n+2) { border-bottom: none; }
+  .arch-card:last-child { border-right: none; }
+  .econ-grid { grid-template-columns: 1fr; }
+  .econ-col { border-right: none; border-bottom: 1px solid var(--border); }
+  .auth-grid { grid-template-columns: 1fr; }
+  .auth-card { border-right: none; border-bottom: 1px solid var(--border); }
+  .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+  .footer-right { text-align: center; }
+}
+@media (max-width: 600px) {
+  .stats-grid { grid-template-columns: 1fr; }
+  .stat-cell { border-right: none; border-bottom: 1px solid var(--border); }
+  .nav-doc, .nav-div { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <a href="index.html" class="nav-brand">
+          <img src="brand_assets/operion_emblem_light.svg" alt="OPERION" class="nav-emblem" />
+          <span class="nav-name">OPERION OS</span>
+        </a>
+        <div class="nav-div"></div>
+        <span class="nav-doc label" data-i18n="nav.doc">Investor Brief · v1.0 · April 2026</span>
+      </div>
+      <div class="nav-right">
+        <div class="lang-switcher" role="group" aria-label="Language">
+          <button class="lang-btn" data-lang="de">DE</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="es">ES</button>
+        </div>
+        <span class="nav-classified" data-i18n="nav.classified">Classified: Investor Brief</span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- BRIEFING -->
+<section class="briefing">
+  <div class="wrap">
+    <div class="briefing-emblem-wrap">
+      <img src="brand_assets/OPERION_REDUCED.png" alt="OPERION" class="briefing-emblem-img"
+           onerror="this.src='brand_assets/operion_emblem_light.svg'" />
+    </div>
+    <div class="briefing-pre">
+      <span class="label label-sol" data-i18n="briefing.eyebrow">Mission · OPERION OS · Ingolstadt, DE — 48.7665° N, 11.4258° E</span>
+    </div>
+    <h1 class="briefing-title" data-i18n-html="briefing.title">Das System,<br>das ohne<br><em>Aufsicht arbeitet.</em></h1>
+    <p class="briefing-sub" data-i18n="briefing.sub">OPERION setzt Autonome Betriebssysteme für lokale Unternehmen ein. Keine Software. Keine Beratung. Agenten, die ausführen — während der Eigentümer schläft.</p>
+
+    <div style="height:56px;"></div>
+
+    <div class="stats-grid">
+      <div class="stat-cell live">
+        <div class="stat-number" id="cnt-ops">02</div>
+        <div class="stat-label" data-i18n="stat.ops.label">Ausgeführte Operationen (Demo)</div>
+      </div>
+      <div class="stat-cell live">
+        <div class="stat-number" id="cnt-eff">66.7%</div>
+        <div class="stat-label" data-i18n="stat.eff.label">Autonome Lösungsrate</div>
+      </div>
+      <div class="stat-cell live">
+        <div class="stat-number" id="cnt-roi">$50.00</div>
+        <div class="stat-label" data-i18n="stat.roi.label">Generierter ROI (Simulation)</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number white">14</div>
+        <div class="stat-label" data-i18n="stat.days.label">Tage bis vollständiger Einsatz</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ASSESSMENT -->
+<section class="assessment">
+  <div class="wrap">
+    <div class="sec-header sec-header-first">
+      <span class="sec-index">01</span>
+      <div class="sec-line"></div>
+      <span class="label" data-i18n="assess.label">IDENTIFIZIERTES PROBLEM</span>
+    </div>
+    <div class="assessment-body">
+      <div class="assessment-intro">
+        <h2 class="assessment-headline" data-i18n="assess.headline">Lokale Unternehmen bluten im Stillen.</h2>
+        <p class="assessment-p" data-i18n-html="assess.body">
+          Umsatzverluste entstehen nicht in großen Krisen. Sie entstehen um 23 Uhr an einem Sonntag, wenn ein Interessent eine DM sendet und niemand antwortet. Sie entstehen, wenn ein internationaler Student auf Englisch schreibt und das Fitnessstudio nur auf Deutsch antwortet. Sie entstehen, wenn die Rezeption um 18 Uhr schließt und der Zahnarzt drei Buchungen für den nächsten Tag verliert.<br><br>
+          <strong>Kein Talentproblem. Ein Problem der kontinuierlichen Ausführung.</strong> Und es hat exakt berechenbare Kosten.
+        </p>
+      </div>
+      <div class="assessment-list">
+        <div class="threat-item">
+          <span class="threat-num">T-01</span>
+          <div>
+            <div class="threat-text" data-i18n="threat.1.text">Potenzieller Umsatzverlust durch unzureichende Reaktionsgeschwindigkeit.</div>
+            <div class="threat-stat" data-i18n="threat.1.stat">30–60 % der eingehenden Anfragen ohne Konversion</div>
+          </div>
+        </div>
+        <div class="threat-item">
+          <span class="threat-num">T-02</span>
+          <div>
+            <div class="threat-text" data-i18n="threat.2.text">Reale Kosten einer gleichwertigen Teilzeitkraft auf dem deutschen Markt.</div>
+            <div class="threat-stat" data-i18n="threat.2.stat">€1.737/Monat vs. €375 netto mit OPERION</div>
+          </div>
+        </div>
+        <div class="threat-item">
+          <span class="threat-num">T-03</span>
+          <div>
+            <div class="threat-text" data-i18n="threat.3.text">Durchschnittliche Reaktionszeit in lokalen Betrieben ohne Automatisierung.</div>
+            <div class="threat-stat" data-i18n="threat.3.stat">240 Min. vs. &lt;5 Min. mit AG-01 TRIAGE aktiv</div>
+          </div>
+        </div>
+        <div class="threat-item">
+          <span class="threat-num">T-04</span>
+          <div>
+            <div class="threat-text" data-i18n="threat.4.text">Geschätzter monatlicher Verlust durch 20 unbeantwortete Anfragen.</div>
+            <div class="threat-stat" data-i18n="threat.4.stat">€1.000–€10.000 verloren · nicht wiederherstellbar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section class="architecture">
+  <div class="wrap">
+    <div class="sec-header">
+      <span class="sec-index">02</span>
+      <div class="sec-line"></div>
+      <span class="label" data-i18n="arch.label">AGENTENARCHITEKTUR</span>
+    </div>
+    <div class="arch-grid">
+      <div class="arch-card">
+        <span class="arch-designation">AG-01 · TRIAGE</span>
+        <div class="arch-name" data-i18n="arch.ag01.name">Front Desk<br>24/7</div>
+        <div class="arch-role" data-i18n="arch.ag01.role">Erster Responder auf Instagram DM, WhatsApp, E-Mail. Spracherkennung DE/EN/ES. Klassifizierung der Absicht. Antwort in &lt;5 Min.</div>
+        <div class="status-indicator live" data-i18n="arch.ag01.status">Live — Clever Fit</div>
+      </div>
+      <div class="arch-card">
+        <span class="arch-designation">AG-02 · CONTENT</span>
+        <div class="arch-name" data-i18n="arch.ag02.name">Content<br>Factory</div>
+        <div class="arch-role" data-i18n="arch.ag02.role">Erstellt und veröffentlicht Inhalte auf allen Plattformen aus einem einzigen Brief. Plant via Blotato API. Dreisprachig DE/EN/ES.</div>
+        <div class="status-indicator phase" data-i18n="arch.ag02.status">Monat 2</div>
+      </div>
+      <div class="arch-card">
+        <span class="arch-designation">AG-03 · ANALYTICS</span>
+        <div class="arch-name" data-i18n="arch.ag03.name">Analytics<br>Scout</div>
+        <div class="arch-role" data-i18n="arch.ag03.role">Zieht Daten aus Meta Business Insights, IG API. Erstellt PDF-Wochenbericht. Erkennt Anomalien. Automatische Lieferung montags 08:00 CET.</div>
+        <div class="status-indicator phase" data-i18n="arch.ag03.status">Monat 3</div>
+      </div>
+      <div class="arch-card">
+        <span class="arch-designation">AG-04 · OUTREACH</span>
+        <div class="arch-name" data-i18n="arch.ag04.name">Sales<br>Outreach</div>
+        <div class="arch-role" data-i18n="arch.ag04.role">Identifiziert Interessenten in Zielbranchen. Verfasst personalisierten Kontakt (niemals vorgefertigt). Verwaltet 3-Touch-Sequenz.</div>
+        <div class="status-indicator pending" data-i18n="arch.ag04.status">Monat 4</div>
+      </div>
+      <div class="arch-card">
+        <span class="arch-designation">AG-05 · OPS</span>
+        <div class="arch-name" data-i18n="arch.ag05.name">Internal<br>Operations</div>
+        <div class="arch-role" data-i18n="arch.ag05.role">Interner Motor. Onboarding neuer Kunden. Überwachung der API-Kosten. Aktualisierung der Dokumentation. Wöchentliche Retrospektive.</div>
+        <div class="status-indicator pending" data-i18n="arch.ag05.status">Monat 6</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE ENGAGEMENT -->
+<section class="engagement">
+  <div class="wrap">
+    <div class="sec-header">
+      <span class="sec-index">03</span>
+      <div class="sec-line"></div>
+      <span class="label" data-i18n="engage.label">LIVE-AUSFÜHRUNG — ADE v0.1.0-alpha</span>
+    </div>
+    <div class="terminal-wrap">
+      <div class="terminal-bar">
+        <div class="terminal-dots">
+          <div class="terminal-dot"></div>
+          <div class="terminal-dot"></div>
+          <div class="terminal-dot"></div>
+        </div>
+        <span class="terminal-title">OPERION_OS / core/engine.py — Autonomous Decision Engine</span>
+        <button class="terminal-replay" onclick="runSim()" data-i18n="terminal.replay">↺ REPLAY</button>
+      </div>
+      <div class="terminal-body" id="terminal-output">
+        <!-- populated by JS -->
+      </div>
+      <div class="terminal-counter">
+        <div class="counter-cell">
+          <span class="counter-label" data-i18n="counter.ops">Ausgeführte Operationen</span>
+          <span class="counter-val" id="live-ops">0</span>
+        </div>
+        <div class="counter-cell">
+          <span class="counter-label" data-i18n="counter.eff">Autonome Lösung</span>
+          <span class="counter-val" id="live-eff">0%</span>
+        </div>
+        <div class="counter-cell">
+          <span class="counter-label" data-i18n="counter.roi">Generierter ROI</span>
+          <span class="counter-val" id="live-roi">$0.00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECONOMICS -->
+<section class="economics">
+  <div class="wrap">
+    <div class="sec-header">
+      <span class="sec-index">04</span>
+      <div class="sec-line"></div>
+      <span class="label" data-i18n="econ.label">WIRTSCHAFTLICHE ANALYSE</span>
+    </div>
+    <div class="econ-grid">
+      <div class="econ-col operion">
+        <div class="econ-col-head">
+          <span class="econ-col-name" data-i18n="econ.col1.name">OPERION Growth</span>
+          <span class="econ-tag" data-i18n="econ.col1.tag">ABSETZBAR EStG §4</span>
+        </div>
+        <div class="econ-rows">
+          <div class="econ-row">
+            <span class="econ-row-label" data-i18n="econ.row1.label">Monatliche Gebühr</span>
+            <span class="econ-row-val">€500 brutto</span>
+          </div>
+          <div class="econ-row">
+            <span class="econ-row-label" data-i18n="econ.row2.label">Steuerersparnis (~25 %)</span>
+            <span class="econ-row-val">−€125</span>
+          </div>
+          <div class="econ-row">
+            <span class="econ-row-label" data-i18n="econ.row3.label">Sozialkosten</span>
+            <span class="econ-row-val">€0</span>
+          </div>
+          <div class="econ-row">
+            <span class="econ-row-label" data-i18n="econ.row4.label">Risiko Krankheit/Urlaub</span>
+            <span class="econ-row-val">€0</span>
+          </div>
+        </div>
+        <div class="econ-total">
+          <span class="econ-total-label" data-i18n="econ.col1.total.label">Reale Nettokosten</span>
+          <span class="econ-total-val">€375</span>
+        </div>
+      </div>
+      <div class="econ-col human">
+        <div class="econ-col-head">
+          <span class="econ-col-name" data-i18n="econ.col2.name">Teilzeitkraft</span>
+        </div>
+        <div class="econ-rows">
+          <div class="econ-row">
+            <span class="econ-row-label" data-i18n="econ.row5.label">Bruttogehalt</span>
+            <span class="econ-row-val">€1.200</span>
+          </div>
+          <div class="econ-row">
+            <span class="econ-row-label" data-i18n="econ.row6.label">Arbeitgeberanteil Sozialvers.</span>
+            <span class="econ-row-val">+€252</span>
+          </div>
+          <div class="econ-row">
+            <span class="econ-row-label" data-i18n="econ.row7.label">Rückstellung Krankentage</span>
+            <span class="econ-row-val">+€92</span>
+          </div>
+          <div class="econ-row">
+            <span class="econ-row-label" data-i18n="econ.row8.label">Rückstellung Urlaub + Einarbeitung</span>
+            <span class="econ-row-val">+€193</span>
+          </div>
+        </div>
+        <div class="econ-total">
+          <span class="econ-total-label" data-i18n="econ.col2.total.label">Gesamtkosten real</span>
+          <span class="econ-total-val">€1.737</span>
+        </div>
+      </div>
+    </div>
+    <div class="econ-savings">
+      <span class="econ-savings-text" data-i18n-html="econ.savings">Jährliche Ersparnis: <strong>€16.344</strong> — reinvestierbar in Wachstum, nicht in Lohnkosten.</span>
+    </div>
+  </div>
+</section>
+
+<!-- AUTHORIZATION -->
+<section class="authorization" id="pricing">
+  <div class="wrap">
+    <div class="sec-header">
+      <span class="sec-index">05</span>
+      <div class="sec-line"></div>
+      <span class="label" data-i18n="auth.label">ZUGANGSGENEHMIGUNG</span>
+    </div>
+    <div class="auth-grid">
+      <div class="auth-card standard">
+        <div class="auth-tier" data-i18n="auth.tier1">Starter</div>
+        <div class="auth-price">€200</div>
+        <div class="auth-period">/mo</div>
+        <div class="auth-setup" data-i18n="auth.setup1">Einmalig: €500</div>
+        <ul class="auth-features">
+          <li data-i18n="auth.feat.1.1">1 aktiver Agent (TRIAGE)</li>
+          <li data-i18n="auth.feat.1.2">1 Kanal (WhatsApp oder Instagram)</li>
+          <li data-i18n="auth.feat.1.3">Automatisierter Wochenbericht</li>
+          <li data-i18n="auth.feat.1.4">SLA: &lt;10 Min. · Eskalation 8h</li>
+          <li data-i18n="auth.feat.1.5">E-Mail-Support</li>
+        </ul>
+        <a href="mailto:hello@operion.ai?subject=Starter" class="auth-cta" data-i18n="auth.cta1">Zugang anfragen</a>
+      </div>
+      <div class="auth-card featured">
+        <div class="auth-tier" data-i18n="auth.tier2">Growth</div>
+        <div class="auth-price">€500</div>
+        <div class="auth-period">/mo</div>
+        <div class="auth-setup" data-i18n="auth.setup2">Einmalig: €1.500</div>
+        <ul class="auth-features">
+          <li data-i18n="auth.feat.2.1">3 Agenten (Triage + Content + Analytics)</li>
+          <li data-i18n="auth.feat.2.2">Multi-Kanal (IG + WhatsApp + E-Mail)</li>
+          <li data-i18n="auth.feat.2.3">Zweiwöchentlicher Strategieanruf</li>
+          <li data-i18n="auth.feat.2.4">SLA: &lt;5 Min. · Eskalation 4h</li>
+          <li data-i18n="auth.feat.2.5">PDF-Berichte mit OPERION-Branding</li>
+          <li data-i18n="auth.feat.2.6">Früher Zugang zu AG-04 Outreach</li>
+        </ul>
+        <a href="mailto:hello@operion.ai?subject=Growth" class="auth-cta" data-i18n="auth.cta2">Zugang anfragen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="brand_assets/operion_emblem_light.svg" alt="OPERION" style="width:18px;height:22px;object-fit:contain;opacity:.3;" />
+        <span class="footer-name">OPERION OS</span>
+      </div>
+      <div class="footer-right">
+        <p class="footer-coords">INGOLSTADT, DE · 48.7665° N, 11.4258° E · operion.ai · hello@operion.ai</p>
+        <p class="footer-quechua" data-i18n="footer.quechua">"OPERION" — aus dem Quechua: tun, machen, ausführen.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── i18n ──────────────────────────────────────────────────────── */
+const T = {
+  de: {
+    'nav.doc':          'Investor Brief · v1.0 · April 2026',
+    'nav.classified':   'Classified: Investor Brief',
+    'briefing.eyebrow': 'Mission · OPERION OS · Ingolstadt, DE — 48.7665° N, 11.4258° E',
+    'briefing.title':   'Das System,<br>das ohne<br><em>Aufsicht arbeitet.</em>',
+    'briefing.sub':     'OPERION setzt Autonome Betriebssysteme für lokale Unternehmen ein. Keine Software. Keine Beratung. Agenten, die ausführen — während der Eigentümer schläft.',
+    'stat.ops.label':   'Ausgeführte Operationen (Demo)',
+    'stat.eff.label':   'Autonome Lösungsrate',
+    'stat.roi.label':   'Generierter ROI (Simulation)',
+    'stat.days.label':  'Tage bis vollständiger Einsatz',
+    'assess.label':     'IDENTIFIZIERTES PROBLEM',
+    'assess.headline':  'Lokale Unternehmen bluten im Stillen.',
+    'assess.body':      'Umsatzverluste entstehen nicht in großen Krisen. Sie entstehen um 23 Uhr an einem Sonntag, wenn ein Interessent eine DM sendet und niemand antwortet. Sie entstehen, wenn ein internationaler Student auf Englisch schreibt und das Fitnessstudio nur auf Deutsch antwortet. Sie entstehen, wenn die Rezeption um 18 Uhr schließt und der Zahnarzt drei Buchungen für den nächsten Tag verliert.<br><br><strong>Kein Talentproblem. Ein Problem der kontinuierlichen Ausführung.</strong> Und es hat exakt berechenbare Kosten.',
+    'threat.1.text':    'Potenzieller Umsatzverlust durch unzureichende Reaktionsgeschwindigkeit.',
+    'threat.1.stat':    '30–60 % der eingehenden Anfragen ohne Konversion',
+    'threat.2.text':    'Reale Kosten einer gleichwertigen Teilzeitkraft auf dem deutschen Markt.',
+    'threat.2.stat':    '€1.737/Monat vs. €375 netto mit OPERION',
+    'threat.3.text':    'Durchschnittliche Reaktionszeit in lokalen Betrieben ohne Automatisierung.',
+    'threat.3.stat':    '240 Min. vs. <5 Min. mit AG-01 TRIAGE aktiv',
+    'threat.4.text':    'Geschätzter monatlicher Verlust durch 20 unbeantwortete Anfragen.',
+    'threat.4.stat':    '€1.000–€10.000 verloren · nicht wiederherstellbar',
+    'arch.label':       'AGENTENARCHITEKTUR',
+    'arch.ag01.name':   'Front Desk<br>24/7',
+    'arch.ag01.role':   'Erster Responder auf Instagram DM, WhatsApp, E-Mail. Spracherkennung DE/EN/ES. Klassifizierung der Absicht. Antwort in <5 Min.',
+    'arch.ag01.status': 'Live — Clever Fit',
+    'arch.ag02.name':   'Content<br>Factory',
+    'arch.ag02.role':   'Erstellt und veröffentlicht Inhalte auf allen Plattformen aus einem einzigen Brief. Plant via Blotato API. Dreisprachig DE/EN/ES.',
+    'arch.ag02.status': 'Monat 2',
+    'arch.ag03.name':   'Analytics<br>Scout',
+    'arch.ag03.role':   'Zieht Daten aus Meta Business Insights, IG API. Erstellt PDF-Wochenbericht. Erkennt Anomalien. Automatische Lieferung montags 08:00 CET.',
+    'arch.ag03.status': 'Monat 3',
+    'arch.ag04.name':   'Sales<br>Outreach',
+    'arch.ag04.role':   'Identifiziert Interessenten in Zielbranchen. Verfasst personalisierten Kontakt (niemals vorgefertigt). Verwaltet 3-Touch-Sequenz.',
+    'arch.ag04.status': 'Monat 4',
+    'arch.ag05.name':   'Internal<br>Operations',
+    'arch.ag05.role':   'Interner Motor. Onboarding neuer Kunden. Überwachung der API-Kosten. Aktualisierung der Dokumentation. Wöchentliche Retrospektive.',
+    'arch.ag05.status': 'Monat 6',
+    'engage.label':     'LIVE-AUSFÜHRUNG — ADE v0.1.0-alpha',
+    'terminal.replay':  '↺ REPLAY',
+    'counter.ops':      'Ausgeführte Operationen',
+    'counter.eff':      'Autonome Lösung',
+    'counter.roi':      'Generierter ROI',
+    'econ.label':       'WIRTSCHAFTLICHE ANALYSE',
+    'econ.col1.name':   'OPERION Growth',
+    'econ.col1.tag':    'ABSETZBAR EStG §4',
+    'econ.row1.label':  'Monatliche Gebühr',
+    'econ.row2.label':  'Steuerersparnis (~25 %)',
+    'econ.row3.label':  'Sozialkosten',
+    'econ.row4.label':  'Risiko Krankheit/Urlaub',
+    'econ.col1.total.label': 'Reale Nettokosten',
+    'econ.col2.name':   'Teilzeitkraft',
+    'econ.row5.label':  'Bruttogehalt',
+    'econ.row6.label':  'Arbeitgeberanteil Sozialvers.',
+    'econ.row7.label':  'Rückstellung Krankentage',
+    'econ.row8.label':  'Rückstellung Urlaub + Einarbeitung',
+    'econ.col2.total.label': 'Gesamtkosten real',
+    'econ.savings':     'Jährliche Ersparnis: <strong>€16.344</strong> — reinvestierbar in Wachstum, nicht in Lohnkosten.',
+    'auth.label':       'ZUGANGSGENEHMIGUNG',
+    'auth.tier1':       'Starter',
+    'auth.tier2':       'Growth',
+    'auth.setup1':      'Einmalig: €500',
+    'auth.setup2':      'Einmalig: €1.500',
+    'auth.feat.1.1':    '1 aktiver Agent (TRIAGE)',
+    'auth.feat.1.2':    '1 Kanal (WhatsApp oder Instagram)',
+    'auth.feat.1.3':    'Automatisierter Wochenbericht',
+    'auth.feat.1.4':    'SLA: <10 Min. · Eskalation 8h',
+    'auth.feat.1.5':    'E-Mail-Support',
+    'auth.feat.2.1':    '3 Agenten (Triage + Content + Analytics)',
+    'auth.feat.2.2':    'Multi-Kanal (IG + WhatsApp + E-Mail)',
+    'auth.feat.2.3':    'Zweiwöchentlicher Strategieanruf',
+    'auth.feat.2.4':    'SLA: <5 Min. · Eskalation 4h',
+    'auth.feat.2.5':    'PDF-Berichte mit OPERION-Branding',
+    'auth.feat.2.6':    'Früher Zugang zu AG-04 Outreach',
+    'auth.cta1':        'Zugang anfragen',
+    'auth.cta2':        'Zugang anfragen',
+    'footer.quechua':   '"OPERION" — aus dem Quechua: tun, machen, ausführen.',
+  },
+  en: {
+    'nav.doc':          'Investor Brief · v1.0 · April 2026',
+    'nav.classified':   'Classified: Investor Brief',
+    'briefing.eyebrow': 'Mission · OPERION OS · Ingolstadt, DE — 48.7665° N, 11.4258° E',
+    'briefing.title':   'The system<br>that operates<br><em>without supervision.</em>',
+    'briefing.sub':     'OPERION deploys Autonomous Operating Systems for local businesses. No software. No consulting. Agents that execute — while the owner sleeps.',
+    'stat.ops.label':   'Operations executed (demo)',
+    'stat.eff.label':   'Autonomous resolution rate',
+    'stat.roi.label':   'ROI generated (simulation)',
+    'stat.days.label':  'Days to full deployment',
+    'assess.label':     'IDENTIFIED PROBLEM',
+    'assess.headline':  'Local businesses bleed in silence.',
+    'assess.body':      'Revenue loss doesn\'t happen in major crises. It happens at 11pm on a Sunday when a prospect sends a DM and no one responds. It happens when an international student writes in English and the gym only responds in German. It happens when reception closes at 6pm and the dentist loses three bookings for the next day.<br><br><strong>Not a talent problem. A continuous execution problem.</strong> And it has an exactly calculable cost.',
+    'threat.1.text':    'Potential revenue lost through insufficient response speed.',
+    'threat.1.stat':    '30–60% of incoming inquiries without conversion',
+    'threat.2.text':    'Real cost of an equivalent part-time employee in the German market.',
+    'threat.2.stat':    '€1,737/month vs. €375 net with OPERION',
+    'threat.3.text':    'Average response time in local businesses without automation.',
+    'threat.3.stat':    '240 min vs. <5 min with AG-01 TRIAGE active',
+    'threat.4.text':    'Estimated monthly loss from 20 unanswered inquiries.',
+    'threat.4.stat':    '€1,000–€10,000 lost · non-recoverable',
+    'arch.label':       'AGENT ARCHITECTURE',
+    'arch.ag01.name':   'Front Desk<br>24/7',
+    'arch.ag01.role':   'First responder on Instagram DM, WhatsApp, email. Language detection DE/EN/ES. Intent classification. Response in <5 min.',
+    'arch.ag01.status': 'Live — Clever Fit',
+    'arch.ag02.name':   'Content<br>Factory',
+    'arch.ag02.role':   'Creates and publishes content across all platforms from a single brief. Schedules via Blotato API. Trilingual DE/EN/ES.',
+    'arch.ag02.status': 'Month 2',
+    'arch.ag03.name':   'Analytics<br>Scout',
+    'arch.ag03.role':   'Pulls data from Meta Business Insights, IG API. Generates weekly PDF report. Detects anomalies. Auto-delivery Mondays 08:00 CET.',
+    'arch.ag03.status': 'Month 3',
+    'arch.ag04.name':   'Sales<br>Outreach',
+    'arch.ag04.role':   'Identifies prospects in target verticals. Drafts personalized outreach (never templated). Manages 3-touch sequence.',
+    'arch.ag04.status': 'Month 4',
+    'arch.ag05.name':   'Internal<br>Operations',
+    'arch.ag05.role':   'Internal engine. New client onboarding. API cost monitoring. Documentation updates. Weekly retrospective.',
+    'arch.ag05.status': 'Month 6',
+    'engage.label':     'LIVE EXECUTION — ADE v0.1.0-alpha',
+    'terminal.replay':  '↺ REPLAY',
+    'counter.ops':      'Operations executed',
+    'counter.eff':      'Autonomous resolution',
+    'counter.roi':      'ROI generated',
+    'econ.label':       'ECONOMIC ANALYSIS',
+    'econ.col1.name':   'OPERION Growth',
+    'econ.col1.tag':    'DEDUCTIBLE EStG §4',
+    'econ.row1.label':  'Monthly fee',
+    'econ.row2.label':  'Tax deduction (~25%)',
+    'econ.row3.label':  'Social costs',
+    'econ.row4.label':  'Sick leave / holiday risk',
+    'econ.col1.total.label': 'Real net cost',
+    'econ.col2.name':   'Part-time employee',
+    'econ.row5.label':  'Gross salary',
+    'econ.row6.label':  'Employer social security',
+    'econ.row7.label':  'Sick day provision',
+    'econ.row8.label':  'Holiday provision + onboarding',
+    'econ.col2.total.label': 'Real total cost',
+    'econ.savings':     'Annual savings: <strong>€16,344</strong> — reinvestable in growth, not payroll.',
+    'auth.label':       'ACCESS AUTHORIZATION',
+    'auth.tier1':       'Starter',
+    'auth.tier2':       'Growth',
+    'auth.setup1':      'One-time: €500',
+    'auth.setup2':      'One-time: €1,500',
+    'auth.feat.1.1':    '1 active agent (TRIAGE)',
+    'auth.feat.1.2':    '1 channel (WhatsApp or Instagram)',
+    'auth.feat.1.3':    'Automated weekly report',
+    'auth.feat.1.4':    'SLA: <10 min · Escalation 8h',
+    'auth.feat.1.5':    'Email support',
+    'auth.feat.2.1':    '3 agents (Triage + Content + Analytics)',
+    'auth.feat.2.2':    'Multi-channel (IG + WhatsApp + email)',
+    'auth.feat.2.3':    'Bi-weekly strategy call',
+    'auth.feat.2.4':    'SLA: <5 min · Escalation 4h',
+    'auth.feat.2.5':    'PDF reports with OPERION branding',
+    'auth.feat.2.6':    'Early access to AG-04 Outreach',
+    'auth.cta1':        'Request Access',
+    'auth.cta2':        'Request Access',
+    'footer.quechua':   '"OPERION" — from Quechua: to do, to make, to execute.',
+  },
+  es: {
+    'nav.doc':          'Investor Brief · v1.0 · Abril 2026',
+    'nav.classified':   'Clasificado: Investor Brief',
+    'briefing.eyebrow': 'Misión · OPERION OS · Ingolstadt, DE — 48.7665° N, 11.4258° E',
+    'briefing.title':   'El sistema<br>que opera<br><em>sin supervisión.</em>',
+    'briefing.sub':     'OPERION despliega Sistemas Operativos Autónomos para negocios locales. No software. No consultorías. Agentes que ejecutan — mientras el propietario duerme.',
+    'stat.ops.label':   'Operaciones ejecutadas (demo)',
+    'stat.eff.label':   'Tasa de resolución autónoma',
+    'stat.roi.label':   'ROI generado en simulación',
+    'stat.days.label':  'Días hasta despliegue completo',
+    'assess.label':     'PROBLEMA IDENTIFICADO',
+    'assess.headline':  'Los negocios locales sangran en silencio.',
+    'assess.body':      'La pérdida de ingresos no ocurre en grandes crisis. Ocurre a las 23:00 de un domingo cuando un prospecto envía un DM y nadie responde. Ocurre cuando un estudiante internacional escribe en inglés y el gimnasio solo atiende en alemán. Ocurre cuando la recepción cierra a las 18h y el dentista pierde tres reservas del día siguiente.<br><br><strong>No es un problema de talento. Es un problema de ejecución continua.</strong> Y tiene un coste exactamente calculable.',
+    'threat.1.text':    'Ingresos potenciales perdidos por velocidad de respuesta insuficiente.',
+    'threat.1.stat':    '30–60% de consultas entrantes sin conversión',
+    'threat.2.text':    'Coste real de un empleado a tiempo parcial equivalente en el mercado alemán.',
+    'threat.2.stat':    '€1.737/mes vs. €375 netos con OPERION',
+    'threat.3.text':    'Tiempo medio de respuesta en negocios locales sin automatización.',
+    'threat.3.stat':    '240 min vs. <5 min con AG-01 TRIAGE activo',
+    'threat.4.text':    'Hemorragia mensual estimada por 20 consultas sin atender.',
+    'threat.4.stat':    '€1.000–€10.000 perdidos · no recuperables',
+    'arch.label':       'ARQUITECTURA DE AGENTES',
+    'arch.ag01.name':   'Front Desk<br>24/7',
+    'arch.ag01.role':   'Primer respondedor en Instagram DM, WhatsApp, email. Detección de idioma DE/EN/ES. Clasificación de intención. Respuesta en <5 min.',
+    'arch.ag01.status': 'Live — Clever Fit',
+    'arch.ag02.name':   'Content<br>Factory',
+    'arch.ag02.role':   'Genera y publica contenido en todas las plataformas desde un brief único. Programa via Blotato API. Trilingüe DE/EN/ES.',
+    'arch.ag02.status': 'Mes 2',
+    'arch.ag03.name':   'Analytics<br>Scout',
+    'arch.ag03.role':   'Extrae datos de Meta Business Insights, IG API. Genera informe semanal PDF. Detecta anomalías. Entrega automática los lunes 08:00 CET.',
+    'arch.ag03.status': 'Mes 3',
+    'arch.ag04.name':   'Sales<br>Outreach',
+    'arch.ag04.role':   'Identifica prospectos en verticales objetivo. Redacta contacto personalizado (nunca templado). Gestiona secuencia de 3 toques.',
+    'arch.ag04.status': 'Mes 4',
+    'arch.ag05.name':   'Internal<br>Operations',
+    'arch.ag05.role':   'Motor interno. Onboarding de nuevos clientes. Monitoreo de costes API. Actualización de documentación. Retrospectiva semanal.',
+    'arch.ag05.status': 'Mes 6',
+    'engage.label':     'EJECUCIÓN EN VIVO — ADE v0.1.0-alpha',
+    'terminal.replay':  '↺ REPLAY',
+    'counter.ops':      'Operaciones ejecutadas',
+    'counter.eff':      'Resolución autónoma',
+    'counter.roi':      'ROI generado',
+    'econ.label':       'ANÁLISIS ECONÓMICO',
+    'econ.col1.name':   'OPERION Growth',
+    'econ.col1.tag':    'DEDUCIBLE EStG §4',
+    'econ.row1.label':  'Tarifa mensual',
+    'econ.row2.label':  'Deducción fiscal (~25%)',
+    'econ.row3.label':  'Costes sociales',
+    'econ.row4.label':  'Riesgo de baja/vacaciones',
+    'econ.col1.total.label': 'Coste neto real',
+    'econ.col2.name':   'Empleado a tiempo parcial',
+    'econ.row5.label':  'Salario bruto',
+    'econ.row6.label':  'Seguridad social (empleador)',
+    'econ.row7.label':  'Provisión baja por enfermedad',
+    'econ.row8.label':  'Provisión vacaciones + onboarding',
+    'econ.col2.total.label': 'Coste total real',
+    'econ.savings':     'Ahorro anual: <strong>€16.344</strong> — reinvertibles en crecimiento, no en nómina.',
+    'auth.label':       'AUTORIZACIÓN DE ACCESO',
+    'auth.tier1':       'Starter',
+    'auth.tier2':       'Growth',
+    'auth.setup1':      'Setup único: €500',
+    'auth.setup2':      'Setup único: €1.500',
+    'auth.feat.1.1':    '1 agente activo (TRIAGE)',
+    'auth.feat.1.2':    '1 canal (WhatsApp o Instagram)',
+    'auth.feat.1.3':    'Informe semanal automatizado',
+    'auth.feat.1.4':    'SLA: <10 min · Escalación 8h',
+    'auth.feat.1.5':    'Soporte por email',
+    'auth.feat.2.1':    '3 agentes (Triage + Content + Analytics)',
+    'auth.feat.2.2':    'Multi-canal (IG + WhatsApp + email)',
+    'auth.feat.2.3':    'Llamada quincenal de estrategia',
+    'auth.feat.2.4':    'SLA: <5 min · Escalación 4h',
+    'auth.feat.2.5':    'Informes PDF branded OPERION',
+    'auth.feat.2.6':    'Acceso anticipado a AG-04 Outreach',
+    'auth.cta1':        'Solicitar Acceso',
+    'auth.cta2':        'Solicitar Acceso',
+    'footer.quechua':   '"OPERION" — del quechua: hacer, ejecutar, llevar a cabo.',
+  }
+};
+
+function setLanguage(lang) {
+  if (!T[lang]) return;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = T[lang][el.dataset.i18n];
+    if (v !== undefined) el.textContent = v;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const v = T[lang][el.dataset.i18nHtml];
+    if (v !== undefined) el.innerHTML = v;
+  });
+  document.querySelectorAll('.lang-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.lang === lang));
+  try { localStorage.setItem('operion-lang', lang); } catch(e) {}
+}
+
+/* ── Terminal simulation ────────────────────────────────────────── */
+const lines = [
+  { t: 0,    text: '<span class="t-dim">──────────────────────────────────────────────</span>' },
+  { t: 80,   text: '<span class="t-white">[OPERION_OS] Motor de Autonomia Iniciado</span>' },
+  { t: 160,  text: '<span class="t-white">[OPERION_OS] Version: 0.1.0-alpha | Phase 4 - Alpha</span>' },
+  { t: 240,  text: '<span class="t-dim">[OPERION_OS] Timestamp: ' + new Date().toISOString() + '</span>' },
+  { t: 320,  text: '<span class="t-dim">[OPERION_OS] Audit log: logs/sovereignty_audit.log</span>' },
+  { t: 400,  text: '' },
+  { t: 480,  text: '<span class="t-dim">── EVENT QUEUE ──────────────────────────────</span>' },
+  { t: 640,  text: '<span class="t-white">[EVENT] type=unauthorized_access | user_tier=premium</span>' },
+  { t: 800,  text: '<span class="t-green">[DECISION] AUTO_AUTHORIZED — tier: premium</span>' },
+  { t: 960,  text: '[ROI] Ahorro: $25.00 | Acumulado: $25.00 | Accion: auto-authorize premium' },
+  { t: 1040, text: '' },
+  { t: 1120, text: '<span class="t-white">[EVENT] type=equipment_failure | severity=high</span>' },
+  { t: 1280, text: '<span class="t-green">[DECISION] TICKET_CREATED — MAINT-20260421120000</span>' },
+  { t: 1440, text: '[ROI] Ahorro: $25.00 | Acumulado: $50.00 | Accion: preventive maintenance ticket' },
+  { t: 1520, text: '' },
+  { t: 1600, text: '<span class="t-white">[EVENT] type=standard_inquiry | user_tier=standard</span>' },
+  { t: 1760, text: '<span class="t-red">[DECISION] ESCALATED_TO_HUMAN — confidence &lt;70%</span>' },
+  { t: 1920, text: '' },
+  { t: 2000, text: '<span class="t-dim">── MISSION SUMMARY ──────────────────────────</span>' },
+  { t: 2080, text: '<span class="t-white">[OPERION_OS] Eventos procesados: 3</span>' },
+  { t: 2160, text: '<span class="t-white">[OPERION_OS] Resoluciones autonomas: 2 / 3</span>' },
+  { t: 2240, text: '[OPERION_OS] Tasa de autonomia: 66.7%' },
+  { t: 2320, text: '<span class="t-green">[OPERION_OS] ROI total generado: $50.00</span>' },
+  { t: 2400, text: '<span class="t-dim">──────────────────────────────────────────────</span>' },
+];
+
+let timers = [];
+
+function clearTimers() {
+  timers.forEach(clearTimeout);
+  timers = [];
+}
+
+function animateCounters(targetOps, targetRoi) {
+  const opsEl = document.getElementById('live-ops');
+  const roiEl = document.getElementById('live-roi');
+  const effEl = document.getElementById('live-eff');
+  const steps = 30;
+  const delay = 2400 / steps;
+  for (let i = 1; i <= steps; i++) {
+    ((step) => {
+      const t = setTimeout(() => {
+        const p = step / steps;
+        const eased = p < .5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
+        opsEl.textContent = String(Math.round(targetOps * eased)).padStart(2, '0');
+        roiEl.textContent = '$' + (targetRoi * eased).toFixed(2);
+        effEl.textContent = (66.7 * Math.min(p * 1.5, 1)).toFixed(1) + '%';
+      }, delay * step + 2000);
+      timers.push(t);
+    })(i);
+  }
+}
+
+function runSim() {
+  clearTimers();
+  const out = document.getElementById('terminal-output');
+  out.innerHTML = '';
+  document.getElementById('live-ops').textContent = '00';
+  document.getElementById('live-roi').textContent = '$0.00';
+  document.getElementById('live-eff').textContent = '0.0%';
+
+  lines.forEach(({ t, text }) => {
+    const timer = setTimeout(() => {
+      const span = document.createElement('span');
+      span.style.display = 'block';
+      if (text === '') {
+        span.style.height = '8px';
+      } else {
+        span.innerHTML = text;
+      }
+      out.appendChild(span);
+      out.scrollTop = out.scrollHeight;
+    }, t);
+    timers.push(timer);
+  });
+
+  animateCounters(2, 50);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  let lang = 'de';
+  try { lang = localStorage.getItem('operion-lang') || 'de'; } catch(e) {}
+  setLanguage(lang);
+  document.querySelectorAll('.lang-btn').forEach(b =>
+    b.addEventListener('click', () => setLanguage(b.dataset.lang)));
+  setTimeout(runSim, 600);
+});
+</script>
+</body>
+</html>

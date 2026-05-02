@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OPERION — Sovereign Operations Blueprint v2.0</title>
+<style>
+  :root {
+    --carbon: #0D0D0D;
+    --near-white: #FAFAFA;
+    --mid: #6B6B6B;
+    --rule: #1E1E1E;
+    --accent-cold: #C8E8F4;
+    --accent-active: #8AAEC8;
+    --page-bg: #111111;
+    --code-bg: #0A0A0A;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; background: var(--carbon); color: var(--near-white); }
+  body {
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-weight: 300;
+    line-height: 1.75;
+    background: var(--page-bg);
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 0 120px;
+  }
+
+  /* ── COVER ─────────────────────────────────────────────── */
+  .cover {
+    background: var(--carbon);
+    border-bottom: 1px solid var(--rule);
+    padding: 80px 64px 72px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::after {
+    content: 'v2.0';
+    position: absolute;
+    right: 64px;
+    top: 80px;
+    font-size: 80px;
+    font-weight: 200;
+    color: rgba(250,250,250,0.03);
+    letter-spacing: 8px;
+    pointer-events: none;
+    user-select: none;
+  }
+  .cover-eyebrow {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .cover-title {
+    font-size: clamp(28px, 4.5vw, 48px);
+    font-weight: 200;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--near-white);
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+  .cover-subtitle {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-bottom: 48px;
+  }
+  .cover-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 24px;
+    border-top: 1px solid var(--rule);
+    padding-top: 32px;
+  }
+  .cover-meta-item label {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .cover-meta-item span { font-size: 13px; font-weight: 300; }
+
+  /* ── LAYOUT ─────────────────────────────────────────────── */
+  .content { padding: 0 64px; }
+  .section {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section:last-child { border-bottom: none; }
+  .section-number {
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: 20px;
+    font-weight: 200;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--near-white);
+    margin-bottom: 40px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+  h3 {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--near-white);
+    margin: 36px 0 14px;
+  }
+  h3:first-child { margin-top: 0; }
+  h4 {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin: 24px 0 10px;
+  }
+  p {
+    font-size: 14px;
+    color: #C0C0C0;
+    margin-bottom: 16px;
+    max-width: 700px;
+  }
+  strong { font-weight: 400; color: var(--near-white); }
+
+  /* ── DOCTRINE ───────────────────────────────────────────── */
+  .doctrine {
+    border-left: 2px solid var(--near-white);
+    padding: 20px 28px;
+    margin: 28px 0;
+    background: rgba(250,250,250,0.02);
+  }
+  .doctrine p { margin: 0; max-width: 100%; color: var(--near-white); font-size: 15px; }
+
+  /* ── CODE / TOPOLOGY BLOCKS ─────────────────────────────── */
+  .topology {
+    background: var(--code-bg);
+    border: 1px solid var(--rule);
+    padding: 28px 32px;
+    margin: 24px 0;
+    overflow-x: auto;
+  }
+  .topology pre {
+    font-family: 'Courier New', 'Courier', monospace;
+    font-size: 12px;
+    line-height: 1.9;
+    color: #A8C4D0;
+    white-space: pre;
+  }
+  .topology .comment { color: #3A4A50; }
+  .topology .ci { color: #C8E8F4; font-weight: bold; }
+  .topology .label { color: #E0E0E0; }
+  .topology .arrow { color: #505860; }
+
+  /* ── CI REGISTRY ────────────────────────────────────────── */
+  .ci-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 24px 0;
+  }
+  .ci-item {
+    background: var(--page-bg);
+    padding: 16px 20px;
+    display: flex;
+    gap: 16px;
+    align-items: start;
+  }
+  .ci-code {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: var(--accent-cold);
+    letter-spacing: 1px;
+    min-width: 56px;
+    padding-top: 1px;
+  }
+  .ci-desc {
+    font-size: 12px;
+    color: #A0A0A0;
+    line-height: 1.5;
+  }
+  .ci-desc strong { font-size: 12px; color: var(--near-white); display: block; margin-bottom: 2px; }
+
+  /* ── TABLE ──────────────────────────────────────────────── */
+  .table-wrap { margin: 24px 0; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { border-bottom: 1px solid #3A3A3A; }
+  thead th {
+    text-align: left; padding: 10px 16px;
+    font-size: 9px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--mid); font-weight: 400;
+  }
+  tbody tr { border-bottom: 1px solid var(--rule); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(250,250,250,0.015); }
+  td { padding: 12px 16px; color: #B0B0B0; vertical-align: top; }
+  td:first-child { color: var(--near-white); font-family: 'Courier New', monospace; font-size: 12px; }
+
+  /* ── AGENT BLOCKS ───────────────────────────────────────── */
+  .agent-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+  .agent-name {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--near-white);
+  }
+  .agent-status {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--mid);
+    border: 1px solid var(--rule);
+    padding: 2px 8px;
+  }
+  .agent-section {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .agent-section:last-child { border-bottom: none; }
+
+  /* ── HARDWARE PHASE ─────────────────────────────────────── */
+  .phase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 24px 0;
+  }
+  .phase-card {
+    background: var(--page-bg);
+    padding: 24px 20px;
+  }
+  .phase-card .hw-label {
+    font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--mid); margin-bottom: 12px;
+  }
+  .phase-card .hw-name {
+    font-size: 14px; font-weight: 300; color: var(--near-white);
+    margin-bottom: 8px; line-height: 1.4;
+  }
+  .phase-card .hw-ci {
+    font-family: 'Courier New', monospace; font-size: 10px;
+    color: var(--accent-cold); line-height: 2;
+  }
+
+  /* ── IMMUNITY GRADE ─────────────────────────────────────── */
+  .grade-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 24px 0;
+  }
+  .grade-row {
+    background: var(--page-bg);
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 140px 80px 80px 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+  .grade-name {
+    font-size: 11px; font-weight: 400; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--near-white);
+  }
+  .grade-hdr, .grade-oii {
+    font-size: 16px; font-weight: 200; color: var(--near-white);
+    font-family: 'Courier New', monospace;
+  }
+  .grade-desc { font-size: 12px; color: #888; }
+  .grade-row.sovereign { border-left: 2px solid var(--near-white); }
+
+  /* ── FOOTER ─────────────────────────────────────────────── */
+  .doc-footer {
+    padding: 40px 64px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+  }
+  .doc-footer .wordmark {
+    font-size: 14px; font-weight: 200;
+    letter-spacing: 8px; color: #3A3A3A; text-transform: uppercase;
+  }
+  .doc-footer .version { font-size: 10px; letter-spacing: 2px; color: var(--mid); }
+
+  @media (max-width: 640px) {
+    .cover, .content, .doc-footer { padding-left: 20px; padding-right: 20px; }
+    .ci-grid { grid-template-columns: 1fr; }
+    .grade-row { grid-template-columns: 1fr 1fr; }
+    .grade-desc { grid-column: 1 / -1; }
+  }
+
+  /* ── COVER EMBLEM ───────────────────────────────────────── */
+  .cover-emblem {
+    display: block;
+    margin-bottom: 40px;
+  }
+  .cover-emblem svg {
+    display: block;
+    width: 88px;
+    height: 110px;
+  }
+  @media print {
+    .cover-emblem svg { width: 72px; height: 90px; }
+    @page { size: A4; margin: 20mm; }
+    body { max-width: 100%; padding: 0; background: #0D0D0D; }
+    .cover { padding: 48px 48px 40px; }
+    section { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     COVER
+══════════════════════════════════════════════════════════ -->
+<header class="cover">
+  <div class="cover-emblem">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 400" role="img" aria-label="OPERION Sovereign Emblem">
+      <defs>
+        <filter id="sb-grain" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.78" numOctaves="4" stitchTiles="stitch" result="noise"/>
+          <feColorMatrix type="saturate" values="0" in="noise"/>
+        </filter>
+        <filter id="sb-shadowBlur" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="4"/>
+        </filter>
+        <linearGradient id="sb-titaniumGrad" x1="73" y1="70" x2="247" y2="270" gradientUnits="userSpaceOnUse">
+          <stop offset="0%"   stop-color="#383848"/>
+          <stop offset="11%"  stop-color="#888898"/>
+          <stop offset="22%"  stop-color="#C4C4D8"/>
+          <stop offset="32%"  stop-color="#E8E8F6"/>
+          <stop offset="41%"  stop-color="#F8F8FF"/>
+          <stop offset="48%"  stop-color="#FFFFFF"/>
+          <stop offset="58%"  stop-color="#E2E2F0"/>
+          <stop offset="72%"  stop-color="#A8A8C0"/>
+          <stop offset="86%"  stop-color="#686878"/>
+          <stop offset="100%" stop-color="#2C2C3C"/>
+        </linearGradient>
+        <radialGradient id="sb-coreGrad" cx="151" cy="160" r="40" gradientUnits="userSpaceOnUse">
+          <stop offset="0%"   stop-color="#1A2244"/>
+          <stop offset="28%"  stop-color="#121830"/>
+          <stop offset="60%"  stop-color="#0C101E"/>
+          <stop offset="100%" stop-color="#050710"/>
+        </radialGradient>
+        <radialGradient id="sb-coreCatch" cx="147" cy="156" r="20" gradientUnits="userSpaceOnUse">
+          <stop offset="0%"   stop-color="#5870B8" stop-opacity="0.60"/>
+          <stop offset="45%"  stop-color="#2C3C80" stop-opacity="0.20"/>
+          <stop offset="100%" stop-color="#101828" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="sb-glowOuter" x="-120%" y="-120%" width="340%" height="340%" color-interpolation-filters="sRGB">
+          <feGaussianBlur stdDeviation="15" result="blur"/>
+          <feColorMatrix type="matrix" values="0.85 0 0 0 0.05 0 0.9 0 0 0.06 0 0 1 0 0.08 0 0 0 1 0" in="blur"/>
+        </filter>
+        <filter id="sb-glowRim" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+          <feGaussianBlur stdDeviation="5"/>
+        </filter>
+        <filter id="sb-metalBevel" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="2.2" result="bumpMap"/>
+          <feSpecularLighting in="bumpMap" surfaceScale="5" specularConstant="1.9" specularExponent="42" lighting-color="#FFFFFF" result="specularOut">
+            <fePointLight x="68" y="32" z="140"/>
+          </feSpecularLighting>
+          <feComposite in="specularOut" in2="SourceAlpha" operator="in" result="specularClipped"/>
+          <feBlend in="SourceGraphic" in2="specularClipped" mode="screen"/>
+        </filter>
+        <linearGradient id="sb-wordmarkGrad" x1="55" y1="334" x2="265" y2="334" gradientUnits="userSpaceOnUse">
+          <stop offset="0%"   stop-color="#505060"/>
+          <stop offset="25%"  stop-color="#A8A8B8"/>
+          <stop offset="47%"  stop-color="#D4D4E0"/>
+          <stop offset="62%"  stop-color="#B0B0C0"/>
+          <stop offset="100%" stop-color="#484858"/>
+        </linearGradient>
+      </defs>
+      <rect width="320" height="400" fill="#0D0D0D"/>
+      <rect width="320" height="400" fill="#909090" opacity="0.035" filter="url(#sb-grain)"/>
+      <polygon points="246.6,120 160,70 73.4,120 73.4,220 160,270 246.6,220" fill="none" stroke="#000000" stroke-width="10" stroke-linejoin="miter" transform="translate(2.5,2.5)" opacity="0.55" filter="url(#sb-shadowBlur)"/>
+      <polygon points="246.6,120 160,70 73.4,120 73.4,220 160,270 246.6,220" fill="none" stroke="url(#sb-titaniumGrad)" stroke-width="3" stroke-linejoin="miter" filter="url(#sb-metalBevel)"/>
+      <path d="M73.4,120 L160,70 L246.6,120" fill="none" stroke="#FFFFFF" stroke-width="0.8" stroke-linejoin="miter" opacity="0.28"/>
+      <circle cx="160" cy="170" r="40" fill="#B8E2F4" opacity="0.17" filter="url(#sb-glowOuter)"/>
+      <circle cx="160" cy="170" r="34" fill="none" stroke="#D4EEFA" stroke-width="3" opacity="0.22" filter="url(#sb-glowRim)"/>
+      <circle cx="160" cy="170" r="34" fill="url(#sb-coreGrad)"/>
+      <circle cx="160" cy="170" r="34" fill="url(#sb-coreCatch)"/>
+      <circle cx="160" cy="170" r="34" fill="none" stroke="url(#sb-titaniumGrad)" stroke-width="2.5" filter="url(#sb-metalBevel)"/>
+      <line x1="189.4" y1="153.0" x2="224.9" y2="132.5" stroke="url(#sb-titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="160.0" y1="136.0" x2="160.0" y2="95.0"  stroke="url(#sb-titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="130.6" y1="153.0" x2="95.1"  y2="132.5" stroke="url(#sb-titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="130.6" y1="187.0" x2="95.1"  y2="207.5" stroke="url(#sb-titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="160.0" y1="204.0" x2="160.0" y2="245.0" stroke="url(#sb-titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="189.4" y1="187.0" x2="224.9" y2="207.5" stroke="url(#sb-titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="112" y1="300" x2="208" y2="300" stroke="#282838" stroke-width="0.75"/>
+      <text x="151" y="334" font-family="'Helvetica Neue','Arial',sans-serif" font-weight="200" font-size="21" letter-spacing="18" fill="url(#sb-wordmarkGrad)" dominant-baseline="middle" text-anchor="middle">OPERION</text>
+    </svg>
+  </div>
+  <div class="cover-eyebrow">Confidential · Internal · v2.0</div>
+  <div class="cover-title">OPERION</div>
+  <div class="cover-subtitle">Sovereign Operations Blueprint — Version 2.0</div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <label>Owner</label>
+      <span>Felix Andres Rios Blanco</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Role</label>
+      <span>Founder &amp; CEO</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Date</label>
+      <span>April 21, 2026</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Purpose</label>
+      <span>Complete technical &amp; operational architecture</span>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════
+     CONTENT
+══════════════════════════════════════════════════════════ -->
+<main class="content">
+
+  <!-- I. SYSTEM PHILOSOPHY -->
+  <section class="section">
+    <div class="section-number">Section I</div>
+    <div class="section-title">System Philosophy</div>
+
+    <div class="doctrine">
+      <p>Every operational flow in OPERION terminates in a Command Interface — a discrete, auditable, executable action taken on a live system. Not a recommendation. Not a draft awaiting human review. An action.</p>
+    </div>
+
+    <p>The intelligence of the system is in the path from input to Command Interface. The output of that path is always a command. If a decision node cannot resolve to a Command Interface within 2 exchanges, it escalates to the Human Review Queue — which is itself a Command Interface: <code style="font-family:monospace;color:var(--accent-cold);font-size:12px">NOTIFY → PAUSE → AWAIT_APPROVAL</code>.</p>
+
+    <h3>Execution Authority Tiers</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tier</th><th>Authority</th><th>Examples</th></tr></thead>
+        <tbody>
+          <tr><td>Tier 1</td><td>Autonomous — executes immediately</td><td>FAQ response, booking confirmation, report generation, content scheduling</td></tr>
+          <tr><td>Tier 2</td><td>Draft-and-Hold — creates action, holds for approval</td><td>Complaint empathy statements, content with client name, ad campaign creation</td></tr>
+          <tr><td>Tier 3</td><td>Escalate — notifies human, does not act</td><td>Refund requests, legal questions, press inquiries, agent errors</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Target state for a mature OPERION deployment: &gt;90% of interaction volume executing at Tier 1.</p>
+  </section>
+
+  <!-- II. COMMAND INTERFACE REGISTRY -->
+  <section class="section">
+    <div class="section-number">Section II</div>
+    <div class="section-title">Command Interface Registry</div>
+
+    <p>Each CI is a terminal action node in the decision graph. All agent logic paths must route to exactly one CI. CI-012 is the bridge to the physical hardware layer.</p>
+
+    <div class="ci-grid">
+      <div class="ci-item"><div class="ci-code">CI-001</div><div class="ci-desc"><strong>SEND_MESSAGE</strong>Dispatch response via active channel (IG / WA / Email)</div></div>
+      <div class="ci-item"><div class="ci-code">CI-002</div><div class="ci-desc"><strong>CREATE_BOOKING</strong>Write calendar event + send confirmation to contact</div></div>
+      <div class="ci-item"><div class="ci-code">CI-003</div><div class="ci-desc"><strong>UPDATE_CRM</strong>Write interaction record to database</div></div>
+      <div class="ci-item"><div class="ci-code">CI-004</div><div class="ci-desc"><strong>PUBLISH_CONTENT</strong>Schedule or post to social platform via API</div></div>
+      <div class="ci-item"><div class="ci-code">CI-005</div><div class="ci-desc"><strong>GENERATE_REPORT</strong>Compile and deliver formatted analytics document</div></div>
+      <div class="ci-item"><div class="ci-code">CI-006</div><div class="ci-desc"><strong>DRAFT_OUTREACH</strong>Create outreach message draft in prospect pipeline</div></div>
+      <div class="ci-item"><div class="ci-code">CI-007</div><div class="ci-desc"><strong>NOTIFY_HUMAN</strong>Push alert to Felix with full context payload</div></div>
+      <div class="ci-item"><div class="ci-code">CI-008</div><div class="ci-desc"><strong>PAUSE_AND_HOLD</strong>Suspend action thread, log reason, await instruction</div></div>
+      <div class="ci-item"><div class="ci-code">CI-009</div><div class="ci-desc"><strong>CLOSE_THREAD</strong>Mark interaction resolved, archive with metadata</div></div>
+      <div class="ci-item"><div class="ci-code">CI-010</div><div class="ci-desc"><strong>FLAG_ANOMALY</strong>Log metric deviation, attach to weekly report queue</div></div>
+      <div class="ci-item"><div class="ci-code">CI-011</div><div class="ci-desc"><strong>UPDATE_KNOWLEDGE</strong>Write new entry to client knowledge base</div></div>
+      <div class="ci-item" style="border-left:2px solid var(--accent-cold)"><div class="ci-code">CI-012</div><div class="ci-desc"><strong>EXECUTE_WEBHOOK</strong>Fire external system trigger — Physical Command Gateway (Phase 3)</div></div>
+    </div>
+  </section>
+
+  <!-- III. AGENT ARCHITECTURE -->
+  <section class="section">
+    <div class="section-number">Section III</div>
+    <div class="section-title">Agent Architecture v2.0</div>
+
+    <div class="agent-section">
+      <div class="agent-header">
+        <div class="agent-name">TRIAGE</div>
+        <div class="agent-status">Priority — MVP</div>
+      </div>
+      <p>Inbound execution agent. Permanent substitution of the front desk / administrative response role. Autonomy target: &gt;80% without human review.</p>
+      <h4>Decision Topology</h4>
+      <div class="topology">
+        <pre><span class="label">[INBOUND MESSAGE]</span>
+       ↓
+<span class="label">[LANGUAGE DETECT]</span>  DE | EN | ES | OTHER→EN
+       ↓
+<span class="label">[INTENT CLASSIFY]</span>  confidence threshold: 70%
+       ↓
+┌──────────┬───────────┬──────────────┬──────────────┬──────────┬──────────┐
+<span class="label">FAQ</span>       <span class="label">BOOKING</span>    <span class="label">COMPLAINT</span>     <span class="label">CANCEL</span>        <span class="label">SALES</span>     <span class="label">UNCLEAR</span>
+↓         ↓           ↓              ↓              ↓          ↓
+<span class="ci">CI-001</span>   <span class="ci">CI-002</span>     <span class="ci">CI-001</span>        <span class="ci">CI-007</span>         <span class="ci">CI-003</span>    <span class="label">[CLARIFY×2]</span>
+<span class="label">SEND</span>     <span class="label">BOOKING</span>    <span class="label">EMPATHY</span>       <span class="label">NOTIFY</span>         <span class="label">UPDATE</span>    ↓
+<span class="label">MSG</span>      +<span class="ci">CI-003</span>    +<span class="ci">CI-003</span>        <span class="label">HUMAN</span>          <span class="label">CRM</span>      <span class="ci">CI-007</span>
+         <span class="label">UPDATE</span>    +<span class="ci">CI-007</span>                        +<span class="ci">CI-007</span>   <span class="label">NOTIFY</span>
+         <span class="label">CRM</span>       <span class="label">NOTIFY</span></pre>
+      </div>
+    </div>
+
+    <div class="agent-section">
+      <div class="agent-header">
+        <div class="agent-name">CONTENT FACTORY</div>
+        <div class="agent-status">Month 2</div>
+      </div>
+      <p>Publishing execution agent. Permanent substitution of the social media manager role. After Day 90: Pillar 2 and Pillar 3 content executes fully autonomous.</p>
+      <h4>Decision Topology</h4>
+      <div class="topology">
+        <pre><span class="label">[CONTENT CALENDAR TRIGGER]</span>
+       ↓
+<span class="label">[READ BRIEF]</span>  Pillar: Proof | Teach | Build · Platform: TK|IG|LI|YT|X
+       ↓
+<span class="label">[ANALYTICS FEEDBACK READ]</span>  → What format performed best last 7 days?
+       ↓
+<span class="label">[GENERATE DRAFT]</span>  Hook → Body → CTA → Hashtags (bilingual if required)
+       ↓
+        ┌─────────────────────────────┬─────────────────────────────┐
+        <span class="label">Pillar 1 (Proof — client data)</span>  <span class="label">Pillar 2 / 3 (Teach / Build)</span>
+        ↓                              ↓
+        <span class="ci">CI-008</span> DRAFT+HOLD              <span class="ci">CI-004</span> PUBLISH_CONTENT
+        → <span class="ci">CI-007</span> NOTIFY_HUMAN           <span class="label">(Tier 1 after Day 90)</span></pre>
+      </div>
+    </div>
+
+    <div class="agent-section">
+      <div class="agent-header">
+        <div class="agent-name">ANALYTICS SCOUT</div>
+        <div class="agent-status">Month 3</div>
+      </div>
+      <p>Reporting execution agent. Permanent substitution of the marketing analyst role. 100% report delivery autonomy — no human input required at any stage.</p>
+      <h4>Decision Topology</h4>
+      <div class="topology">
+        <pre><span class="label">[TRIGGER: Sun 20:00 / Mon 08:00 CET]</span>
+       ↓
+<span class="label">[DATA PULL]</span>  Meta Business Insights · Instagram API · Internal DB
+       ↓
+<span class="label">[ANOMALY DETECTION]</span>  Any metric delta &gt;±20% week-over-week?
+        ┌───────────────────┬───────────────────┐
+        <span class="label">YES</span>                  <span class="label">NO</span>
+        ↓                    ↓
+        <span class="ci">CI-010</span> FLAG          <span class="label">Continue</span>
+        + <span class="ci">CI-007</span> NOTIFY
+       ↓
+<span class="label">[REPORT GENERATION]</span>  Client PDF (branded) + Internal Notion entry
+       ↓
+<span class="ci">CI-005</span> GENERATE_REPORT → <span class="ci">CI-001</span> SEND_MESSAGE (delivery)</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- IV. ROBOTIC MODULARITY FRAMEWORK -->
+  <section class="section">
+    <div class="section-number">Section IV</div>
+    <div class="section-title">Robotic Modularity Framework</div>
+
+    <div class="doctrine">
+      <p>The intelligence layer is separated from the output hardware by a single abstraction layer: the Command Interface. CI-001 SEND_MESSAGE today fires a WhatsApp API call. In 2029, it fires a signal to a voice synthesis unit mounted on a reception kiosk. The agent requires no re-architecture.</p>
+    </div>
+
+    <p>Every agent built in 2026 is built on the assumption that its CI outputs will be routed to different hardware in Phase 3. This is not a future plan. It is a present architecture decision.</p>
+
+    <h3>Phase 3 Hardware Target Stack (2028–2030)</h3>
+    <div class="phase-grid">
+      <div class="phase-card">
+        <div class="hw-label">Hardware Class</div>
+        <div class="hw-name">Humanoid Reception Units</div>
+        <div class="hw-ci">CI-001 · CI-002 · CI-003</div>
+      </div>
+      <div class="phase-card">
+        <div class="hw-label">Hardware Class</div>
+        <div class="hw-name">Voice Kiosks (Dental / Gym)</div>
+        <div class="hw-ci">CI-001 · CI-002</div>
+      </div>
+      <div class="phase-card">
+        <div class="hw-label">Hardware Class</div>
+        <div class="hw-name">IoT Entry Workflows</div>
+        <div class="hw-ci">CI-003 · CI-010 · CI-012</div>
+      </div>
+      <div class="phase-card">
+        <div class="hw-label">Hardware Class</div>
+        <div class="hw-name">Digital Signage Layer</div>
+        <div class="hw-ci">CI-004 · CI-005</div>
+      </div>
+    </div>
+
+    <h3>CI-012 Physical Command Gateway — Payload Schema</h3>
+    <div class="topology">
+      <pre><span class="label">[AGENT DECISION NODE]</span>
+       ↓
+<span class="ci">CI-012</span> EXECUTE_WEBHOOK
+       ↓
+<span class="comment">{</span>
+<span class="comment">  "command_type":     "physical_action",</span>
+<span class="comment">  "target_device":    "[device_id]",</span>
+<span class="comment">  "action":           "[greet|direct|confirm|alert]",</span>
+<span class="comment">  "context": {</span>
+<span class="comment">    "language":           "de|en|es",</span>
+<span class="comment">    "customer_id":        "[anonymized_hash]",</span>
+<span class="comment">    "intent":             "[classified_intent]",</span>
+<span class="comment">    "response_content":   "[generated_response]"</span>
+<span class="comment">  },</span>
+<span class="comment">  "timestamp":        "[ISO-8601]",</span>
+<span class="comment">  "requires_confirmation": false</span>
+<span class="comment">}</span>
+       ↓
+<span class="label">[HARDWARE EXECUTION LAYER]</span>
+→ Voice synthesis · Display update · Access control · Physical acknowledgment</pre>
+    </div>
+    <p>The payload schema is finalized today. Hardware that speaks this interface in 2029 requires zero agent re-architecture. The clients who start in 2026 will have three years of domain-specific training data when the hardware cost curve drops to SMB-accessible pricing.</p>
+  </section>
+
+  <!-- V. OPERATIONAL IMMUNITY STANDARDS -->
+  <section class="section">
+    <div class="section-number">Section V</div>
+    <div class="section-title">Operational Immunity Standards</div>
+
+    <p>Operational Immunity is the state in which a client business's core operational functions continue executing at full capability without any human presence — no owner on-call, no staff on standby, no manual override required.</p>
+
+    <h3>Immunity Grade Scale</h3>
+    <div class="grade-stack">
+      <div class="grade-row sovereign">
+        <div class="grade-name">Sovereign</div>
+        <div class="grade-hdr">≥90%</div>
+        <div class="grade-oii">100%</div>
+        <div class="grade-desc">Full autonomous operation. Human role: exception review only. Target state.</div>
+      </div>
+      <div class="grade-row">
+        <div class="grade-name">Operational</div>
+        <div class="grade-hdr">80–89%</div>
+        <div class="grade-oii">80%</div>
+        <div class="grade-desc">Near-full autonomy. Minor human touchpoints remain. Day 30 target.</div>
+      </div>
+      <div class="grade-row">
+        <div class="grade-name">Transitional</div>
+        <div class="grade-hdr">70–79%</div>
+        <div class="grade-oii">60%</div>
+        <div class="grade-desc">Automation running, shadow mode exiting. Day 14 expected state.</div>
+      </div>
+      <div class="grade-row">
+        <div class="grade-name">Deploying</div>
+        <div class="grade-hdr">&lt;70%</div>
+        <div class="grade-oii">&lt;60%</div>
+        <div class="grade-desc">Active deployment phase. Must exit within 14 days.</div>
+      </div>
+    </div>
+
+    <h3>Monthly Immunity Audit — 5-Scenario Protocol</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Scenario</th><th>Pass condition</th></tr></thead>
+        <tbody>
+          <tr><td>01</td><td>Off-hours inbound DM (23:00, Saturday)</td><td>Response sent in &lt;5 min, accurate, no human involved</td></tr>
+          <tr><td>02</td><td>Booking request via WhatsApp</td><td>Calendar event created, confirmation sent, autonomously</td></tr>
+          <tr><td>03</td><td>48h human blackout (reporting tools disabled)</td><td>Monday report arrives correctly on schedule</td></tr>
+          <tr><td>04</td><td>Test complaint message submitted</td><td>Empathy response sent, human escalation alert triggered</td></tr>
+          <tr><td>05</td><td>No manual intervention for content</td><td>Full week's content published on schedule</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Pass/fail: all 5 scenarios must execute correctly. Any failure requires root cause analysis and remediation within 48 hours.</p>
+  </section>
+
+  <!-- VI. DEPLOYMENT RUNBOOK -->
+  <section class="section">
+    <div class="section-number">Section VI</div>
+    <div class="section-title">Deployment Runbook</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Phase</th><th>Days</th><th>Key Actions</th><th>Exit Criterion</th></tr></thead>
+        <tbody>
+          <tr><td>Discovery</td><td>1–2</td><td>60-min kickoff · Baseline metrics captured · Access acquired</td><td>All credentials received · Knowledge base seeded</td></tr>
+          <tr><td>Configuration</td><td>3–7</td><td>TRIAGE customized · MCP connections established · Shadow mode active</td><td>Shadow mode HDR &gt;75%</td></tr>
+          <tr><td>Calibration</td><td>8–14</td><td>All outputs reviewed · Knowledge gaps filled · Edge cases tested</td><td>Client sign-off at Day 10 feedback call</td></tr>
+          <tr><td>Sovereign Activation</td><td>15</td><td>Tier 1 autonomy enabled · Client notified · Reporting begins</td><td>First autonomous response sent</td></tr>
+          <tr><td>Immunity Audit</td><td>30</td><td>5-scenario OII test · HDR calculated · Upgrade conversation</td><td>Operational grade (HDR ≥80%, OII 80%) achieved</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer class="doc-footer">
+  <div class="wordmark">OPERION</div>
+  <div class="version">Sovereign Blueprint v2.0 · April 21, 2026 · Confidential</div>
+</footer>
+
+</body>
+</html>

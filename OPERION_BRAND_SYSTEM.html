@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OPERION — Brand Identity System</title>
+  <style>
+    :root {
+      --carbon: #0D0D0D;
+      --white:  #FAFAFA;
+      --mid:    #6B6B6B;
+      --rule:   #E0E0E0;
+      --bg:     #F5F5F5;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--carbon);
+      font-weight: 300;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      background: var(--carbon);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      padding: 80px 40px;
+    }
+
+    .cover svg { width: 140px; height: 140px; }
+
+    .cover-wordmark {
+      color: var(--white);
+      font-size: 64px;
+      font-weight: 200;
+      letter-spacing: 16px;
+      text-transform: uppercase;
+    }
+
+    .cover-tagline {
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      opacity: 0.4;
+    }
+
+    .cover-meta {
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      opacity: 0.25;
+      margin-top: 60px;
+      text-align: center;
+      line-height: 1.8;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 60px;
+    }
+
+    .page + .page {
+      border-top: 1px solid var(--rule);
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 48px;
+    }
+
+    .section-label span {
+      color: var(--carbon);
+      margin-right: 16px;
+    }
+
+    h2 {
+      font-size: 36px;
+      font-weight: 200;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      color: var(--mid);
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: #333;
+      max-width: 640px;
+    }
+
+    /* ── GRID ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+    .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; }
+
+    /* ── ASSET CARDS ── */
+    .asset-card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .asset-card.dark {
+      background: var(--carbon);
+      border-color: #222;
+    }
+
+    .asset-card svg {
+      width: 120px;
+      height: 120px;
+    }
+
+    .asset-card.wide svg {
+      width: auto;
+      height: 60px;
+    }
+
+    .asset-card .asset-name {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    .asset-card.dark .asset-name { color: rgba(250,250,250,0.4); }
+
+    .asset-card .asset-usage {
+      font-size: 12px;
+      color: var(--mid);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .asset-card.dark .asset-usage { color: rgba(250,250,250,0.3); }
+
+    /* ── COLOR ── */
+    .color-row { display: flex; gap: 24px; flex-wrap: wrap; }
+
+    .swatch {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .swatch-block {
+      height: 140px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .swatch-name {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 1px;
+    }
+
+    .swatch-hex {
+      font-size: 12px;
+      color: var(--mid);
+      letter-spacing: 2px;
+      font-family: 'SF Mono', 'Consolas', monospace;
+    }
+
+    .swatch-role {
+      font-size: 12px;
+      color: var(--mid);
+      line-height: 1.5;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    .type-specimen { margin-bottom: 48px; }
+
+    .type-display {
+      font-size: 72px;
+      font-weight: 200;
+      letter-spacing: 12px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .type-headline {
+      font-size: 42px;
+      font-weight: 200;
+      letter-spacing: 6px;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .type-subhead {
+      font-size: 24px;
+      font-weight: 300;
+      letter-spacing: 4px;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .type-body {
+      font-size: 16px;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      line-height: 1.75;
+    }
+
+    .type-label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-top: 4px;
+    }
+
+    /* ── CONSTRUCTION ── */
+    .construction-grid {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      padding: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── RULES ── */
+    .rule-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .rule-table th {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--mid);
+      font-weight: 400;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--rule);
+      text-align: left;
+    }
+
+    .rule-table td {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--rule);
+      line-height: 1.5;
+      vertical-align: top;
+    }
+
+    .rule-table td:first-child { width: 30%; font-weight: 400; }
+
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    .tag-ok { background: #E8F5E9; color: #2E7D32; }
+    .tag-no { background: #FFEBEE; color: #C62828; }
+
+    /* ── DON'T / DO ── */
+    .dont-do { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    .dont-card, .do-card {
+      border-radius: 12px;
+      padding: 32px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .dont-card {
+      background: #FFF5F5;
+      border: 1px solid #FFCDD2;
+    }
+
+    .do-card {
+      background: #F5FFF8;
+      border: 1px solid #C8E6C9;
+    }
+
+    .dont-card h4 { color: #C62828; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+    .do-card h4 { color: #2E7D32; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+
+    .dont-card li, .do-card li { margin-bottom: 8px; padding-left: 16px; position: relative; }
+    .dont-card li::before { content: '—'; position: absolute; left: 0; color: #EF5350; }
+    .do-card li::before { content: '—'; position: absolute; left: 0; color: #66BB6A; }
+
+    ul { list-style: none; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--carbon);
+      padding: 60px;
+      text-align: center;
+    }
+
+    .footer p {
+      color: rgba(250,250,250,0.3);
+      font-size: 12px;
+      letter-spacing: 2px;
+      max-width: 100%;
+      text-align: center;
+    }
+
+    /* ── INLINE SVGs (mark definitions) ── */
+    .mark-dark-svg { display: block; }
+    .mark-light-svg { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════ COVER ══════════════════════ -->
+<section class="cover">
+
+  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="mark-dark-svg">
+    <rect x="0" y="0" width="200" height="200" rx="40" fill="#0D0D0D"/>
+    <circle cx="100" cy="100" r="84" fill="none" stroke="#FAFAFA" stroke-width="5"/>
+    <polygon points="152,100 74,145 74,55" fill="none" stroke="#FAFAFA" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="10"/>
+  </svg>
+
+  <div class="cover-wordmark">OPERION</div>
+  <div class="cover-tagline">Brand Identity System — v1.0</div>
+
+  <div class="cover-meta">
+    Classification: Internal Confidential<br>
+    Version 1.0 · April 21, 2026<br>
+    Owner: Felix Andres Rios Blanco — Founder & CEO
+  </div>
+</section>
+
+
+<!-- ══════════════════════ 01 — MARK ══════════════════════ -->
+<section class="page">
+  <div class="section-label"><span>01</span>The Mark</div>
+
+  <h2>The Execution Vector</h2>
+  <br>
+  <p>
+    A precision circle — the orbit — enclosing a right-pointing equilateral triangle — the execution vector.
+    The circle represents order, completeness, and operational precision.
+    The triangle points unambiguously forward: not potential, but motion. Not aspiration, but execution.
+  </p>
+  <br><br>
+
+  <div class="grid-4">
+
+    <div class="asset-card dark">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="200" height="200" rx="40" fill="#0D0D0D"/>
+        <circle cx="100" cy="100" r="84" fill="none" stroke="#FAFAFA" stroke-width="5"/>
+        <polygon points="152,100 74,145 74,55" fill="none" stroke="#FAFAFA" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="10"/>
+      </svg>
+      <div class="asset-name">Primary Mark</div>
+      <div class="asset-usage">Dark badge. Default for all digital surfaces.</div>
+    </div>
+
+    <div class="asset-card">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="200" height="200" rx="40" fill="#FFFFFF"/>
+        <circle cx="100" cy="100" r="84" fill="none" stroke="#0D0D0D" stroke-width="5"/>
+        <polygon points="152,100 74,145 74,55" fill="none" stroke="#0D0D0D" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="10"/>
+      </svg>
+      <div class="asset-name">Light Mark</div>
+      <div class="asset-usage">White badge. For print, light surfaces, inverted layouts.</div>
+    </div>
+
+    <div class="asset-card dark">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="84" fill="none" stroke="#FAFAFA" stroke-width="5"/>
+        <polygon points="152,100 74,145 74,55" fill="none" stroke="#FAFAFA" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="10"/>
+      </svg>
+      <div class="asset-name">Sigil</div>
+      <div class="asset-usage">Bare mark, no container. Watermarks, large-format, embossing.</div>
+    </div>
+
+    <div class="asset-card">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="84" fill="none" stroke="#0D0D0D" stroke-width="5"/>
+        <polygon points="152,100 74,145 74,55" fill="none" stroke="#0D0D0D" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="10"/>
+      </svg>
+      <div class="asset-name">Sigil — Inverted</div>
+      <div class="asset-usage">For light overlays and reversed watermarks.</div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════ 02 — CONSTRUCTION ══════════════════════ -->
+<section class="page">
+  <div class="section-label"><span>02</span>Construction Grid</div>
+
+  <h2>Geometric Rationale</h2>
+  <br>
+  <p>
+    The mark is built on a single mathematical relationship: the golden section (φ ≈ 1.618).
+    The inscribed circle of the triangle (r = 52) and the precision ring (r = 84) share the ratio
+    52 / 84 ≈ 0.619 ≈ 1/φ. This is not decorative — it is structural.
+    The left edge of the triangle sits at a perfect vertical, creating a stable anchor.
+  </p>
+  <br><br>
+
+  <div class="construction-grid">
+    <svg viewBox="0 0 360 360" width="420" height="420" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+
+      <!-- Grid background -->
+      <!-- Unit grid lines (light) -->
+      <defs>
+        <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+          <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#E8E8E8" stroke-width="0.5"/>
+        </pattern>
+        <pattern id="grid-major" width="60" height="60" patternUnits="userSpaceOnUse">
+          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#D0D0D0" stroke-width="0.75"/>
+        </pattern>
+      </defs>
+      <rect x="0" y="0" width="360" height="360" fill="url(#grid)"/>
+      <rect x="0" y="0" width="360" height="360" fill="url(#grid-major)"/>
+
+      <!-- Construction center point -->
+      <circle cx="180" cy="180" r="2" fill="#999"/>
+      <!-- Crosshairs -->
+      <line x1="180" y1="20" x2="180" y2="340" stroke="#C0C0C0" stroke-width="0.75" stroke-dasharray="4 4"/>
+      <line x1="20" y1="180" x2="340" y2="180" stroke="#C0C0C0" stroke-width="0.75" stroke-dasharray="4 4"/>
+
+      <!-- Inscribed circle r=52 (construction aid) -->
+      <circle cx="180" cy="180" r="93.6" fill="none" stroke="#D0B8F0" stroke-width="0.75" stroke-dasharray="6 4" opacity="0.8"/>
+
+      <!-- Precision ring r=84 → scaled to fit 360 viewport (×1.8) = r=151.2 → use r=151 -->
+      <!-- Actually let's use a clean scale: original 200×200, center at 100,100
+           New canvas 360×360, center 180,180 — scale = 1.8
+           ring r = 84 × 1.8 = 151.2
+           triangle: (152,100) → (152-100)*1.8+180=273.6, y=180
+                     (74,145) → (74-100)*1.8+180=133.2, (145-100)*1.8+180=261
+                     (74,55)  → 133.2, (55-100)*1.8+180=99
+      -->
+      <circle cx="180" cy="180" r="151.2" fill="none" stroke="#0D0D0D" stroke-width="3"/>
+
+      <!-- Triangle -->
+      <polygon points="273.6,180 133.2,261 133.2,99"
+               fill="none" stroke="#0D0D0D" stroke-width="3"
+               stroke-linejoin="miter" stroke-miterlimit="10"/>
+
+      <!-- Dimension: ring radius -->
+      <line x1="180" y1="180" x2="331.2" y2="180" stroke="#999" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="250" y="172" font-family="'SF Mono',Consolas,monospace" font-size="11" fill="#999" letter-spacing="0.5">r = 84</text>
+
+      <!-- Dimension: inscribed radius -->
+      <line x1="180" y1="180" x2="133.2" y2="180" stroke="#B39DDB" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="136" y="172" font-family="'SF Mono',Consolas,monospace" font-size="11" fill="#B39DDB" letter-spacing="0.5">r = 52</text>
+
+      <!-- Vertical edge annotation -->
+      <line x1="120" y1="99" x2="120" y2="261" stroke="#E53935" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="88" y="184" font-family="'SF Mono',Consolas,monospace" font-size="10" fill="#E53935" letter-spacing="0.5">x = 74</text>
+
+      <!-- Golden ratio annotation -->
+      <text x="290" y="260" font-family="'Helvetica Neue',Arial,sans-serif" font-size="11" fill="#999">52/84 ≈ 1/φ</text>
+
+    </svg>
+  </div>
+
+  <br><br>
+  <table class="rule-table">
+    <thead>
+      <tr>
+        <th>Element</th>
+        <th>Value</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ViewBox</td>
+        <td>200 × 200</td>
+        <td>All assets use this canonical grid. Scale proportionally.</td>
+      </tr>
+      <tr>
+        <td>Badge radius (rx)</td>
+        <td>40px (canonical) · 20% of badge side</td>
+        <td>Scale proportionally — never apply a fixed radius when resizing.</td>
+      </tr>
+      <tr>
+        <td>Precision ring</td>
+        <td>r = 84, stroke-width = 5</td>
+        <td>Stroke is always 5/200 = 2.5% of viewport. Scale stroke with mark.</td>
+      </tr>
+      <tr>
+        <td>Triangle vertices</td>
+        <td>(152, 100) · (74, 145) · (74, 55)</td>
+        <td>Inscribed r = 52. Left edge perfectly vertical at x = 74.</td>
+      </tr>
+      <tr>
+        <td>Golden ratio</td>
+        <td>52 / 84 ≈ 0.619 ≈ 1/φ</td>
+        <td>Inviolable. Do not alter inscribed vs ring radii independently.</td>
+      </tr>
+      <tr>
+        <td>Clear space</td>
+        <td>Minimum 1× mark height on all sides</td>
+        <td>In the badge, the badge container itself provides clear space.</td>
+      </tr>
+      <tr>
+        <td>Minimum size</td>
+        <td>24 × 24px (digital) · 8mm (print)</td>
+        <td>Below this threshold, use the sigil without badge container.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+
+<!-- ══════════════════════ 03 — LOCKUPS ══════════════════════ -->
+<section class="page">
+  <div class="section-label"><span>03</span>Lockups</div>
+
+  <h2>Mark + Wordmark</h2>
+  <br>
+  <p>Use the horizontal lockup as default. Use the vertical lockup when the layout demands stacked alignment (app icons excluded — use mark only).</p>
+  <br><br>
+
+  <!-- HORIZONTAL — LIGHT BG -->
+  <h3>Horizontal Lockup — Light</h3>
+  <div class="asset-card wide" style="align-items:flex-start; padding: 48px 60px;">
+    <svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" style="height:80px; width:auto;">
+      <rect x="0" y="0" width="520" height="120" fill="#FFFFFF"/>
+      <rect x="0" y="0" width="120" height="120" rx="24" fill="#0D0D0D"/>
+      <circle cx="60" cy="60" r="50" fill="none" stroke="#FAFAFA" stroke-width="3"/>
+      <polygon points="91.2,60 44.4,87 44.4,33" fill="none" stroke="#FAFAFA" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="10"/>
+      <line x1="144" y1="24" x2="144" y2="96" stroke="#0D0D0D" stroke-width="1" opacity="0.15"/>
+      <text x="164" y="72" font-family="'Helvetica Neue',Arial,sans-serif" font-weight="200" font-size="52" letter-spacing="9" fill="#0D0D0D" dominant-baseline="middle" text-anchor="start">OPERION</text>
+    </svg>
+    <div class="asset-name" style="margin-top:20px;">Default — dark badge on white</div>
+  </div>
+
+  <br>
+
+  <!-- HORIZONTAL — DARK BG -->
+  <h3>Horizontal Lockup — Dark</h3>
+  <div class="asset-card wide dark" style="align-items:flex-start; padding: 48px 60px;">
+    <svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" style="height:80px; width:auto;">
+      <rect x="0" y="0" width="520" height="120" fill="#0D0D0D"/>
+      <rect x="0" y="0" width="120" height="120" rx="24" fill="#FAFAFA"/>
+      <circle cx="60" cy="60" r="50" fill="none" stroke="#0D0D0D" stroke-width="3"/>
+      <polygon points="91.2,60 44.4,87 44.4,33" fill="none" stroke="#0D0D0D" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="10"/>
+      <line x1="144" y1="24" x2="144" y2="96" stroke="#FAFAFA" stroke-width="1" opacity="0.2"/>
+      <text x="164" y="72" font-family="'Helvetica Neue',Arial,sans-serif" font-weight="200" font-size="52" letter-spacing="9" fill="#FAFAFA" dominant-baseline="middle" text-anchor="start">OPERION</text>
+    </svg>
+    <div class="asset-name" style="margin-top:20px;">Dark background — light badge, white wordmark</div>
+  </div>
+
+  <br><br>
+
+  <!-- VERTICAL -->
+  <h3>Vertical Lockup</h3>
+  <div class="grid-2">
+    <div class="asset-card" style="padding: 60px 40px;">
+      <svg viewBox="0 0 340 280" xmlns="http://www.w3.org/2000/svg" style="height:180px;width:auto;">
+        <rect x="0" y="0" width="340" height="280" fill="#FFFFFF"/>
+        <rect x="90" y="16" width="160" height="160" rx="32" fill="#0D0D0D"/>
+        <circle cx="170" cy="96" r="67" fill="none" stroke="#FAFAFA" stroke-width="4"/>
+        <polygon points="211.6,96 149.2,132 149.2,60" fill="none" stroke="#FAFAFA" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="10"/>
+        <text x="170" y="230" font-family="'Helvetica Neue',Arial,sans-serif" font-weight="200" font-size="46" letter-spacing="10" fill="#0D0D0D" dominant-baseline="middle" text-anchor="middle">OPERION</text>
+        <text x="170" y="262" font-family="'Helvetica Neue',Arial,sans-serif" font-weight="300" font-size="11" letter-spacing="3" fill="#0D0D0D" opacity="0.45" dominant-baseline="middle" text-anchor="middle">THE EXECUTION VECTOR</text>
+      </svg>
+      <div class="asset-name">Vertical — Light</div>
+    </div>
+
+    <div class="asset-card dark" style="padding: 60px 40px;">
+      <svg viewBox="0 0 340 280" xmlns="http://www.w3.org/2000/svg" style="height:180px;width:auto;">
+        <rect x="0" y="0" width="340" height="280" fill="#0D0D0D"/>
+        <rect x="90" y="16" width="160" height="160" rx="32" fill="#FAFAFA"/>
+        <circle cx="170" cy="96" r="67" fill="none" stroke="#0D0D0D" stroke-width="4"/>
+        <polygon points="211.6,96 149.2,132 149.2,60" fill="none" stroke="#0D0D0D" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="10"/>
+        <text x="170" y="230" font-family="'Helvetica Neue',Arial,sans-serif" font-weight="200" font-size="46" letter-spacing="10" fill="#FAFAFA" dominant-baseline="middle" text-anchor="middle">OPERION</text>
+        <text x="170" y="262" font-family="'Helvetica Neue',Arial,sans-serif" font-weight="300" font-size="11" letter-spacing="3" fill="#FAFAFA" opacity="0.4" dominant-baseline="middle" text-anchor="middle">THE EXECUTION VECTOR</text>
+      </svg>
+      <div class="asset-name">Vertical — Dark</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ 04 — COLOR ══════════════════════ -->
+<section class="page">
+  <div class="section-label"><span>04</span>Color System</div>
+
+  <h2>Strictly Monochromatic</h2>
+  <br>
+  <p>
+    OPERION uses no color. This is not a limitation — it is a statement.
+    Monochromatic identity communicates that the work speaks for itself.
+    Every element either is Carbon or White. There is no in-between.
+  </p>
+  <br><br>
+
+  <div class="color-row">
+
+    <div class="swatch">
+      <div class="swatch-block" style="background:#0D0D0D; border-color:#222;"></div>
+      <div class="swatch-name">Deep Carbon</div>
+      <div class="swatch-hex">#0D0D0D</div>
+      <div class="swatch-role">Primary — backgrounds, containers, type on light. Not pure black: slightly warm, less harsh on screen.</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-block" style="background:#FAFAFA;"></div>
+      <div class="swatch-name">Near White</div>
+      <div class="swatch-hex">#FAFAFA</div>
+      <div class="swatch-role">Primary inverse — type on dark, mark strokes on dark badges, light surfaces.</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-block" style="background:#6B6B6B;"></div>
+      <div class="swatch-name">Carbon Mid</div>
+      <div class="swatch-hex">#6B6B6B</div>
+      <div class="swatch-role">Supporting — labels, captions, secondary text. Never used for headings or marks.</div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-block" style="background:#F5F5F5;"></div>
+      <div class="swatch-name">Off-White</div>
+      <div class="swatch-hex">#F5F5F5</div>
+      <div class="swatch-role">Page backgrounds, card fills. Creates depth on all-white layouts without adding color.</div>
+    </div>
+
+  </div>
+
+  <br><br>
+  <h3>Color Rules</h3>
+  <table class="rule-table">
+    <thead><tr><th>Rule</th><th>Rationale</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>No accent colors — ever</td>
+        <td>Color additions must be approved at the strategic level (e.g., entering a market that requires cultural color signaling). The mark itself is never colored.</td>
+      </tr>
+      <tr>
+        <td>#0D0D0D, not #000000</td>
+        <td>Pure black reads as harsh and flat on screens. Deep Carbon retains warmth and depth at scale.</td>
+      </tr>
+      <tr>
+        <td>#FAFAFA, not #FFFFFF</td>
+        <td>Pure white on screen causes eye strain at scale. Near White maintains the monochromatic discipline without harshness.</td>
+      </tr>
+      <tr>
+        <td>Gradient: never</td>
+        <td>Gradients imply transition and complexity. OPERION executes. No transitions.</td>
+      </tr>
+      <tr>
+        <td>Transparency only for hierarchy</td>
+        <td>Opacity levels (40–60%) are permitted for tertiary text only. The mark is always full opacity.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+
+<!-- ══════════════════════ 05 — TYPOGRAPHY ══════════════════════ -->
+<section class="page">
+  <div class="section-label"><span>05</span>Typography</div>
+
+  <h2>Helvetica Neue — Weight 200</h2>
+  <br>
+  <p>The typeface for OPERION is Helvetica Neue in its lightest digital weight (200/UltraLight). This is not a style choice — it is a precision instrument. Wide letter-spacing at display sizes creates the engineered tension between characters that defines the brand.</p>
+  <br><br>
+
+  <div class="type-specimen">
+    <div class="type-display">OPERION</div>
+    <div class="type-label">Display — 72px / Weight 200 / Tracking 0.18em / All-caps</div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-headline">THE EXECUTION VECTOR</div>
+    <div class="type-label">Tagline — 42px / Weight 200 / Tracking 0.14em / All-caps</div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-subhead">Sovereign Execution Operating System</div>
+    <div class="type-label">Section Head — 24px / Weight 300 / Tracking 0.06em</div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-body">OPERION deploys autonomous AI agents that handle lead response, content publishing, and operational reporting — fully replacing front-desk labor at a fraction of the cost.</div>
+    <div class="type-label">Body — 16px / Weight 300 / Tracking 0.01em / Line-height 1.75</div>
+  </div>
+
+  <br>
+  <h3>Type Rules</h3>
+  <table class="rule-table">
+    <thead><tr><th>Context</th><th>Spec</th><th>Tracking</th></tr></thead>
+    <tbody>
+      <tr><td>Wordmark (lockup)</td><td>Helvetica Neue 200, 52–64px, ALL-CAPS</td><td>~9px (≈ 0.17em)</td></tr>
+      <tr><td>Display headline</td><td>Helvetica Neue 200, 48–72px, ALL-CAPS</td><td>0.12–0.18em</td></tr>
+      <tr><td>Section headers</td><td>Helvetica Neue 200–300, 28–40px</td><td>0.06–0.10em</td></tr>
+      <tr><td>Labels / metadata</td><td>Helvetica Neue 400, 10–12px, ALL-CAPS</td><td>0.25–0.35em</td></tr>
+      <tr><td>Body copy</td><td>Helvetica Neue 300, 14–16px, sentence case</td><td>0.01em</td></tr>
+      <tr><td>Code / data</td><td>SF Mono / Consolas, 13px</td><td>0.02em</td></tr>
+      <tr><td>Fallback stack</td><td>'Helvetica Neue', 'Arial', sans-serif</td><td>—</td></tr>
+    </tbody>
+  </table>
+</section>
+
+
+<!-- ══════════════════════ 06 — USAGE RULES ══════════════════════ -->
+<section class="page">
+  <div class="section-label"><span>06</span>Usage Rules</div>
+
+  <h2>What to Do. What Never to Do.</h2>
+  <br><br>
+
+  <div class="dont-do">
+    <div class="dont-card">
+      <h4>Never</h4>
+      <ul>
+        <li>Add color to the mark or wordmark</li>
+        <li>Rotate the mark (the direction matters: it points right)</li>
+        <li>Stretch or skew the mark disproportionately</li>
+        <li>Place the mark on a patterned or photographic background without isolation</li>
+        <li>Use a font weight other than 200 for the wordmark</li>
+        <li>Apply drop shadows, glows, or bevels to the mark</li>
+        <li>Use the old OPERION geometry (upward triangle)</li>
+        <li>Reduce below minimum size (24px digital, 8mm print)</li>
+        <li>Change letter-spacing on the wordmark by more than ±2px</li>
+        <li>Add the "™" or "®" symbol until trademark is filed</li>
+      </ul>
+    </div>
+    <div class="do-card">
+      <h4>Always</h4>
+      <ul>
+        <li>Use the correct variant for the surface (dark mark on light, light mark on dark)</li>
+        <li>Maintain clear space of 1× mark height on all sides</li>
+        <li>Use the bare sigil for watermarks (no badge container)</li>
+        <li>Scale the badge rx proportionally with the badge size</li>
+        <li>Use the horizontal lockup as the primary layout choice</li>
+        <li>Keep the mark and wordmark in the same color family (no mix)</li>
+        <li>Use ALL-CAPS for the wordmark without exception</li>
+        <li>Apply 10% opacity sigil for video watermarks (bottom-right corner)</li>
+        <li>Preserve stroke-width proportionality when scaling SVGs</li>
+        <li>Deliver SVG for digital, PDF/EPS for print</li>
+      </ul>
+    </div>
+  </div>
+
+  <br><br>
+  <h3>Minimum Clear Space</h3>
+  <div class="construction-grid" style="gap:80px; background:#F9F9F9;">
+
+    <div style="text-align:center;">
+      <!-- Clear space illustration -->
+      <svg viewBox="0 0 240 240" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Clear space indicator -->
+        <rect x="20" y="20" width="200" height="200" fill="none" stroke="#E53935" stroke-width="1" stroke-dasharray="4 4"/>
+        <!-- Badge mark — centered -->
+        <rect x="70" y="70" width="100" height="100" rx="20" fill="#0D0D0D"/>
+        <circle cx="120" cy="120" r="42" fill="none" stroke="#FAFAFA" stroke-width="2.5"/>
+        <polygon points="146,120 107,142.5 107,97.5" fill="none" stroke="#FAFAFA" stroke-width="2.5" stroke-linejoin="miter" stroke-miterlimit="10"/>
+        <!-- Dimension arrows -->
+        <text x="120" y="14" font-family="Arial" font-size="10" fill="#E53935" text-anchor="middle">1× mark height</text>
+        <text x="8" y="124" font-family="Arial" font-size="10" fill="#E53935" text-anchor="middle" transform="rotate(-90,8,124)">1× mark height</text>
+      </svg>
+      <div style="font-size:12px; color:#999; letter-spacing:2px; text-transform:uppercase; margin-top:12px;">Clear Space Rule</div>
+    </div>
+
+    <div style="font-size:13px; line-height:2; color:#555;">
+      <strong>Digital minimum:</strong> 24 × 24 px<br>
+      <strong>Print minimum:</strong> 8mm × 8mm<br>
+      <strong>Favicon:</strong> 32 × 32 px (mark only, no badge)<br>
+      <strong>App icon:</strong> badge with rx=20% at any size<br>
+      <strong>Video watermark:</strong> sigil, 40px, 10% opacity, 16px from corner<br>
+      <strong>Email signature:</strong> horizontal lockup, max 200px wide
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════ 07 — EVOLUTION ══════════════════════ -->
+<section class="page">
+  <div class="section-label"><span>07</span>Brand Evolution</div>
+
+  <h2>From OPERION to OPERION</h2>
+  <br>
+  <p>
+    The OPERION mark was an inverted V — two lines rising to an amber apex.
+    It pointed <em>up</em>: aspiration, emergence, potential.
+    OPERION inherits the same equilateral triangle geometry, but rotates it 90°.
+    It points <em>right</em>: motion, execution, operation.
+  </p>
+  <br>
+  <p>
+    This is not a redesign. It is a rotation. Same DNA. Transformed meaning.
+  </p>
+  <br><br>
+
+  <div style="display:flex; align-items:center; gap:60px;">
+
+    <!-- Old mark: upward triangle schematic -->
+    <div style="text-align:center;">
+      <svg viewBox="0 0 200 200" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="200" height="200" rx="40" fill="#0F1729"/>
+        <!-- Inverted V (OPERION geometry schematic) -->
+        <polygon points="100,60 160,160 40,160" fill="none" stroke="#E8A33D" stroke-width="5" stroke-linejoin="round"/>
+      </svg>
+      <div style="font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#999; margin-top:12px;">OPERION · 2025</div>
+      <div style="font-size:12px; color:#bbb; margin-top:4px;">Aspiration ↑</div>
+    </div>
+
+    <div style="font-size:32px; color:#C0C0C0; font-weight:200;">→</div>
+
+    <!-- New mark: rightward triangle -->
+    <div style="text-align:center;">
+      <svg viewBox="0 0 200 200" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="200" height="200" rx="40" fill="#0D0D0D"/>
+        <circle cx="100" cy="100" r="84" fill="none" stroke="#FAFAFA" stroke-width="5"/>
+        <polygon points="152,100 74,145 74,55" fill="none" stroke="#FAFAFA" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="10"/>
+      </svg>
+      <div style="font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#999; margin-top:12px;">OPERION · 2026</div>
+      <div style="font-size:12px; color:#bbb; margin-top:4px;">Execution →</div>
+    </div>
+
+  </div>
+
+  <br><br>
+  <table class="rule-table">
+    <thead><tr><th>Dimension</th><th>OPERION</th><th>OPERION</th></tr></thead>
+    <tbody>
+      <tr><td>Direction</td><td>Upward — aspiration</td><td>Rightward — execution</td></tr>
+      <tr><td>Container</td><td>Dark navy #0F1729</td><td>Deep carbon #0D0D0D</td></tr>
+      <tr><td>Accent</td><td>Amber apex #E8A33D (cultural, warm)</td><td>None — strictly monochromatic</td></tr>
+      <tr><td>Structural companion</td><td>Triangle only</td><td>Triangle + precision ring (golden section)</td></tr>
+      <tr><td>Meaning</td><td>Rising above. Potential. Quechua heritage.</td><td>Executing forward. Operating. Latin precision.</td></tr>
+      <tr><td>Typography</td><td>Not formalized</td><td>Helvetica Neue 200, ultra-tracked</td></tr>
+    </tbody>
+  </table>
+</section>
+
+
+<!-- ══════════════════════ 08 — FILE SYSTEM ══════════════════════ -->
+<section class="page">
+  <div class="section-label"><span>08</span>Asset Inventory</div>
+
+  <h2>Delivered Files</h2>
+  <br><br>
+
+  <table class="rule-table">
+    <thead>
+      <tr>
+        <th>File</th>
+        <th>Description</th>
+        <th>Use When</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>operion_mark_primary.svg</td>
+        <td>Dark badge — white strokes on carbon</td>
+        <td>Digital default. App icons, presentations, dark UI.</td>
+        <td><span class="tag tag-ok">Ready</span></td>
+      </tr>
+      <tr>
+        <td>operion_mark_light.svg</td>
+        <td>Light badge — carbon strokes on white</td>
+        <td>Print, light backgrounds, document headers.</td>
+        <td><span class="tag tag-ok">Ready</span></td>
+      </tr>
+      <tr>
+        <td>operion_sigil.svg</td>
+        <td>Bare mark — carbon, transparent background</td>
+        <td>Large format, overlays, embossing, watermarks on light surfaces.</td>
+        <td><span class="tag tag-ok">Ready</span></td>
+      </tr>
+      <tr>
+        <td>operion_sigil_inverted.svg</td>
+        <td>Bare mark — near-white, transparent background</td>
+        <td>Watermarks on dark video, presentations, dark UI overlays.</td>
+        <td><span class="tag tag-ok">Ready</span></td>
+      </tr>
+      <tr>
+        <td>operion_lockup_horizontal.svg</td>
+        <td>Horizontal lockup — light background</td>
+        <td>Email signatures, letterheads, website header, proposals.</td>
+        <td><span class="tag tag-ok">Ready</span></td>
+      </tr>
+      <tr>
+        <td>operion_lockup_horizontal_dark.svg</td>
+        <td>Horizontal lockup — dark background</td>
+        <td>Dark website header, pitch decks, investor materials.</td>
+        <td><span class="tag tag-ok">Ready</span></td>
+      </tr>
+      <tr>
+        <td>operion_lockup_vertical.svg</td>
+        <td>Vertical lockup with tagline — light + dark variants</td>
+        <td>Profile images (as crop), title slides, business cards.</td>
+        <td><span class="tag tag-ok">Ready</span></td>
+      </tr>
+      <tr>
+        <td>OPERION_BRAND_SYSTEM.html</td>
+        <td>This document — complete brand guidelines</td>
+        <td>Onboarding designers, developers, partners, agency briefs.</td>
+        <td><span class="tag tag-ok">Ready</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer class="footer">
+  <svg viewBox="0 0 200 200" width="48" height="48" xmlns="http://www.w3.org/2000/svg" style="margin:0 auto 24px; display:block;">
+    <rect x="0" y="0" width="200" height="200" rx="40" fill="#FAFAFA"/>
+    <circle cx="100" cy="100" r="84" fill="none" stroke="#0D0D0D" stroke-width="5"/>
+    <polygon points="152,100 74,145 74,55" fill="none" stroke="#0D0D0D" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="10"/>
+  </svg>
+  <p>
+    OPERION Brand Identity System — Version 1.0<br>
+    Classification: Internal Confidential · April 21, 2026<br>
+    © OPERION (formerly OPERION) · Felix Andres Rios Blanco
+  </p>
+</footer>
+
+</body>
+</html>

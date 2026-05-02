@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OPERION — Strategic Plan V3.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─────────────────────────────────────────
+       TOKENS
+    ───────────────────────────────────────── */
+    :root {
+      --noche:        #0F1729;
+      --sol:          #E8A33D;
+      --papel:        #FAFAF5;
+      --white:        #FFFFFF;
+      --dim:          #8A8A9A;
+      --border:       #E4E4E4;
+      --border-dark:  rgba(255,255,255,0.10);
+      --display:      'Space Grotesk', sans-serif;
+      --body-f:       'Inter', system-ui, sans-serif;
+      --mono:         'JetBrains Mono', monospace;
+    }
+
+    /* ─────────────────────────────────────────
+       RESET
+    ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+    /* ─────────────────────────────────────────
+       SCREEN — page simulation
+    ───────────────────────────────────────── */
+    body {
+      background: #D8D8D4;
+      font-family: var(--body-f);
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--noche);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      background: var(--white);
+      width: 210mm;
+      margin: 28px auto;
+      padding: 20mm 22mm;
+      box-shadow: 0 2px 32px rgba(0,0,0,0.18);
+      position: relative;
+    }
+
+    /* ─────────────────────────────────────────
+       COVER
+    ───────────────────────────────────────── */
+    .cover {
+      background: var(--noche);
+      min-height: 257mm; /* 297mm - 40mm padding */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      gap: 0;
+    }
+
+    .cover-badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-family: var(--body-f);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sol);
+      border: 1px solid rgba(232,163,61,0.35);
+      padding: 5px 10px;
+    }
+
+    .cover-meta {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--body-f);
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.10em;
+      color: rgba(255,255,255,0.30);
+      text-transform: uppercase;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 14px;
+    }
+
+    .cover-emblem {
+      width: 140px;
+      height: auto;
+      margin-bottom: 32px;
+    }
+
+    .cover-title {
+      font-family: var(--display);
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 12px;
+    }
+
+    .cover-doc-type {
+      font-family: var(--body-f);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sol);
+      margin-bottom: 40px;
+    }
+
+    .cover-divider {
+      width: 48px;
+      height: 1px;
+      background: rgba(232,163,61,0.40);
+      margin: 0 auto 32px;
+    }
+
+    .cover-desc {
+      font-family: var(--body-f);
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+      max-width: 380px;
+      margin-bottom: 40px;
+    }
+
+    .cover-stats {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      margin-bottom: 0;
+    }
+
+    .cover-stat {
+      text-align: center;
+    }
+
+    .cover-stat-value {
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--sol);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .cover-stat-label {
+      font-family: var(--body-f);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .cover-stat-sep {
+      width: 1px;
+      background: rgba(255,255,255,0.10);
+      height: 40px;
+      align-self: center;
+    }
+
+    /* ─────────────────────────────────────────
+       SECTION STRUCTURE
+    ───────────────────────────────────────── */
+    .section {
+      padding-top: 56px;
+    }
+
+    .section:first-of-type {
+      padding-top: 0;
+    }
+
+    .section-eyebrow {
+      font-family: var(--body-f);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: var(--display);
+      font-size: 26px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      color: var(--sol);
+      line-height: 1.1;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-title-dark {
+      color: var(--noche);
+    }
+
+    .subsection-title {
+      font-family: var(--display);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--noche);
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+
+    .subsection-title-sol {
+      color: var(--sol);
+    }
+
+    /* ─────────────────────────────────────────
+       BODY TYPOGRAPHY
+    ───────────────────────────────────────── */
+    p {
+      font-size: 14.5px;
+      font-weight: 400;
+      line-height: 1.70;
+      color: var(--noche);
+      max-width: 640px;
+      margin-bottom: 14px;
+    }
+
+    p:last-child { margin-bottom: 0; }
+
+    strong {
+      font-weight: 600;
+    }
+
+    .lead {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--noche);
+      max-width: 640px;
+      margin-bottom: 20px;
+    }
+
+    .dim-text {
+      color: var(--dim);
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    /* ─────────────────────────────────────────
+       TABLES
+    ───────────────────────────────────────── */
+    .table-wrap {
+      margin: 20px 0;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    thead tr {
+      background: var(--papel);
+    }
+
+    thead th {
+      font-family: var(--body-f);
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dim);
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    tbody tr:nth-child(odd) {
+      background: var(--white);
+    }
+
+    tbody tr:nth-child(even) {
+      background: var(--papel);
+    }
+
+    tbody td {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      font-weight: 400;
+      color: var(--noche);
+      line-height: 1.5;
+      vertical-align: top;
+    }
+
+    .td-mono {
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .td-sol {
+      color: var(--sol);
+      font-weight: 600;
+    }
+
+    .td-bold {
+      font-weight: 600;
+    }
+
+    .td-dim {
+      color: var(--dim);
+    }
+
+    /* Highlight row */
+    .tr-highlight {
+      background: rgba(232,163,61,0.06) !important;
+    }
+
+    .tr-highlight td {
+      border-color: rgba(232,163,61,0.25) !important;
+      font-weight: 600;
+    }
+
+    /* ─────────────────────────────────────────
+       CODE / TERMINAL BLOCKS
+    ───────────────────────────────────────── */
+    .code-block {
+      background: var(--papel);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--sol);
+      padding: 16px 20px;
+      margin: 16px 0;
+      overflow-x: auto;
+    }
+
+    .code-block pre {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      line-height: 1.6;
+      color: var(--noche);
+      white-space: pre;
+    }
+
+    /* ─────────────────────────────────────────
+       CALLOUT / BLOCKQUOTE
+    ───────────────────────────────────────── */
+    .callout {
+      background: var(--papel);
+      border-left: 3px solid var(--sol);
+      padding: 16px 20px;
+      margin: 20px 0;
+    }
+
+    .callout p {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .callout-financial {
+      background: rgba(232,163,61,0.05);
+      border-left: 3px solid var(--sol);
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+
+    .callout-financial .callout-headline {
+      font-family: var(--display);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--sol);
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .callout-financial .callout-sub {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--dim);
+      letter-spacing: 0.06em;
+    }
+
+    /* ─────────────────────────────────────────
+       TWO-COLUMN FINANCIAL COMPARISON
+    ───────────────────────────────────────── */
+    .fiscal-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      margin: 20px 0;
+    }
+
+    .fiscal-col {
+      padding: 0;
+    }
+
+    .fiscal-col:first-child {
+      border-right: 1px solid var(--border);
+    }
+
+    .fiscal-col-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .fiscal-col-header .col-label {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 2px;
+    }
+
+    .fiscal-col-header .col-title {
+      font-family: var(--display);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--noche);
+      letter-spacing: 0.04em;
+    }
+
+    .fiscal-col-header.sol-header .col-title {
+      color: var(--sol);
+    }
+
+    .fiscal-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .fiscal-row:last-child {
+      border-bottom: none;
+    }
+
+    .fiscal-row-label {
+      color: var(--dim);
+      font-weight: 400;
+    }
+
+    .fiscal-row-value {
+      font-weight: 500;
+      color: var(--noche);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .fiscal-row-value.sol {
+      color: var(--sol);
+    }
+
+    .fiscal-total {
+      padding: 12px 16px;
+      background: var(--papel);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .fiscal-total .total-label {
+      font-family: var(--display);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--dim);
+    }
+
+    .fiscal-total .total-value {
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--noche);
+    }
+
+    .fiscal-total .total-value.sol {
+      color: var(--sol);
+    }
+
+    /* Savings banner */
+    .savings-banner {
+      background: var(--noche);
+      color: var(--white);
+      padding: 16px 20px;
+      margin: 0 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .savings-banner .s-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .savings-banner .s-value {
+      font-family: var(--display);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--sol);
+    }
+
+    /* ─────────────────────────────────────────
+       STATUS PILLS
+    ───────────────────────────────────────── */
+    .pill {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    .pill-live {
+      background: rgba(34,197,94,0.10);
+      color: #22C55E;
+      border: 1px solid rgba(34,197,94,0.28);
+    }
+
+    .pill-pending {
+      background: rgba(138,138,154,0.08);
+      color: var(--dim);
+      border: 1px solid var(--border);
+    }
+
+    .pill-phase {
+      background: rgba(232,163,61,0.10);
+      color: var(--sol);
+      border: 1px solid rgba(232,163,61,0.28);
+    }
+
+    /* ─────────────────────────────────────────
+       DARK SECTION (cover-like callout)
+    ───────────────────────────────────────── */
+    .dark-band {
+      background: var(--noche);
+      margin: 32px -22mm;
+      padding: 28px 22mm;
+    }
+
+    .dark-band p {
+      color: rgba(255,255,255,0.70);
+    }
+
+    .dark-band .section-eyebrow {
+      color: rgba(255,255,255,0.35);
+    }
+
+    .dark-band .subsection-title {
+      color: var(--white);
+    }
+
+    /* ─────────────────────────────────────────
+       NUMBERED LIST
+    ───────────────────────────────────────── */
+    .numbered-list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0;
+    }
+
+    .numbered-list li {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+      align-items: flex-start;
+    }
+
+    .numbered-list li .num {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--sol);
+      min-width: 22px;
+      padding-top: 2px;
+    }
+
+    /* ─────────────────────────────────────────
+       FOOTER (running)
+    ───────────────────────────────────────── */
+    .page-footer {
+      margin-top: 48px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .page-footer .footer-brand {
+      font-family: var(--display);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--dim);
+    }
+
+    .page-footer .footer-class {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--border);
+    }
+
+    /* ─────────────────────────────────────────
+       RISK MATRIX COLORS
+    ───────────────────────────────────────── */
+    .risk-high {
+      color: #C0392B;
+      font-weight: 600;
+    }
+
+    .risk-medium {
+      color: #E8A33D;
+      font-weight: 500;
+    }
+
+    .risk-low {
+      color: #27AE60;
+      font-weight: 500;
+    }
+
+    .risk-critical {
+      color: #8B0000;
+      font-weight: 700;
+    }
+
+    /* ─────────────────────────────────────────
+       IMMUNITY GRADE
+    ───────────────────────────────────────── */
+    .immunity-sovereign {
+      color: var(--sol);
+      font-weight: 700;
+    }
+
+    /* ─────────────────────────────────────────
+       PRINT MEDIA
+    ───────────────────────────────────────── */
+    @media print {
+      @page {
+        size: A4;
+        margin: 20mm 22mm;
+      }
+
+      @page :first {
+        margin: 0;
+      }
+
+      body {
+        background: var(--white);
+        font-size: 13px;
+      }
+
+      .page {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+
+      .cover {
+        padding: 20mm 22mm;
+        min-height: 100vh;
+        page-break-after: always;
+      }
+
+      .dark-band {
+        margin: 32px -22mm;
+        padding: 28px 22mm;
+      }
+
+      .section {
+        page-break-before: always;
+        padding-top: 0;
+      }
+
+      .section-no-break {
+        page-break-before: avoid;
+      }
+
+      .no-break {
+        page-break-inside: avoid;
+      }
+
+      .table-wrap {
+        page-break-inside: avoid;
+      }
+
+      .code-block {
+        page-break-inside: avoid;
+      }
+
+      .callout, .callout-financial {
+        page-break-inside: avoid;
+      }
+
+      .fiscal-compare {
+        page-break-inside: avoid;
+      }
+
+      .savings-banner {
+        page-break-inside: avoid;
+      }
+
+      thead { display: table-header-group; }
+      tfoot { display: table-footer-group; }
+      tr { page-break-inside: avoid; }
+
+      a { text-decoration: none; color: inherit; }
+
+      .page-footer {
+        position: fixed;
+        bottom: 0;
+        left: 22mm;
+        right: 22mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     COVER PAGE
+═══════════════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="cover">
+
+    <div class="cover-badge">Confidential · Investment Grade</div>
+
+    <!-- Sovereign Emblem (inlined SVG) -->
+    <svg class="cover-emblem" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 400" role="img" aria-label="OPERION Sovereign Emblem">
+      <defs>
+        <filter id="grain" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.78" numOctaves="4" stitchTiles="stitch" result="noise"/>
+          <feColorMatrix type="saturate" values="0" in="noise"/>
+        </filter>
+        <filter id="shadowBlur" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="4"/>
+        </filter>
+        <linearGradient id="titaniumGrad" x1="73" y1="70" x2="247" y2="270" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#383848"/>
+          <stop offset="11%" stop-color="#888898"/>
+          <stop offset="22%" stop-color="#C4C4D8"/>
+          <stop offset="32%" stop-color="#E8E8F6"/>
+          <stop offset="41%" stop-color="#F8F8FF"/>
+          <stop offset="48%" stop-color="#FFFFFF"/>
+          <stop offset="58%" stop-color="#E2E2F0"/>
+          <stop offset="72%" stop-color="#A8A8C0"/>
+          <stop offset="86%" stop-color="#686878"/>
+          <stop offset="100%" stop-color="#2C2C3C"/>
+        </linearGradient>
+        <radialGradient id="coreGrad" cx="151" cy="160" r="40" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#1A2244"/>
+          <stop offset="28%" stop-color="#121830"/>
+          <stop offset="60%" stop-color="#0C101E"/>
+          <stop offset="100%" stop-color="#050710"/>
+        </radialGradient>
+        <radialGradient id="coreCatch" cx="147" cy="156" r="20" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#5870B8" stop-opacity="0.60"/>
+          <stop offset="45%" stop-color="#2C3C80" stop-opacity="0.20"/>
+          <stop offset="100%" stop-color="#101828" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="glowOuter" x="-120%" y="-120%" width="340%" height="340%" color-interpolation-filters="sRGB">
+          <feGaussianBlur stdDeviation="15" result="blur"/>
+          <feColorMatrix type="matrix" values="0.85 0 0 0 0.05 0 0.9 0 0 0.06 0 0 1 0 0.08 0 0 0 1 0" in="blur"/>
+        </filter>
+        <filter id="glowRim" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+          <feGaussianBlur stdDeviation="5"/>
+        </filter>
+        <filter id="metalBevel" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="2.2" result="bumpMap"/>
+          <feSpecularLighting in="bumpMap" surfaceScale="5" specularConstant="1.9" specularExponent="42" lighting-color="#FFFFFF" result="specularOut">
+            <fePointLight x="68" y="32" z="140"/>
+          </feSpecularLighting>
+          <feComposite in="specularOut" in2="SourceAlpha" operator="in" result="specularClipped"/>
+          <feBlend in="SourceGraphic" in2="specularClipped" mode="screen"/>
+        </filter>
+        <linearGradient id="wordmarkGrad" x1="55" y1="334" x2="265" y2="334" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#505060"/>
+          <stop offset="25%" stop-color="#A8A8B8"/>
+          <stop offset="47%" stop-color="#D4D4E0"/>
+          <stop offset="62%" stop-color="#B0B0C0"/>
+          <stop offset="100%" stop-color="#484858"/>
+        </linearGradient>
+      </defs>
+      <rect width="320" height="400" fill="#0D0D0D"/>
+      <rect width="320" height="400" fill="#909090" opacity="0.035" filter="url(#grain)"/>
+      <polygon points="246.6,120 160,70 73.4,120 73.4,220 160,270 246.6,220" fill="none" stroke="#000000" stroke-width="10" stroke-linejoin="miter" transform="translate(2.5, 2.5)" opacity="0.55" filter="url(#shadowBlur)"/>
+      <polygon points="246.6,120 160,70 73.4,120 73.4,220 160,270 246.6,220" fill="none" stroke="url(#titaniumGrad)" stroke-width="3" stroke-linejoin="miter" filter="url(#metalBevel)"/>
+      <path d="M73.4,120 L160,70 L246.6,120" fill="none" stroke="#FFFFFF" stroke-width="0.8" stroke-linejoin="miter" opacity="0.28"/>
+      <circle cx="160" cy="170" r="40" fill="#B8E2F4" opacity="0.17" filter="url(#glowOuter)"/>
+      <circle cx="160" cy="170" r="34" fill="none" stroke="#D4EEFA" stroke-width="3" opacity="0.22" filter="url(#glowRim)"/>
+      <circle cx="160" cy="170" r="34" fill="url(#coreGrad)"/>
+      <circle cx="160" cy="170" r="34" fill="url(#coreCatch)"/>
+      <circle cx="160" cy="170" r="34" fill="none" stroke="url(#titaniumGrad)" stroke-width="2.5" filter="url(#metalBevel)"/>
+      <line x1="189.4" y1="153.0" x2="224.9" y2="132.5" stroke="url(#titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="160.0" y1="136.0" x2="160.0" y2="95.0" stroke="url(#titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="130.6" y1="153.0" x2="95.1" y2="132.5" stroke="url(#titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="130.6" y1="187.0" x2="95.1" y2="207.5" stroke="url(#titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="160.0" y1="204.0" x2="160.0" y2="245.0" stroke="url(#titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="189.4" y1="187.0" x2="224.9" y2="207.5" stroke="url(#titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="112" y1="300" x2="208" y2="300" stroke="#282838" stroke-width="0.75"/>
+      <text x="151" y="334" font-family="'Helvetica Neue', 'Arial', sans-serif" font-weight="200" font-size="21" letter-spacing="18" fill="url(#wordmarkGrad)" dominant-baseline="middle" text-anchor="middle">OPERION</text>
+    </svg>
+
+    <div class="cover-doc-type">Strategic Plan &nbsp;·&nbsp; Version 3.0</div>
+    <div class="cover-title">Sovereign<br>Execution<br>Architecture</div>
+    <div class="cover-divider"></div>
+    <p class="cover-desc">A consolidated investment-grade strategic plan. Consolidates Business Plan v2.0 · Sovereign Blueprint v2.0 · Operating System v1.1. Prepared for investor presentation and strategic review.</p>
+
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="cover-stat-value">€375</div>
+        <div class="cover-stat-label">Effective monthly cost</div>
+      </div>
+      <div class="cover-stat-sep"></div>
+      <div class="cover-stat">
+        <div class="cover-stat-value">€1.737</div>
+        <div class="cover-stat-label">Human equivalent</div>
+      </div>
+      <div class="cover-stat-sep"></div>
+      <div class="cover-stat">
+        <div class="cover-stat-value">&gt;90%</div>
+        <div class="cover-stat-label">Target HDR</div>
+      </div>
+      <div class="cover-stat-sep"></div>
+      <div class="cover-stat">
+        <div class="cover-stat-value">14d</div>
+        <div class="cover-stat-label">Deploy to sovereign</div>
+      </div>
+    </div>
+
+    <div class="cover-meta">
+      <span>Felix Andres Rios Blanco &nbsp;·&nbsp; Founder &amp; CEO &nbsp;·&nbsp; OPERION</span>
+      <span>April 25, 2026 &nbsp;·&nbsp; Ingolstadt, DE</span>
+    </div>
+
+  </div>
+</div><!-- /cover page -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PAGE: SECTIONS I – II
+═══════════════════════════════════════════════════════════════════ -->
+<div class="page">
+
+  <!-- I. EXECUTIVE SUMMARY -->
+  <div class="section" id="sI">
+    <div class="section-eyebrow">Section I</div>
+    <h2 class="section-title">Executive Summary</h2>
+
+    <p class="lead">At 23:00 on a Saturday, a prospective gym member in Ingolstadt sends a WhatsApp message. They are deciding between two gyms down the street. Both owners are asleep. One of them has OPERION.</p>
+
+    <p>The OPERION agent reads the message in the prospect's language — English, because they are a THI student from Nigeria — classifies the intent as a membership inquiry, retrieves the correct pricing from the knowledge base, and dispatches a response within 4 seconds. The competitor's phone goes unanswered until Tuesday. The lead is closed before the owner wakes up.</p>
+
+    <p>This is the product OPERION sells: not software, not a chatbot, not an automation platform. <strong>Paz Mental</strong> — the peace of mind of a local business owner who knows their operation never stops, never forgets, never goes to sleep, and never fails to respond in the customer's language.</p>
+
+    <p>The gym owner does not buy OPERION because it is technically impressive. They buy it because they are tired of watching revenue evaporate while they are offline. Every unanswered DM is a €50–€500 lost customer. A business receiving 20 unresponded inquiries per month hemorrhages €1,000–€10,000/month. OPERION stops the bleeding in 14 days.</p>
+
+    <div class="subsection-title" style="margin-top:28px;">SNAPSHOT</div>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th>Dimension</th><th>State</th></tr></thead>
+        <tbody>
+          <tr><td>Status</td><td>Active — 1 production client (Clever Fit Ingolstadt)</td></tr>
+          <tr><td>Product</td><td>Done-for-you autonomous AI agents for DACH local service SMBs</td></tr>
+          <tr><td>Primary vertical</td><td>Fitness studios and gyms</td></tr>
+          <tr><td>Positioning</td><td>Lane 4 — done-for-you, GDPR-native, trilingual (DE/EN/ES)</td></tr>
+          <tr><td>Entry price</td><td>€500 setup + €200/month (Starter tier)</td></tr>
+          <tr><td>Gross margin target</td><td>≥70%</td></tr>
+          <tr><td>Primary KPIs</td><td>HDR (Human Displacement Ratio) · OII (Operational Immunity Index)</td></tr>
+          <tr><td>Founder</td><td>Felix Andres Rios Blanco — Ingolstadt, DE</td></tr>
+          <tr><td>Legal entity</td><td>Kleinunternehmer (Einzelunternehmen) → Wyoming LLC (Month 9)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsection-title">THE INVESTMENT OPPORTUNITY</div>
+    <p>OPERION enters the market at the intersection of three irreversible structural forces: (1) the collapse of human response time expectations driven by consumer AI — response tolerance is now measured in seconds, not hours; (2) the extreme cost of German labor relative to AI inference costs — €1,737/month vs. €375/month for equivalent operational scope; (3) the absence of any done-for-you, GDPR-native, multilingual AI operator in the DACH SMB market.</p>
+    <p>The beachhead is validated. The moat is accumulating. The roadmap is deliberate.</p>
+  </div>
+
+  <!-- II. THE AUTONOMY THESIS -->
+  <div class="section" id="sII">
+    <div class="section-eyebrow">Section II</div>
+    <h2 class="section-title">The Autonomy Thesis</h2>
+
+    <p class="lead">Operational labor is a structural inefficiency, not a business requirement.</p>
+
+    <p>Every local service business carries a category of work — lead response, content publishing, appointment booking, performance reporting, outbound prospecting — that requires zero human judgment to execute correctly. It requires only execution: consistent, fast, 24-hour execution.</p>
+
+    <p>Human beings are expensive, slow, fatigued, and absent. They get sick. They go on vacation. They respond to DMs in 4 hours on a Tuesday and in 0 hours on a Sunday. They are not bad employees. They are the wrong tool for a job that is purely mechanical.</p>
+
+    <p>The unit of value OPERION delivers is not an agent, a dashboard, or a workflow. It is the recurring monthly cost permanently removed from payroll. The salary line that disappears. The Sunday shift that no longer needs to be covered by a human body.</p>
+
+    <div class="subsection-title" style="margin-top:28px;">THREE SUBSTITUTION PRINCIPLES</div>
+
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th style="width:28%">Principle</th><th>Definition</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="td-bold">1. Execution precedes existence.</td>
+            <td>A process that can be fully described in a decision tree has no business being executed by a human. If the logic can be written, OPERION runs it.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">2. Oversight is not elimination.</td>
+            <td>A system that requires a human to monitor it in order to function has not replaced the human — it has given them a new job. OPERION measures success by human-hours eliminated, not processes technically automated.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">3. Substitution is permanent.</td>
+            <td>The operational roles OPERION eliminates do not return when the contract ends. The client's business structure has been permanently restructured around autonomous execution. This is a transformation of operational architecture, not a subscription service.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">OPERION</span>
+    <span class="footer-class">Confidential · Strategic Plan V3.0 · April 2026</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PAGE: SECTIONS III – IV
+═══════════════════════════════════════════════════════════════════ -->
+<div class="page">
+
+  <!-- III. COMPANY DESCRIPTION -->
+  <div class="section" id="sIII">
+    <div class="section-eyebrow">Section III</div>
+    <h2 class="section-title">Company Description</h2>
+
+    <div class="subsection-title">WHAT OPERION IS</div>
+    <p>OPERION is an <strong>agent wrapper around vertical work</strong> — a done-for-you autonomous execution system built on top of foundational LLMs (Claude Haiku), wrapped in domain-specific knowledge bases, SOPs, and escalation logic tuned for DACH fitness and adjacent verticals.</p>
+    <p>The distinction from a general AI chatbot is total: a general chatbot knows nothing about Iron Haven's Servicepauschale schedule, Clever Fit's trilingual prospect base, or the escalation rules that govern cancellation requests. OPERION's agents do. That operational specificity — compiled over months into a structured knowledge vault — is what converts a commodity LLM into a permanent operational asset.</p>
+    <p>OPERION is not a SaaS company, not a chatbot vendor, not an AI consultancy, and not a no-code platform. Clients never touch code or a builder. They receive outcomes via the channels they already use: responses are sent, appointments are booked, reports arrive Monday morning.</p>
+
+    <div class="subsection-title">COMPETITIVE LANE MAP</div>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th style="width:10%">Lane</th><th style="width:30%">Category</th><th>Why they fail our clients</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Horizontal platforms (Lindy, Relevance AI, Make, n8n)</td><td>Require technical buyer. Our clients do not know what an API endpoint is.</td></tr>
+          <tr><td>2</td><td>AI employee bundles (Marblism, GoHighLevel)</td><td>English-only, US-focused, self-serve. Not GDPR-native. Not trilingual.</td></tr>
+          <tr><td>3</td><td>Enterprise solutions (Sierra, Intercom Fin)</td><td>€1,000+/month, require integration teams. Sized for companies 10× larger.</td></tr>
+          <tr class="tr-highlight"><td class="td-sol td-bold">4</td><td class="td-sol td-bold">OPERION</td><td class="td-bold">Done-for-you, GDPR-compliant by architecture, natively trilingual (DE/EN/ES), priced for businesses making €200K–€2M/year. No one else occupies this exact position today.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout" style="margin-top:20px;">
+      <p><strong>"OPERION"</strong> is a Quechua verb meaning "to do, to make, to execute." Quechua is the language of the Inca civilization, spoken by 8+ million people across Peru, Bolivia, and Ecuador. The founder chose this name because his central personal challenge has been the gap between ideas and execution. The company's name is a daily commitment to close that gap — for himself and for every client.</p>
+    </div>
+  </div>
+
+  <!-- IV. SERVICE ARCHITECTURE -->
+  <div class="section" id="sIV">
+    <div class="section-eyebrow">Section IV</div>
+    <h2 class="section-title">Service Architecture</h2>
+
+    <div class="subsection-title">THE AGENT ROSTER</div>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th>Agent</th><th>Function</th><th>Status</th><th>Autonomy Target</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="td-bold">TRIAGE</td>
+            <td>Inbound execution — front desk / admin response substitution. Instagram DMs, WhatsApp Business, Facebook Messenger, Email.</td>
+            <td><span class="pill pill-live">Live</span></td>
+            <td>≥80% inbound resolved without human review. &lt;5 min SLA, 24/7/365.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">CONTENT FACTORY</td>
+            <td>Publishing execution — social media manager substitution. 10+ posts/week from single brief, bilingual captions.</td>
+            <td><span class="pill pill-phase">Month 2</span></td>
+            <td>≥90% Pillar 2+3 content published without review (Day 90+).</td>
+          </tr>
+          <tr>
+            <td class="td-bold">ANALYTICS SCOUT</td>
+            <td>Reporting execution — marketing analyst substitution. Monday 08:00 CET client PDF, Sunday 20:00 CET internal report.</td>
+            <td><span class="pill pill-phase">Month 3</span></td>
+            <td>100% — all reporting functions Tier 1 autonomous.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">OUTREACH</td>
+            <td>Prospecting execution — SDR substitution. Prospect scoring ≥12/15, 3-touch sequence, pipeline management.</td>
+            <td><span class="pill pill-phase">Month 4–5</span></td>
+            <td>Tier 2 — all drafts require Felix send (platform ToS compliance).</td>
+          </tr>
+          <tr>
+            <td class="td-bold">OPERATIONS</td>
+            <td>Internal execution — project management substitution. Weekly HDR/OII calc, SLA audit, budget check, retrospective prep.</td>
+            <td><span class="pill pill-phase">Month 6</span></td>
+            <td>Tier 1 internal. Tier 2 for documentation changes.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsection-title">COMMAND INTERFACE REGISTRY</div>
+    <p style="margin-bottom:12px;">Every agent action terminates in exactly one Command Interface. No action without a registered CI. All logic paths must route to exactly one terminal node.</p>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th>Interface</th><th>Action</th><th style="width:8%">Tier</th></tr></thead>
+        <tbody>
+          <tr><td class="td-mono td-sol">CI-001</td><td>SEND_MESSAGE — dispatch response via active channel (IG / WhatsApp / Email)</td><td>1</td></tr>
+          <tr><td class="td-mono td-sol">CI-002</td><td>CREATE_BOOKING — write calendar event + send confirmation to contact</td><td>1</td></tr>
+          <tr><td class="td-mono">CI-003</td><td>UPDATE_CRM — write interaction record to database</td><td>1</td></tr>
+          <tr><td class="td-mono">CI-004</td><td>PUBLISH_CONTENT — schedule or post to social platform via API</td><td>1 / 2</td></tr>
+          <tr><td class="td-mono">CI-005</td><td>GENERATE_REPORT — compile and deliver formatted analytics document</td><td>1</td></tr>
+          <tr><td class="td-mono">CI-006</td><td>DRAFT_OUTREACH — create outreach message draft in prospect pipeline</td><td>2</td></tr>
+          <tr><td class="td-mono td-sol">CI-007</td><td>NOTIFY_HUMAN — push alert to Felix with full context payload</td><td>3</td></tr>
+          <tr><td class="td-mono">CI-008</td><td>PAUSE_AND_HOLD — suspend action thread, log reason, await instruction</td><td>2</td></tr>
+          <tr><td class="td-mono">CI-009</td><td>CLOSE_THREAD — mark interaction resolved, archive with metadata</td><td>1</td></tr>
+          <tr><td class="td-mono">CI-010</td><td>FLAG_ANOMALY — log metric deviation, attach to weekly report queue</td><td>1</td></tr>
+          <tr><td class="td-mono">CI-011</td><td>UPDATE_KNOWLEDGE — write new entry to client knowledge base</td><td>2</td></tr>
+          <tr><td class="td-mono">CI-012</td><td>EXECUTE_WEBHOOK — fire external system trigger (Phase 3: physical hardware)</td><td>1+</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="dim-text" style="margin-top:8px;">CI-012 is the physical command gateway. Every agent built in 2026 is built on the assumption that its CI outputs will be routed to different hardware surfaces in Phase 3 (2028–2030).</p>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">OPERION</span>
+    <span class="footer-class">Confidential · Strategic Plan V3.0 · April 2026</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PAGE: SECTIONS V – VI
+═══════════════════════════════════════════════════════════════════ -->
+<div class="page">
+
+  <!-- V. THE PERSISTENCE MOAT -->
+  <div class="section" id="sV">
+    <div class="section-eyebrow">Section V</div>
+    <h2 class="section-title">The Persistence Moat</h2>
+
+    <div class="subsection-title">THE KNOWLEDGE GRAPH AS COMPOUNDING ASSET</div>
+    <p>Most AI tools deliver static intelligence: the same LLM, the same prompts, the same outputs for every customer. OPERION builds a fundamentally different structure — a client-specific knowledge vault that compounds in value every day it operates.</p>
+    <p>The vault is an interconnected structured knowledge graph: markdown files, cross-referenced entries, and accumulated operational context. Every interaction processed by TRIAGE either confirms an existing knowledge base entry or surfaces a gap that is filled by CI-011 UPDATE_KNOWLEDGE. Every content brief processed by CONTENT FACTORY updates the performance feedback layer. Every anomaly flagged by ANALYTICS SCOUT refines the detection threshold.</p>
+
+    <div class="subsection-title">DAY 1 VS. MONTH 6 STATE</div>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th>Dimension</th><th>Day 1</th><th>Month 6</th></tr></thead>
+        <tbody>
+          <tr><td>Knowledge base entries</td><td>~50 (populated from kickoff)</td><td class="td-sol">~400+ (compounded from real interactions)</td></tr>
+          <tr><td>Intent classification accuracy</td><td>~82% (general LLM)</td><td class="td-sol">~94% (domain-tuned via interaction log)</td></tr>
+          <tr><td>Escalation rules</td><td>Generic (SOPs)</td><td class="td-sol">Calibrated to client's specific edge cases</td></tr>
+          <tr><td>Response tone</td><td>Brand-correct (from KB)</td><td class="td-sol">Brand-exact (6 months of approval/rejection signals)</td></tr>
+          <tr><td>Anomaly detection</td><td>Industry benchmark thresholds</td><td class="td-sol">Client-specific baseline from 26 weeks of data</td></tr>
+          <tr><td>Competitive switching cost</td><td>Low (early)</td><td class="td-bold">Near-zero (data is not portable to a new provider)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout" style="margin-top:20px;">
+      <p>A competitor who enters the market in Month 7 cannot replicate 6 months of domain-specific interaction data. They start at Day 1. OPERION's client starts at Month 7 — operationally ahead by the full compounding gap. The moat deepens automatically as the agents operate. The client benefits. OPERION benefits. The switching cost rises without any action required from either party.</p>
+    </div>
+  </div>
+
+  <!-- VI. OPERATIONAL SAFETY: THE SEALED CONTAINER -->
+  <div class="section" id="sVI">
+    <div class="section-eyebrow">Section VI</div>
+    <h2 class="section-title">Operational Safety — The Sealed Container</h2>
+
+    <div class="subsection-title">THE GERMAN MARKET STANDARD</div>
+    <p>In the DACH market, GDPR compliance is not optional — it is the law. For a local service business deploying AI on customer communications, the data sovereignty question is existential: where does the conversation data go, who controls it, and what happens if there is a breach?</p>
+    <p>OPERION's answer is architectural: each client's agent runs in a Docker-sealed container with strict environment isolation. No cross-client data contamination is possible at the infrastructure level — not as a policy, but as a technical impossibility.</p>
+
+    <div class="subsection-title">CONTAINER ARCHITECTURE</div>
+    <div class="code-block">
+<pre>[CLIENT: Clever Fit Ingolstadt]
+   Docker Container (isolated)
+   ├── Agent runtime (Python 3.12 + Anthropic SDK)
+   ├── Client knowledge base (read-only mount)
+   ├── Event log database (SQLite → PostgreSQL Phase 2)
+   ├── Environment variables (API keys, no secrets in code)
+   └── Outbound: Anthropic EU endpoint only (no US data routing)
+
+[CLIENT: Iron Haven]
+   Docker Container (isolated, separate)
+   ├── Agent runtime
+   ├── Client knowledge base
+   └── [no shared state with Clever Fit container]</pre>
+    </div>
+
+    <div class="subsection-title">DSGVO AS MARKET SIGNAL</div>
+    <p>Sealed container architecture accomplishes two objectives simultaneously. First, <strong>malicious injection protection</strong> — a client's customer cannot craft a message that leaks another client's knowledge base, overrides the agent's escalation rules, or extracts system prompts. The container boundary is the security perimeter.</p>
+    <p>Second, <strong>DSGVO compliance as a competitive signal</strong>. In a market where non-GDPR-compliant AI tools are routinely deployed by naive agencies, OPERION's containerized architecture is an instant differentiator. The gym owner needs to understand one sentence: "Your customer data never leaves your container, never touches another client's container, and is processed on European servers only."</p>
+
+    <div class="subsection-title">DATA RETENTION POLICY</div>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th>Data type</th><th>Retention</th><th>Legal basis</th></tr></thead>
+        <tbody>
+          <tr><td>Full interaction records</td><td>30 days</td><td>GDPR Art. 5(1)(e) — storage limitation</td></tr>
+          <tr><td>Anonymized aggregates</td><td>Indefinite</td><td>No personal data; legitimate interest</td></tr>
+          <tr><td>Client knowledge base</td><td>Contract duration + 90 days</td><td>Contractual</td></tr>
+          <tr><td>Performance reports</td><td>Indefinite</td><td>No personal data</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">OPERION</span>
+    <span class="footer-class">Confidential · Strategic Plan V3.0 · April 2026</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PAGE: SECTIONS VII – VIII
+═══════════════════════════════════════════════════════════════════ -->
+<div class="page">
+
+  <!-- VII. FOUNDER AND ORGANIZATION -->
+  <div class="section" id="sVII">
+    <div class="section-eyebrow">Section VII</div>
+    <h2 class="section-title">Founder and Organization</h2>
+
+    <div class="subsection-title">FELIX ANDRES RIOS BLANCO — FOUNDER &amp; CEO</div>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th style="width:30%">Dimension</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td>Technical depth</td><td>Python 3.12, Anthropic SDK, Flask, SQLite, MCP architecture, prompt engineering, knowledge base design</td></tr>
+          <tr><td>Current market position</td><td>Dual-role at Clever Fit Ingolstadt — Minijob (social media) + Freelancer (AI agent architecture). Insider access to the exact client profile.</td></tr>
+          <tr><td>Geographic advantage</td><td>Native Spanish speaker, German resident, English-fluent — the three languages of OPERION's primary market</td></tr>
+          <tr><td>Cultural anchor</td><td>Quechua identity — company name is a personal commitment to execution</td></tr>
+          <tr><td>IP strategy</td><td>Agent architecture, prompt engineering, orchestration code = OPERION IP. Client-specific KB = client property. Written IP agreements executed before every deployment.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsection-title">PLANNED TEAM EXPANSION</div>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th>Role</th><th>Month</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>Virtual Assistant (Peru or Philippines)</td><td>Month 12</td><td>Content editing, scheduling, client reporting support</td></tr>
+          <tr><td>Second Agent Engineer</td><td>Month 15</td><td>Agent 4 + 5 build, client onboarding at scale</td></tr>
+          <tr><td>Account Manager (DACH)</td><td>Month 18</td><td>Client retention, expansion conversations</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:14px;" class="dim-text">Organization remains lean by design through Month 18. All client-facing operational work is agent-executed. Human headcount scales with revenue, not with client count.</p>
+  </div>
+
+  <!-- VIII. MARKETING STRATEGY -->
+  <div class="section" id="sVIII">
+    <div class="section-eyebrow">Section VIII</div>
+    <h2 class="section-title">Marketing Strategy</h2>
+
+    <div class="subsection-title">THE PROOF–TEACH–BUILD LOOP</div>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th style="width:18%">Pillar</th><th>Content type</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td class="td-bold">Proof</td><td>Clever Fit wins, before/after metrics, response time screenshots</td><td>Convert skeptics. Real numbers, no claims.</td></tr>
+          <tr><td class="td-bold">Teach</td><td>How local businesses can automate. Agent architecture explainers.</td><td>Build authority, attract inbound prospects.</td></tr>
+          <tr><td class="td-bold">Build</td><td>Raw footage. Code on screen. Honest failures. Founder's story.</td><td>Attract operators who want to understand, not just buy.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsection-title">PLATFORM ALLOCATION</div>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th style="width:20%">Platform</th><th>Voice</th><th style="width:22%">Priority</th></tr></thead>
+        <tbody>
+          <tr><td>TikTok</td><td>Raw, personal, slightly vulnerable. Felix on camera.</td><td class="td-bold">Primary</td></tr>
+          <tr><td>Instagram</td><td>Polished carousel data posts. Behind-the-scenes stories.</td><td class="td-bold">Primary</td></tr>
+          <tr><td>LinkedIn</td><td>Thought leadership, data-backed, founder narrative.</td><td>Secondary</td></tr>
+          <tr><td>YouTube</td><td>Educational deep-dives, screen recordings, full case studies.</td><td>Long-term</td></tr>
+          <tr><td>X / Twitter</td><td>Short, punchy build-in-public logs. Daily metrics.</td><td class="td-dim">Low priority</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsection-title">OUTREACH CADENCE (MONTH 4+)</div>
+    <p>Agent 4 (OUTREACH) scores prospects on three dimensions — pain level, payment capacity, accessibility — with a minimum threshold of 12/15 before contact is initiated. Maximum 10 personalized cold outreach messages per day. Every message references a specific business detail. No templates. Every third-touch includes the Clever Fit case study. No follow-up after 3 touches — status marked "cold," thread closed.</p>
+    <p>The Clever Fit case study is not just a first client outcome. It is the primary sales asset for every subsequent pitch. The data package: response time reduction from 240 minutes to &lt;5 minutes, follower growth baseline, trial booking conversion improvement. Every number is real. No claim made without a verified metric behind it.</p>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">OPERION</span>
+    <span class="footer-class">Confidential · Strategic Plan V3.0 · April 2026</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PAGE: SECTION IX — ENVIRONMENT ANALYSIS
+═══════════════════════════════════════════════════════════════════ -->
+<div class="page">
+
+  <div class="section" id="sIX">
+    <div class="section-eyebrow">Section IX</div>
+    <h2 class="section-title">Environment Analysis</h2>
+
+    <div class="subsection-title">PESTEL FRAMEWORK</div>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th style="width:16%">Factor</th><th>Assessment</th><th style="width:18%">Impact</th></tr></thead>
+        <tbody>
+          <tr><td class="td-bold">Political</td><td>EU AI Act (2025+) compliance required for high-risk AI. OPERION operates in lower-risk customer service and content categories. Regulatory trajectory favors compliant operators.</td><td>Medium — early compliance investment is protective</td></tr>
+          <tr><td class="td-bold">Economic</td><td>German labor costs are among the highest globally and continue rising. SMB owners face cost pressure from all directions. The €1,737 vs. €375 arbitrage widens as wages increase.</td><td class="td-sol">High positive — structural tailwind</td></tr>
+          <tr><td class="td-bold">Social</td><td>Consumer messaging response time expectations have collapsed. A 4-hour DM response was acceptable in 2020. In 2026, it signals indifference. Trilingual service is a minimum expectation in Ingolstadt's international population.</td><td class="td-sol">High positive — market pull</td></tr>
+          <tr><td class="td-bold">Technological</td><td>LLM inference costs are falling ~40% per year. Agent frameworks are maturing rapidly. The cost to deploy an agent decreases every quarter.</td><td class="td-sol">High positive — margin improvement structurally embedded</td></tr>
+          <tr><td class="td-bold">Environmental</td><td>No material environmental factors at current scale. Cloud infrastructure moves toward renewable energy.</td><td>Neutral</td></tr>
+          <tr><td class="td-bold">Legal</td><td>DSGVO (GDPR) is the primary legal constraint and simultaneous competitive moat. DPA required before every deployment. WhatsApp Business API compliance must be maintained.</td><td>Medium — constraint and moat simultaneously</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsection-title" style="margin-top:28px;">PORTER'S FIVE FORCES — DACH SMB AI SERVICES</div>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th>Force</th><th style="width:14%">Rating</th><th>Rationale</th></tr></thead>
+        <tbody>
+          <tr><td>Threat of new entrants</td><td class="risk-high">High</td><td>Low barrier to starting an AI agency. Defended by accumulated knowledge graph moat and first-mover brand in DACH fitness vertical.</td></tr>
+          <tr><td>Bargaining power of buyers</td><td class="risk-medium">Low–Medium</td><td>SMB owners are cost-sensitive but high-pain. Demonstrated ROI (€1,362/month savings) makes pricing non-controversial. Founding client lock-in via 50% perpetual discount.</td></tr>
+          <tr><td>Bargaining power of suppliers</td><td class="risk-medium">Medium</td><td>Dependence on Anthropic API pricing and Meta/WhatsApp API policies. Mitigated by model-agnostic architecture — swap LLM layer without agent re-build.</td></tr>
+          <tr><td>Threat of substitutes</td><td class="risk-low">Low–Medium</td><td>No direct substitute provides done-for-you, GDPR-native, trilingual execution at SMB pricing. Horizontal tools require technical competence clients do not have.</td></tr>
+          <tr><td>Competitive rivalry</td><td class="risk-low">Low (now)</td><td>Lane 4 is currently unoccupied. Risk: Lane 2 (GoHighLevel) enters DACH with German localization. Defended by regulatory knowledge and local trust.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsection-title" style="margin-top:28px;">MARKET SIZING — TAM / SAM / SOM</div>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th style="width:10%">Market</th><th>Definition</th><th style="width:24%">Calculation</th><th style="width:18%">Value</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="td-bold">TAM</td>
+            <td>DACH local service SMBs (2–20 employees, owner-operated, €200K–€2M revenue) needing operational automation across front-office, content, and analytics.</td>
+            <td>~400,000 businesses × €4,800/year avg.</td>
+            <td class="td-bold">€1.92B</td>
+          </tr>
+          <tr>
+            <td class="td-bold">SAM</td>
+            <td>DACH fitness/wellness studios + adjacent verticals (salons, dental, physio, restaurants) matching the OPERION ICP — multilingual prospect base, high inbound DM volume, appointment-driven revenue.</td>
+            <td>~52,000 businesses × €6,000/year</td>
+            <td class="td-bold">€312M</td>
+          </tr>
+          <tr class="tr-highlight">
+            <td class="td-bold td-sol">SOM</td>
+            <td>Ingolstadt + Munich metro beachhead. Year 1–3 achievable at ~1% SAM penetration in target sub-market. 75 clients × €6,000/year average.</td>
+            <td>75 clients × €6,000/year (Year 3)</td>
+            <td class="td-sol td-bold">€450K ARR</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="dim-text" style="margin-top:8px;">Validation basis: Germany alone has ~9,700 registered fitness studios (DSSV 2024), ~80,000 hair salons, ~40,000 dental clinics. DACH multiplier adds ~20%.</p>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">OPERION</span>
+    <span class="footer-class">Confidential · Strategic Plan V3.0 · April 2026</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PAGE: SECTION X — RISK MATRIX
+═══════════════════════════════════════════════════════════════════ -->
+<div class="page">
+
+  <div class="section" id="sX">
+    <div class="section-eyebrow">Section X</div>
+    <h2 class="section-title">Risk Matrix</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:22%">Risk</th>
+            <th style="width:12%">Probability</th>
+            <th style="width:12%">Impact</th>
+            <th>Mitigation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-bold">API pricing increase — Anthropic raises inference costs</td>
+            <td><span class="risk-medium">Medium</span></td>
+            <td><span class="risk-high">High</span></td>
+            <td>Model-agnostic architecture — Claude Haiku replaceable with Mistral/local model without agent re-build. Budget alert triggers at &gt;15% API/MRR ratio.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Meta/WhatsApp API policy change — channel restriction</td>
+            <td><span class="risk-medium">Medium</span></td>
+            <td><span class="risk-high">High</span></td>
+            <td>Multi-channel architecture from Day 1. Clients on ≥2 channels at deployment. Email as fallback always active. Channel diversification standard in onboarding.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">GDPR enforcement action — data breach or non-compliance</td>
+            <td><span class="risk-low">Low</span></td>
+            <td><span class="risk-critical">Critical</span></td>
+            <td>Docker-sealed containers, EU-only endpoints, DPA executed pre-deployment, 30-day data purge automated at data layer. Legal review budget €5K/year from Month 6.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Primary client departure — Clever Fit ends relationship</td>
+            <td><span class="risk-low">Low</span></td>
+            <td><span class="risk-high">High</span></td>
+            <td>Written IP/case study agreement secured before May 2026. Two additional clients signed before strategic dependence on Clever Fit case study is critical.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Copycat competitor — DACH agency copies Lane 4 positioning</td>
+            <td><span class="risk-high">High</span></td>
+            <td><span class="risk-medium">Medium</span></td>
+            <td>First-mover brand in fitness vertical. Knowledge graph moat: switching cost rises monthly. Client-specific IP embedded in vault. Speed of execution is the only sustainable defense.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Founder burnout — solo founder, high build load</td>
+            <td><span class="risk-medium">Medium</span></td>
+            <td><span class="risk-critical">Critical</span></td>
+            <td>Strict 48-hour offline rule Sunday/Monday. VA hire at Month 12 as mandatory circuit breaker. HDR ≥90% target ensures client management does not scale linearly with client count.</td>
+          </tr>
+          <tr>
+            <td class="td-bold">Tool outage — Anthropic, WhatsApp, Meta downtime</td>
+            <td><span class="risk-medium">Medium</span></td>
+            <td><span class="risk-medium">Medium</span></td>
+            <td>Retry logic in all agents. Graceful degradation: CI-007 NOTIFY_HUMAN when agent cannot execute within SLA. Client SLA acknowledges third-party dependency with explicit language.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">OPERION</span>
+    <span class="footer-class">Confidential · Strategic Plan V3.0 · April 2026</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PAGE: SECTION XI — FINANCIAL PLAN
+═══════════════════════════════════════════════════════════════════ -->
+<div class="page">
+
+  <div class="section" id="sXI">
+    <div class="section-eyebrow">Section XI</div>
+    <h2 class="section-title">Financial Plan</h2>
+
+    <div class="subsection-title">RADIOGRAFÍA FINANCIERA — THE LABOR ARBITRAGE</div>
+    <p style="margin-bottom:20px;">This is not a marginal efficiency argument. This is a structural cost transformation that is permanent, compounding, and fiscally optimized under German tax law (EStG §4 Abs. 4 — Betriebsausgabe deduction). OPERION does not sell productivity optimization. It sells closed leads and replaced salary lines.</p>
+
+    <div class="fiscal-compare no-break">
+      <div class="fiscal-col">
+        <div class="fiscal-col-header">
+          <div class="col-label">Current state</div>
+          <div class="col-title">Part-Time Front Desk — Human Cost</div>
+        </div>
+        <div class="fiscal-row"><span class="fiscal-row-label">Gross salary</span><span class="fiscal-row-value">€1.200</span></div>
+        <div class="fiscal-row"><span class="fiscal-row-label">Employer social security (~21%)</span><span class="fiscal-row-value">€252</span></div>
+        <div class="fiscal-row"><span class="fiscal-row-label">Sick leave provision (~7.7%)</span><span class="fiscal-row-value">€92</span></div>
+        <div class="fiscal-row"><span class="fiscal-row-label">Vacation provision (~9.2%)</span><span class="fiscal-row-value">€110</span></div>
+        <div class="fiscal-row"><span class="fiscal-row-label">Onboarding amortization (÷12)</span><span class="fiscal-row-value">€83</span></div>
+        <div class="fiscal-total">
+          <span class="total-label">Total employer cost</span>
+          <span class="total-value">€1.737</span>
+        </div>
+      </div>
+      <div class="fiscal-col">
+        <div class="fiscal-col-header sol-header">
+          <div class="col-label">OPERION state — Growth tier</div>
+          <div class="col-title">Autonomous Execution System</div>
+        </div>
+        <div class="fiscal-row"><span class="fiscal-row-label">OPERION retainer</span><span class="fiscal-row-value sol">€500</span></div>
+        <div class="fiscal-row"><span class="fiscal-row-label">After ~25% corporate tax deduction</span><span class="fiscal-row-value sol">—</span></div>
+        <div class="fiscal-row" style="background:var(--papel);"><span class="fiscal-row-label">Social security overhead</span><span class="fiscal-row-value sol">€0</span></div>
+        <div class="fiscal-row"><span class="fiscal-row-label">Sick leave provision</span><span class="fiscal-row-value sol">€0</span></div>
+        <div class="fiscal-row"><span class="fiscal-row-label">Onboarding cost</span><span class="fiscal-row-value sol">€0</span></div>
+        <div class="fiscal-total" style="background:rgba(232,163,61,0.06); border-top:1px solid rgba(232,163,61,0.25);">
+          <span class="total-label">Effective monthly cost</span>
+          <span class="total-value sol">€375</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="savings-banner no-break">
+      <div>
+        <div class="s-label">Monthly savings per substituted role</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.40);margin-top:2px;">Annual savings: €16.344 — per client, per substituted role</div>
+      </div>
+      <div class="s-value">€1.362 / month</div>
+    </div>
+
+    <div class="subsection-title">SERVICE TIERS</div>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th>Tier</th><th>Setup (one-time)</th><th>Monthly</th><th>Scope</th></tr></thead>
+        <tbody>
+          <tr><td class="td-bold">Starter</td><td>€500</td><td>€200</td><td>TRIAGE agent, 1 channel, weekly report</td></tr>
+          <tr><td class="td-bold">Growth</td><td>€1.500</td><td>€500</td><td>TRIAGE + CONTENT + ANALYTICS, multi-channel, bi-weekly strategy review</td></tr>
+          <tr class="tr-highlight"><td class="td-bold td-sol">Enterprise</td><td class="td-sol">€3.000+</td><td class="td-sol">€1.000+</td><td>Full 5-agent suite, custom integrations, dedicated support (Month 12+)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="dim-text" style="margin-top:8px;">Founding client terms (first 5 clients): 50% perpetual discount on all tiers in exchange for public case study rights and video testimonial.</p>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">OPERION</span>
+    <span class="footer-class">Confidential · Strategic Plan V3.0 · April 2026</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PAGE: SECTION XI CONT. — REVENUE PROJECTIONS + DCF
+═══════════════════════════════════════════════════════════════════ -->
+<div class="page">
+
+  <div class="section section-no-break" id="sXI-b">
+    <div class="section-eyebrow">Section XI — continued</div>
+    <h2 class="section-title section-title-dark" style="color:var(--noche);border-color:var(--border);">Revenue Projections &amp; Valuation</h2>
+
+    <div class="subsection-title">REVENUE PROJECTIONS</div>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th>Period</th><th>Clients</th><th>MRR</th><th>Cumulative Revenue</th></tr></thead>
+        <tbody>
+          <tr><td>Month 5</td><td>1 (Clever Fit — founding)</td><td>€100</td><td>€600 (setup only)</td></tr>
+          <tr><td>Month 6</td><td>2</td><td>€400</td><td>€2.100</td></tr>
+          <tr><td>Month 8</td><td>4</td><td>€1.200</td><td>€6.300</td></tr>
+          <tr><td>Month 10</td><td>6</td><td>€2.400</td><td>€13.500</td></tr>
+          <tr><td>Month 12</td><td>8–10</td><td>€4.000–5.000</td><td>€25.000+</td></tr>
+          <tr><td>Month 18</td><td>12–15</td><td>€8.000–10.000</td><td>€70.000+</td></tr>
+          <tr><td>Year 2 (Month 24)</td><td>20–25</td><td>€15.000–18.000</td><td>€170.000+</td></tr>
+          <tr class="tr-highlight"><td class="td-bold">Year 3 (Month 36)</td><td class="td-bold">35–40</td><td class="td-sol td-bold">€25.000–30.000</td><td class="td-sol td-bold">€450.000+</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="dim-text" style="margin-top:8px;">Gross margin target: ≥70%. Primary costs: Anthropic API ~€80/month at scale · platform subscriptions ~€150/month · VA ~€500/month from Month 12.</p>
+
+    <div class="subsection-title" style="margin-top:28px;">DCF VALUATION — FOUR SCENARIOS</div>
+    <p style="margin-bottom:14px;" class="dim-text">WACC: 12% (early-stage software, founder-operated). Terminal growth rate: 3%. 5-year projection horizon. Churn: 8%/year. Average contract value: €6,000/year (blended tiers).</p>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th>Scenario</th><th>Year 3 ARR</th><th>Year 5 ARR</th><th>Terminal Value</th><th>NPV (5yr)</th></tr></thead>
+        <tbody>
+          <tr><td class="td-bold">Market numbers <span class="dim-text">(2% DACH vertical penetration)</span></td><td>€900K</td><td>€3.2M</td><td>€32M</td><td>€18M</td></tr>
+          <tr class="tr-highlight"><td class="td-bold td-sol">Expected case <span class="dim-text" style="color:var(--sol);opacity:0.7;">(SOM: 75 clients Y3, 150 Y5)</span></td><td class="td-sol">€450K</td><td class="td-sol">€1.1M</td><td class="td-sol">€11M</td><td class="td-sol td-bold">€6.2M</td></tr>
+          <tr><td class="td-bold">Worst case — planned <span class="dim-text">(25 clients Y3, 60 Y5)</span></td><td>€150K</td><td>€360K</td><td>€3.6M</td><td>€2.0M</td></tr>
+          <tr><td class="td-bold">Worst case — average <span class="dim-text">(15 clients Y3, 35 Y5)</span></td><td>€90K</td><td>€210K</td><td>€2.1M</td><td>€1.2M</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout" style="margin-top:20px;">
+      <p>The expected case — 75 clients by Year 3 — requires signing 2.1 clients per month on average from Month 5 onward. At a 10-outreach-per-day cadence with a 3% conversion rate, this requires 70 outreach messages per qualified conversion. Agent 4 (OUTREACH) handles this volume autonomously from Month 5. The worst case scenario (15–25 clients) still generates a terminal value of €2.1–3.6M — above the break-even survival threshold. The business is viable at sub-expected performance. Upside is asymmetric.</p>
+    </div>
+
+    <div class="subsection-title" style="margin-top:28px;">CAPITAL REQUIREMENT PLAN</div>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th>Phase</th><th>Period</th><th>Required capital</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td class="td-bold">Phase 0 — Foundation</td><td>Month 1–3</td><td>€0/month (all free tier tools)</td><td>Bootstrap</td></tr>
+          <tr><td class="td-bold">Phase 1 — Growth</td><td>Month 4–8</td><td>€150/month (domain + API + WhatsApp)</td><td>Minijob income + Clever Fit retainer</td></tr>
+          <tr><td class="td-bold">Phase 2 — Scale</td><td>Month 9–18</td><td>€600/month (Wyoming LLC + full stack)</td><td>Client MRR</td></tr>
+          <tr class="tr-highlight"><td class="td-bold">Phase 3 — Expansion</td><td>Month 19+</td><td>€2.000–4.000/month (VA + legal + marketing)</td><td>Client MRR + optional angel round</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="dim-text" style="margin-top:8px;">Total capital requirement to break-even (Month 12–14): €8,000–12,000. Achievable from the Clever Fit founding client contract plus 3–4 additional clients signed by Month 8 without any external funding.</p>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">OPERION</span>
+    <span class="footer-class">Confidential · Strategic Plan V3.0 · April 2026</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PAGE: SECTIONS XII – XIII
+═══════════════════════════════════════════════════════════════════ -->
+<div class="page">
+
+  <!-- XII. ROADMAP -->
+  <div class="section" id="sXII">
+    <div class="section-eyebrow">Section XII</div>
+    <h2 class="section-title">Roadmap — Deliberate Execution</h2>
+
+    <div class="callout" style="margin-bottom:24px;">
+      <p><em>Slow is smooth. Smooth is fast.</em> — adapted from US Special Operations doctrine. The roadmap is not a race. It is a sequence of irreversible position gains. Each phase must demonstrate <strong>HDR ≥90% and OII = 100%</strong> before geographic or vertical scaling is authorized.</p>
+    </div>
+
+    <div class="subsection-title">PHASE 1 — BEACHHEAD: INGOLSTADT (MONTH 1–6)</div>
+    <p style="margin-bottom:12px;">Objective: Prove the model. One client, fully sovereign. One verified case study. Infrastructure stable.</p>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th>Milestone</th><th>Target date</th><th>Gate criterion</th></tr></thead>
+        <tbody>
+          <tr><td>Clever Fit TRIAGE in production</td><td>April 2026</td><td><span class="pill pill-live">Live</span></td></tr>
+          <tr><td>IP agreement signed with Clever Fit</td><td>May 1, 2026</td><td>Written consent</td></tr>
+          <tr><td>First Immunity Audit passed</td><td>May 15, 2026</td><td>OII = 5/5 scenarios</td></tr>
+          <tr><td>Clever Fit case study published</td><td>June 1, 2026</td><td>Written approval</td></tr>
+          <tr><td>Client 2 signed</td><td>June 2026</td><td>1 additional fitness client</td></tr>
+          <tr><td>Content Factory deployed</td><td>July 2026</td><td>Agent 2 live for Clever Fit</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="dim-text" style="margin-top:8px;"><strong>HDR gate:</strong> Clever Fit TRIAGE must reach ≥90% HDR before Client 3 onboarding begins. If gate is not passed, onboarding is paused.</p>
+
+    <div class="subsection-title" style="margin-top:24px;">PHASE 2 — MUNICH METRO EXPANSION (MONTH 7–12)</div>
+    <p style="margin-bottom:12px;">Objective: Replicate the model in a larger market. 8–10 clients across fitness + adjacent verticals. MRR crossing €4,000.</p>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th>Milestone</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr><td>Analytics Scout deployed</td><td>August 2026</td></tr>
+          <tr><td>Outreach Agent deployed</td><td>September 2026</td></tr>
+          <tr><td>5 clients in fitness vertical</td><td>September 2026</td></tr>
+          <tr><td>First non-fitness client (salon or clinic)</td><td>October 2026</td></tr>
+          <tr><td>Wyoming LLC formation</td><td>November 2026</td></tr>
+          <tr><td>8–10 active clients</td><td>December 2026</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="dim-text" style="margin-top:8px;"><strong>Scaling rule:</strong> No new vertical entered without at least 3 fully sovereign fitness clients demonstrating ≥90% HDR. The playbook is proven before it is generalized.</p>
+
+    <div class="subsection-title" style="margin-top:24px;">PHASE 3 — DACH SOVEREIGN (MONTH 13–18)</div>
+    <p>15 clients. MRR crossing €8,000. First VA hire. Operations Agent deployed (January 2027). Austria and Switzerland market entry (February 2027). OPERION website live with Clever Fit case study embedded (March 2027). Enterprise tier offered to highest-volume clients (April 2027).</p>
+    <p class="dim-text"><strong>HDR gate:</strong> Portfolio-wide HDR average must be ≥90% before LATAM expansion is authorized.</p>
+
+    <div class="subsection-title" style="margin-top:24px;">PHASE 4 — LATAM ENTRY (MONTH 19–24) &amp; PHASE 5 — HARDWARE HORIZON (2028–2030)</div>
+    <p>Lima, Peru as the LATAM entry point. LATAM fiscal arbitrage: part-time admin employee costs $400–600 USD/month vs. OPERION Starter at $180–220 USD/month. Payback on setup fee: &lt;30 days.</p>
+    <p>Every Command Interface defined in 2026 is built to be hardware-agnostic. When humanoid reception units and voice kiosks reach SMB-accessible pricing (projected 2028–2030 based on Boston Dynamics, Figure AI, Sanctuary AI cost trajectories), OPERION clients will have 2–3 years of domain-specific interaction data, tuned intent classification, and calibrated brand voice ready to deploy onto new execution hardware. The software layer is the moat. The hardware is the next interface.</p>
+  </div>
+
+  <!-- XIII. SOVEREIGNTY METRICS -->
+  <div class="section" id="sXIII">
+    <div class="section-eyebrow">Section XIII</div>
+    <h2 class="section-title">Sovereignty Metrics</h2>
+
+    <div class="subsection-title">HUMAN DISPLACEMENT RATIO (HDR)</div>
+    <p style="margin-bottom:14px;"><strong>Formula:</strong> <span style="font-family:var(--mono);font-size:13px;background:var(--papel);padding:2px 8px;border:1px solid var(--border);">HDR = (Autonomous executions ÷ Total operational tasks in scope) × 100</span></p>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th>HDR</th><th>Immunity Grade</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr class="tr-highlight"><td class="td-sol td-bold">≥90%</td><td class="immunity-sovereign">Sovereign</td><td>Full autonomous operation. Human role: exception review only.</td></tr>
+          <tr><td class="td-bold">80–89%</td><td class="td-bold">Operational</td><td>Near-full autonomy. Minor human touchpoints remain.</td></tr>
+          <tr><td>70–79%</td><td>Transitional</td><td>Automation running, shadow mode transitioning to autonomous.</td></tr>
+          <tr><td class="td-dim">&lt;70%</td><td class="td-dim">Deploying</td><td>Active deployment phase. Target: exit within 14 days of go-live.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsection-title" style="margin-top:24px;">OPERATIONAL IMMUNITY INDEX (OII)</div>
+    <p>Can the client's business continue operating at full capability during complete human absence? Five random operational scenarios administered at Day 30 and quarterly — all 5 must pass. Any failure is a deployment deficiency requiring root cause analysis and remediation within 48 hours.</p>
+    <p class="dim-text"><strong>Target:</strong> OII = 100% (5/5) by Day 30. ≥80% Day 30 (Operational grade). ≥90% Day 90 (Sovereign grade) across all active clients. Portfolio-average ≥90% HDR required before any geographic scaling is authorized.</p>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">OPERION</span>
+    <span class="footer-class">Confidential · Strategic Plan V3.0 · April 2026</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PAGE: SECTIONS XIV – XV
+═══════════════════════════════════════════════════════════════════ -->
+<div class="page">
+
+  <!-- XIV. LEGAL AND COMPLIANCE -->
+  <div class="section" id="sXIV">
+    <div class="section-eyebrow">Section XIV</div>
+    <h2 class="section-title">Legal and Compliance Architecture</h2>
+
+    <div class="subsection-title">ENTITY STRUCTURE</div>
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th>Period</th><th>Entity</th><th>Basis</th></tr></thead>
+        <tbody>
+          <tr><td>Month 1–9</td><td class="td-bold">German Einzelunternehmen (Kleinunternehmer, §19 UStG)</td><td>No VAT on invoices below €22,000 gross Year 1</td></tr>
+          <tr class="tr-highlight"><td>Month 9+</td><td class="td-sol td-bold">Wyoming LLC (parent) + German operational subsidiary</td><td>IP protection, global banking via Mercury, Stripe payments</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsection-title" style="margin-top:24px;">GDPR COMPLIANCE STACK</div>
+    <ul class="numbered-list" style="margin-top:8px;">
+      <li><span class="num">01.</span><span>Docker-sealed containers per client — technical data isolation at infrastructure level, not policy level</span></li>
+      <li><span class="num">02.</span><span>Anthropic EU endpoints only for EU clients — no US data routing</span></li>
+      <li><span class="num">03.</span><span>30-day automatic interaction record purge — enforced at data layer, not agent layer</span></li>
+      <li><span class="num">04.</span><span>Data Processing Agreements (DPA) executed before every production deployment</span></li>
+      <li><span class="num">05.</span><span>All interaction logs anonymizable on client request within 72 hours</span></li>
+      <li><span class="num">06.</span><span>No personal data in agent memory beyond 30 days</span></li>
+    </ul>
+
+    <div class="subsection-title" style="margin-top:24px;">IP PROTECTION</div>
+    <p>Written IP agreements with every client before deployment confirming: (a) agent architecture and orchestration code is OPERION IP; (b) client-specific knowledge base configuration is client property; (c) OPERION may publish anonymized or named performance metrics as case studies with prior written approval; (d) OPERION brand may appear in promotional materials as "Powered by OPERION." Clever Fit agreement target: May 1, 2026.</p>
+  </div>
+
+  <!-- XV. APPENDIX — KEY METRICS -->
+  <div class="section" id="sXV">
+    <div class="section-eyebrow">Section XV — Appendix</div>
+    <h2 class="section-title">Key Metrics Reference</h2>
+
+    <div class="table-wrap no-break">
+      <table>
+        <thead><tr><th>Metric</th><th>Baseline</th><th>Target</th><th>Alert threshold</th></tr></thead>
+        <tbody>
+          <tr><td class="td-bold">TRIAGE response time</td><td>240 min (human)</td><td class="td-sol">&lt;5 min</td><td>&gt;10 min</td></tr>
+          <tr><td class="td-bold">Intent classification accuracy</td><td>~80% (Day 1)</td><td class="td-sol">&gt;90% (Day 90)</td><td>&lt;80%</td></tr>
+          <tr><td class="td-bold">HDR per client</td><td>0% (pre-deployment)</td><td class="td-sol">≥90% (Day 90)</td><td>&lt;70% at Day 30</td></tr>
+          <tr><td class="td-bold">OII per client</td><td>0% (pre-deployment)</td><td class="td-sol">100% (Day 30)</td><td>Any scenario failure</td></tr>
+          <tr><td class="td-bold">Content published/week</td><td>0 (manual)</td><td class="td-sol">≥10</td><td>&lt;5</td></tr>
+          <tr><td class="td-bold">Report delivery on time</td><td>Manual (irregular)</td><td class="td-sol">100%</td><td>Any miss</td></tr>
+          <tr><td class="td-bold">API cost as % of MRR</td><td>—</td><td class="td-sol">&lt;15%</td><td>&gt;25%</td></tr>
+          <tr><td class="td-bold">Client churn</td><td>—</td><td class="td-sol">&lt;8%/year</td><td>&gt;15%/year</td></tr>
+          <tr class="tr-highlight"><td class="td-bold">Gross margin</td><td>—</td><td class="td-sol td-bold">≥70%</td><td>&lt;60%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:56px; padding-top:20px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:flex-end;">
+      <div>
+        <div style="font-family:var(--display);font-size:11px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--noche);margin-bottom:4px;">OPERION</div>
+        <div style="font-size:10px;color:var(--dim);font-weight:400;">Strategic Plan V3.0 · April 25, 2026 · Ingolstadt, DE</div>
+        <div style="font-size:10px;color:var(--dim);font-weight:400;margin-top:2px;">Owner: Felix Andres Rios Blanco — Founder &amp; CEO</div>
+        <div style="font-size:10px;color:var(--dim);font-weight:400;margin-top:2px;">Consolidates: CLAUDE.md v1.1 · Business Plan v2.0 · Sovereign Blueprint v2.0</div>
+        <div style="font-size:9px;color:var(--border);margin-top:6px;letter-spacing:0.08em;">CONFIDENTIAL — NOT FOR DISTRIBUTION WITHOUT WRITTEN AUTHORIZATION</div>
+      </div>
+      <!-- Mini emblem on last page -->
+      <svg width="48" height="60" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 400" style="opacity:0.25;">
+        <rect width="320" height="400" fill="#0F1729"/>
+        <polygon points="246.6,120 160,70 73.4,120 73.4,220 160,270 246.6,220" fill="none" stroke="#888898" stroke-width="3"/>
+        <circle cx="160" cy="170" r="34" fill="#0C101E"/>
+        <circle cx="160" cy="170" r="34" fill="none" stroke="#888898" stroke-width="2.5"/>
+      </svg>
+    </div>
+  </div>
+
+</div><!-- /last page -->
+
+</body>
+</html>

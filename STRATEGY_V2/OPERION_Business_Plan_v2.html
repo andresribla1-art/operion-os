@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OPERION — Business Plan v2.0</title>
+<style>
+  :root {
+    --carbon: #0D0D0D;
+    --near-white: #FAFAFA;
+    --mid: #6B6B6B;
+    --rule: #1E1E1E;
+    --accent-cold: #C8E8F4;
+    --page-bg: #111111;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; background: var(--carbon); color: var(--near-white); }
+  body {
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-weight: 300;
+    line-height: 1.75;
+    background: var(--page-bg);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 0 120px;
+  }
+
+  /* ── COVER ─────────────────────────────────────────────── */
+  .cover {
+    background: var(--carbon);
+    border-bottom: 1px solid var(--rule);
+    padding: 80px 64px 72px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,232,244,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cover-eyebrow {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .cover-title {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 200;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--near-white);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .cover-subtitle {
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-bottom: 48px;
+  }
+  .cover-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;
+    border-top: 1px solid var(--rule);
+    padding-top: 32px;
+  }
+  .cover-meta-item label {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .cover-meta-item span {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--near-white);
+  }
+
+  /* ── CONTENT ────────────────────────────────────────────── */
+  .content { padding: 0 64px; }
+
+  /* ── SECTIONS ───────────────────────────────────────────── */
+  .section {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-number {
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: 22px;
+    font-weight: 200;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--near-white);
+    margin-bottom: 40px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* ── TYPOGRAPHY ─────────────────────────────────────────── */
+  h3 {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--near-white);
+    margin: 36px 0 14px;
+  }
+  h3:first-child { margin-top: 0; }
+  p {
+    font-size: 14px;
+    color: #C8C8C8;
+    margin-bottom: 16px;
+    max-width: 680px;
+  }
+  strong {
+    font-weight: 400;
+    color: var(--near-white);
+  }
+
+  /* ── DOCTRINE BLOCK ─────────────────────────────────────── */
+  .doctrine {
+    border-left: 2px solid var(--near-white);
+    padding: 24px 32px;
+    margin: 32px 0;
+    background: rgba(250,250,250,0.02);
+  }
+  .doctrine p {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--near-white);
+    margin: 0;
+    max-width: 100%;
+  }
+
+  /* ── PRINCIPLES ─────────────────────────────────────────── */
+  .principles { display: flex; flex-direction: column; gap: 24px; margin: 32px 0; }
+  .principle {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 16px;
+    align-items: start;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .principle:last-child { border-bottom: none; }
+  .principle-num {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--mid);
+    padding-top: 2px;
+  }
+  .principle-body strong {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .principle-body p { font-size: 13px; margin: 0; max-width: 100%; }
+
+  /* ── TABLE ──────────────────────────────────────────────── */
+  .table-wrap { margin: 24px 0; overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead tr { border-bottom: 1px solid #3A3A3A; }
+  thead th {
+    text-align: left;
+    padding: 10px 16px;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--mid);
+    font-weight: 400;
+  }
+  tbody tr { border-bottom: 1px solid var(--rule); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(250,250,250,0.02); }
+  td {
+    padding: 12px 16px;
+    color: #C0C0C0;
+    vertical-align: top;
+  }
+  td strong { color: var(--near-white); }
+  td:first-child { color: var(--near-white); }
+
+  /* ── METRIC CARDS ───────────────────────────────────────── */
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    margin: 32px 0;
+    border: 1px solid var(--rule);
+  }
+  .metric-card {
+    background: var(--page-bg);
+    padding: 28px 24px;
+  }
+  .metric-card .label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 12px;
+  }
+  .metric-card .value {
+    font-size: 28px;
+    font-weight: 200;
+    color: var(--near-white);
+    letter-spacing: 1px;
+  }
+  .metric-card .sub {
+    font-size: 11px;
+    color: var(--mid);
+    margin-top: 6px;
+  }
+
+  /* ── FISCAL CALLOUT ─────────────────────────────────────── */
+  .fiscal-compare {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    gap: 0;
+    margin: 32px 0;
+    border: 1px solid var(--rule);
+  }
+  .fiscal-side {
+    padding: 28px 24px;
+    background: var(--page-bg);
+  }
+  .fiscal-vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--rule);
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--mid);
+    text-transform: uppercase;
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+  }
+  .fiscal-side .fiscal-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 16px;
+  }
+  .fiscal-side .fiscal-amount {
+    font-size: 36px;
+    font-weight: 200;
+    color: var(--near-white);
+    margin-bottom: 4px;
+  }
+  .fiscal-side .fiscal-sub {
+    font-size: 11px;
+    color: var(--mid);
+    margin-bottom: 20px;
+  }
+  .fiscal-side .fiscal-items { list-style: none; }
+  .fiscal-side .fiscal-items li {
+    font-size: 12px;
+    color: #909090;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+  }
+  .fiscal-side .fiscal-items li:last-child { border-bottom: none; }
+  .fiscal-side .fiscal-items li span { color: #C0C0C0; }
+
+  /* ── SOVEREIGNTY METRICS ────────────────────────────────── */
+  .sovereignty-block {
+    border: 1px solid var(--rule);
+    padding: 32px;
+    margin: 32px 0;
+  }
+  .sovereignty-block .s-title {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 12px;
+  }
+  .sovereignty-block .s-name {
+    font-size: 20px;
+    font-weight: 200;
+    color: var(--near-white);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .sovereignty-block .s-formula {
+    background: var(--carbon);
+    padding: 14px 20px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--accent-cold);
+    font-family: 'Courier New', monospace;
+    margin-bottom: 16px;
+  }
+  .sovereignty-block p { font-size: 13px; color: #B0B0B0; max-width: 100%; }
+
+  /* ── TIER CARDS ─────────────────────────────────────────── */
+  .tier-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    margin: 24px 0;
+    border: 1px solid var(--rule);
+  }
+  .tier-card {
+    background: var(--page-bg);
+    padding: 28px 24px;
+  }
+  .tier-card .tier-name {
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 12px;
+  }
+  .tier-card .tier-price {
+    font-size: 28px;
+    font-weight: 200;
+    color: var(--near-white);
+    margin-bottom: 2px;
+  }
+  .tier-card .tier-setup {
+    font-size: 11px;
+    color: var(--mid);
+    margin-bottom: 16px;
+  }
+  .tier-card .tier-scope {
+    font-size: 12px;
+    color: #909090;
+    line-height: 1.7;
+  }
+
+  /* ── FOOTER ─────────────────────────────────────────────── */
+  .doc-footer {
+    padding: 40px 64px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+  }
+  .doc-footer .wordmark {
+    font-size: 14px;
+    font-weight: 200;
+    letter-spacing: 8px;
+    color: #3A3A3A;
+    text-transform: uppercase;
+  }
+  .doc-footer .version {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--mid);
+  }
+
+  @media (max-width: 640px) {
+    .cover, .content, .doc-footer { padding-left: 24px; padding-right: 24px; }
+    .fiscal-compare { grid-template-columns: 1fr; }
+    .fiscal-vs { writing-mode: horizontal-tb; padding: 16px; }
+  }
+
+  /* ── COVER EMBLEM ───────────────────────────────────────── */
+  .cover-emblem {
+    display: block;
+    margin-bottom: 40px;
+  }
+  .cover-emblem svg {
+    display: block;
+    width: 88px;
+    height: 110px;
+  }
+  @media print {
+    .cover-emblem svg { width: 72px; height: 90px; }
+    @page { size: A4; margin: 20mm; }
+    body { max-width: 100%; padding: 0; background: #0D0D0D; }
+    .cover { padding: 48px 48px 40px; }
+    section { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     COVER
+══════════════════════════════════════════════════════════ -->
+<header class="cover">
+  <div class="cover-emblem">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 400" role="img" aria-label="OPERION Sovereign Emblem">
+      <defs>
+        <filter id="bp-grain" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.78" numOctaves="4" stitchTiles="stitch" result="noise"/>
+          <feColorMatrix type="saturate" values="0" in="noise"/>
+        </filter>
+        <filter id="bp-shadowBlur" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="4"/>
+        </filter>
+        <linearGradient id="bp-titaniumGrad" x1="73" y1="70" x2="247" y2="270" gradientUnits="userSpaceOnUse">
+          <stop offset="0%"   stop-color="#383848"/>
+          <stop offset="11%"  stop-color="#888898"/>
+          <stop offset="22%"  stop-color="#C4C4D8"/>
+          <stop offset="32%"  stop-color="#E8E8F6"/>
+          <stop offset="41%"  stop-color="#F8F8FF"/>
+          <stop offset="48%"  stop-color="#FFFFFF"/>
+          <stop offset="58%"  stop-color="#E2E2F0"/>
+          <stop offset="72%"  stop-color="#A8A8C0"/>
+          <stop offset="86%"  stop-color="#686878"/>
+          <stop offset="100%" stop-color="#2C2C3C"/>
+        </linearGradient>
+        <radialGradient id="bp-coreGrad" cx="151" cy="160" r="40" gradientUnits="userSpaceOnUse">
+          <stop offset="0%"   stop-color="#1A2244"/>
+          <stop offset="28%"  stop-color="#121830"/>
+          <stop offset="60%"  stop-color="#0C101E"/>
+          <stop offset="100%" stop-color="#050710"/>
+        </radialGradient>
+        <radialGradient id="bp-coreCatch" cx="147" cy="156" r="20" gradientUnits="userSpaceOnUse">
+          <stop offset="0%"   stop-color="#5870B8" stop-opacity="0.60"/>
+          <stop offset="45%"  stop-color="#2C3C80" stop-opacity="0.20"/>
+          <stop offset="100%" stop-color="#101828" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="bp-glowOuter" x="-120%" y="-120%" width="340%" height="340%" color-interpolation-filters="sRGB">
+          <feGaussianBlur stdDeviation="15" result="blur"/>
+          <feColorMatrix type="matrix" values="0.85 0 0 0 0.05 0 0.9 0 0 0.06 0 0 1 0 0.08 0 0 0 1 0" in="blur"/>
+        </filter>
+        <filter id="bp-glowRim" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+          <feGaussianBlur stdDeviation="5"/>
+        </filter>
+        <filter id="bp-metalBevel" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="2.2" result="bumpMap"/>
+          <feSpecularLighting in="bumpMap" surfaceScale="5" specularConstant="1.9" specularExponent="42" lighting-color="#FFFFFF" result="specularOut">
+            <fePointLight x="68" y="32" z="140"/>
+          </feSpecularLighting>
+          <feComposite in="specularOut" in2="SourceAlpha" operator="in" result="specularClipped"/>
+          <feBlend in="SourceGraphic" in2="specularClipped" mode="screen"/>
+        </filter>
+        <linearGradient id="bp-wordmarkGrad" x1="55" y1="334" x2="265" y2="334" gradientUnits="userSpaceOnUse">
+          <stop offset="0%"   stop-color="#505060"/>
+          <stop offset="25%"  stop-color="#A8A8B8"/>
+          <stop offset="47%"  stop-color="#D4D4E0"/>
+          <stop offset="62%"  stop-color="#B0B0C0"/>
+          <stop offset="100%" stop-color="#484858"/>
+        </linearGradient>
+      </defs>
+      <rect width="320" height="400" fill="#0D0D0D"/>
+      <rect width="320" height="400" fill="#909090" opacity="0.035" filter="url(#bp-grain)"/>
+      <polygon points="246.6,120 160,70 73.4,120 73.4,220 160,270 246.6,220" fill="none" stroke="#000000" stroke-width="10" stroke-linejoin="miter" transform="translate(2.5,2.5)" opacity="0.55" filter="url(#bp-shadowBlur)"/>
+      <polygon points="246.6,120 160,70 73.4,120 73.4,220 160,270 246.6,220" fill="none" stroke="url(#bp-titaniumGrad)" stroke-width="3" stroke-linejoin="miter" filter="url(#bp-metalBevel)"/>
+      <path d="M73.4,120 L160,70 L246.6,120" fill="none" stroke="#FFFFFF" stroke-width="0.8" stroke-linejoin="miter" opacity="0.28"/>
+      <circle cx="160" cy="170" r="40" fill="#B8E2F4" opacity="0.17" filter="url(#bp-glowOuter)"/>
+      <circle cx="160" cy="170" r="34" fill="none" stroke="#D4EEFA" stroke-width="3" opacity="0.22" filter="url(#bp-glowRim)"/>
+      <circle cx="160" cy="170" r="34" fill="url(#bp-coreGrad)"/>
+      <circle cx="160" cy="170" r="34" fill="url(#bp-coreCatch)"/>
+      <circle cx="160" cy="170" r="34" fill="none" stroke="url(#bp-titaniumGrad)" stroke-width="2.5" filter="url(#bp-metalBevel)"/>
+      <line x1="189.4" y1="153.0" x2="224.9" y2="132.5" stroke="url(#bp-titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="160.0" y1="136.0" x2="160.0" y2="95.0"  stroke="url(#bp-titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="130.6" y1="153.0" x2="95.1"  y2="132.5" stroke="url(#bp-titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="130.6" y1="187.0" x2="95.1"  y2="207.5" stroke="url(#bp-titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="160.0" y1="204.0" x2="160.0" y2="245.0" stroke="url(#bp-titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="189.4" y1="187.0" x2="224.9" y2="207.5" stroke="url(#bp-titaniumGrad)" stroke-width="1.5" stroke-linecap="square"/>
+      <line x1="112" y1="300" x2="208" y2="300" stroke="#282838" stroke-width="0.75"/>
+      <text x="151" y="334" font-family="'Helvetica Neue','Arial',sans-serif" font-weight="200" font-size="21" letter-spacing="18" fill="url(#bp-wordmarkGrad)" dominant-baseline="middle" text-anchor="middle">OPERION</text>
+    </svg>
+  </div>
+  <div class="cover-eyebrow">Confidential · Internal · v2.0</div>
+  <div class="cover-title">OPERION</div>
+  <div class="cover-subtitle">Business Plan — Version 2.0</div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <label>Owner</label>
+      <span>Felix Andres Rios Blanco</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Role</label>
+      <span>Founder &amp; CEO</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Date</label>
+      <span>April 21, 2026</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Next Review</label>
+      <span>July 2026</span>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════
+     CONTENT
+══════════════════════════════════════════════════════════ -->
+<main class="content">
+
+  <!-- I. THE AUTONOMY THESIS -->
+  <section class="section">
+    <div class="section-number">Section I</div>
+    <div class="section-title">The Autonomy Thesis</div>
+
+    <div class="doctrine">
+      <p>Operational labor is a structural inefficiency, not a business requirement. Every local service business carries a category of work that requires zero human judgment to execute correctly. It requires only execution: consistent, fast, 24-hour execution.</p>
+    </div>
+
+    <p>Human beings are expensive, slow, fatigued, and absent. They get sick. They go on vacation. They respond to DMs in 4 hours on a Tuesday and in 0 hours on a Sunday. They are not bad employees. They are the wrong tool for a job that is purely mechanical.</p>
+    <p><strong>OPERION is the right tool.</strong> OPERION deploys autonomous execution systems that permanently eliminate specific operational roles. Not reduce. Not optimize. Eliminate — to the point where the role no longer exists in the client's operational budget.</p>
+
+    <h3>The Three Substitution Principles</h3>
+    <div class="principles">
+      <div class="principle">
+        <div class="principle-num">01</div>
+        <div class="principle-body">
+          <strong>Execution Precedes Existence</strong>
+          <p>A process that can be fully described in a decision tree has no business being executed by a human. If the logic can be written, OPERION runs it.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">02</div>
+        <div class="principle-body">
+          <strong>Oversight Is Not Elimination</strong>
+          <p>A system that requires a human to monitor it to function has not replaced the human — it has given them a new job. OPERION measures success by human-hours eliminated, not processes automated.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">03</div>
+        <div class="principle-body">
+          <strong>Substitution Is Permanent</strong>
+          <p>The operational roles OPERION eliminates do not return when the contract ends. The client's business structure has been permanently restructured around autonomous execution.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- II. MARKET -->
+  <section class="section">
+    <div class="section-number">Section II</div>
+    <div class="section-title">Market: Operational Waste at Scale</div>
+
+    <p>A local service business with 5–15 employees carries an average of 3–5 FTE hours/day in purely mechanical operational work: inbound response, appointment scheduling, content publishing, performance reporting, prospect outreach. At German labor costs, that is €800–€1,200/month in salary — for work requiring no judgment, no creativity, and no human presence.</p>
+
+    <h3>Target Verticals</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Priority</th><th>Vertical</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Fitness studios &amp; gyms</td><td>Validated — Clever Fit Ingolstadt</td></tr>
+          <tr><td>2</td><td>Hair salons &amp; barbershops</td><td>High appointment volume, constant WhatsApp traffic</td></tr>
+          <tr><td>3</td><td>Dental &amp; medical clinics</td><td>High LTV, language barriers common</td></tr>
+          <tr><td>4</td><td>Restaurants &amp; cafés</td><td>Reservation management, Google review responses</td></tr>
+          <tr><td>5</td><td>Physiotherapy &amp; wellness</td><td>Booking-heavy, insurance admin</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Geographic Rollout</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Phase</th><th>Timeline</th><th>Territory</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Month 1–6</td><td>Ingolstadt → Munich metro → Bavaria</td></tr>
+          <tr><td>2</td><td>Month 7–12</td><td>DACH (Germany, Austria, Switzerland)</td></tr>
+          <tr><td>3</td><td>Month 13–18</td><td>Peru (Lima, Arequipa, Cusco) → Colombia, Mexico</td></tr>
+          <tr><td>4</td><td>Month 19+</td><td>Florida, Texas (high LatAm population corridors)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- III. THE PRODUCT -->
+  <section class="section">
+    <div class="section-number">Section III</div>
+    <div class="section-title">The Product: Execution Infrastructure</div>
+
+    <p>OPERION is not software. It is not a platform. It is a deployed, running, measured autonomous execution system — configured per client, operated by OPERION, invisible to the client's customers. The client never touches code. They receive outcomes: responses sent, appointments booked, reports delivered.</p>
+
+    <h3>Agent Roster v2.0</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Agent</th><th>Function</th><th>Autonomy Target</th><th>Timeline</th></tr></thead>
+        <tbody>
+          <tr><td><strong>TRIAGE</strong></td><td>Inbound execution — permanent substitution of front desk / admin response role</td><td>&gt;80% without human review</td><td>Month 1 — MVP</td></tr>
+          <tr><td><strong>CONTENT FACTORY</strong></td><td>Publishing execution — permanent substitution of social media manager role</td><td>&gt;90% Pillar 2/3 content autonomous</td><td>Month 2</td></tr>
+          <tr><td><strong>ANALYTICS SCOUT</strong></td><td>Reporting execution — permanent substitution of marketing analyst role</td><td>100% report delivery, no human input</td><td>Month 3</td></tr>
+          <tr><td><strong>OUTREACH</strong></td><td>Prospecting execution — permanent substitution of SDR role</td><td>Draft autonomous; send requires Felix</td><td>Month 4–5</td></tr>
+          <tr><td><strong>OPERATIONS</strong></td><td>Internal system governance and documentation</td><td>Tier 1 internal tasks fully autonomous</td><td>Month 6</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- IV. FISCAL ARCHITECTURE -->
+  <section class="section">
+    <div class="section-number">Section IV</div>
+    <div class="section-title">Fiscal Architecture: OPEX to Strategic Expenditure</div>
+
+    <p>Traditional labor accounting treats salary as fixed OPEX: recurring, structurally inflexible, partially non-deductible at the gross level. OPERION transforms this structure entirely — converting an employment obligation into a fully deductible strategic service expenditure.</p>
+
+    <div class="fiscal-compare">
+      <div class="fiscal-side">
+        <div class="fiscal-label">Legacy State — Part-Time Admin Employee</div>
+        <div class="fiscal-amount">€1,737</div>
+        <div class="fiscal-sub">Total monthly employer cost</div>
+        <ul class="fiscal-items">
+          <li>Gross salary <span>€1,200</span></li>
+          <li>Social security (~21%) <span>€252</span></li>
+          <li>Sick leave provision <span>€92</span></li>
+          <li>Vacation provision <span>€110</span></li>
+          <li>Onboarding amortization <span>€83</span></li>
+        </ul>
+      </div>
+      <div class="fiscal-vs">vs</div>
+      <div class="fiscal-side">
+        <div class="fiscal-label">OPERION State — Growth Tier</div>
+        <div class="fiscal-amount">€375</div>
+        <div class="fiscal-sub">Net cost after ~25% tax deduction</div>
+        <ul class="fiscal-items">
+          <li>Monthly retainer <span>€500</span></li>
+          <li>Tax deduction (~25%) <span>−€125</span></li>
+          <li>Social security <span>€0</span></li>
+          <li>Sick leave provision <span>€0</span></li>
+          <li>Employment law obligation <span>€0</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doctrine">
+      <p>The economic argument is not "AI is the future." It is: <strong>€375 vs. €1,737, today.</strong> Monthly savings: €1,362. Annual savings: €16,344. Per eliminated role.</p>
+    </div>
+
+    <h3>The Reinvestment Compounding Stack</h3>
+    <p>The €1,362/month freed by the first role substitution funds the infrastructure that eliminates the next role. Each subsequent substitution is cheaper than the last because the freed capital exceeds the marginal expansion cost.</p>
+  </section>
+
+  <!-- V. REVENUE MODEL -->
+  <section class="section">
+    <div class="section-number">Section V</div>
+    <div class="section-title">Revenue Model</div>
+
+    <div class="tier-grid">
+      <div class="tier-card">
+        <div class="tier-name">Starter</div>
+        <div class="tier-price">€200<span style="font-size:14px;color:var(--mid)">/mo</span></div>
+        <div class="tier-setup">+ €500 setup</div>
+        <div class="tier-scope">1 agent (TRIAGE) · 1 channel · Weekly report · &lt;10 min SLA</div>
+      </div>
+      <div class="tier-card">
+        <div class="tier-name">Growth</div>
+        <div class="tier-price">€500<span style="font-size:14px;color:var(--mid)">/mo</span></div>
+        <div class="tier-setup">+ €1,500 setup</div>
+        <div class="tier-scope">3 agents (TRIAGE + CONTENT + ANALYTICS) · Multi-channel · Bi-weekly review · &lt;5 min SLA</div>
+      </div>
+      <div class="tier-card">
+        <div class="tier-name">Enterprise</div>
+        <div class="tier-price">€1,000+<span style="font-size:14px;color:var(--mid)">/mo</span></div>
+        <div class="tier-setup">+ €3,000+ setup</div>
+        <div class="tier-scope">Full agent suite · Custom integrations · Dedicated support channel · &lt;2 min SLA</div>
+      </div>
+    </div>
+
+    <h3>12-Month Revenue Projection</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Month</th><th>Clients</th><th>MRR Target</th><th>Cum. Revenue</th></tr></thead>
+        <tbody>
+          <tr><td>Month 5</td><td>1</td><td>€100</td><td>€600</td></tr>
+          <tr><td>Month 6</td><td>2</td><td>€400</td><td>€2,100</td></tr>
+          <tr><td>Month 8</td><td>4</td><td>€1,200</td><td>€6,300</td></tr>
+          <tr><td>Month 10</td><td>6</td><td>€2,400</td><td>€13,500</td></tr>
+          <tr><td>Month 12</td><td>8–10</td><td>€4,000–5,000</td><td>€25,000+</td></tr>
+          <tr><td>Month 18</td><td>12–15</td><td>€8,000–10,000</td><td>€70,000+</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- VI. SOVEREIGNTY METRICS -->
+  <section class="section">
+    <div class="section-number">Section VI</div>
+    <div class="section-title">Sovereignty Metrics</div>
+
+    <div class="sovereignty-block">
+      <div class="s-title">Primary KPI — 1 of 2</div>
+      <div class="s-name">Human Displacement Ratio (HDR)</div>
+      <div class="s-formula">HDR = (Autonomous executions) / (Total operational tasks in scope) × 100</div>
+      <p>The percentage of previously human-executed operational tasks now executed autonomously. Target: ≥80% at Day 30. ≥90% at Day 90. An HDR of 85% means 85% of the operational work in scope no longer requires human labor — permanently.</p>
+    </div>
+
+    <div class="sovereignty-block">
+      <div class="s-title">Primary KPI — 2 of 2</div>
+      <div class="s-name">Operational Immunity Index (OII)</div>
+      <div class="s-formula">OII = Pass count / 5 scenarios × 100 (monthly audit)</div>
+      <p>The capacity of the client business to continue operating at full capability during periods of complete human absence — nights, weekends, illness, vacation. Target: 100% OII by Day 30. Any scenario requiring human presence after Day 30 is a deployment failure.</p>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">Response Time</div>
+        <div class="value">&lt;5 min</div>
+        <div class="sub">TRIAGE SLA — 24/7/365</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Classification Accuracy</div>
+        <div class="value">&gt;90%</div>
+        <div class="sub">Intent detection target</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Content Output</div>
+        <div class="value">≥10/wk</div>
+        <div class="sub">Across active platforms</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Gross Margin</div>
+        <div class="value">≥70%</div>
+        <div class="sub">Primary financial health signal</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="doc-footer">
+  <div class="wordmark">OPERION</div>
+  <div class="version">Business Plan v2.0 · April 21, 2026 · Confidential</div>
+</footer>
+
+</body>
+</html>

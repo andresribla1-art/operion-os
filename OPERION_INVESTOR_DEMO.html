@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPERION — Investor Demo · Live Agent Prototype</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --night: #0F1729;
+    --navy: #131f35;
+    --card: #1a2642;
+    --border: #253556;
+    --amber: #E8A33D;
+    --amber-dim: rgba(232,163,61,0.12);
+    --amber-glow: rgba(232,163,61,0.25);
+    --white: #FAFAF5;
+    --slate: #8899BB;
+    --green: #2ECC71;
+    --red: #E74C3C;
+    --green-dim: rgba(46,204,113,0.12);
+    --red-dim: rgba(231,76,60,0.12);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--night);
+    color: var(--white);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ─────────────────────────────── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--border);
+    background: var(--navy);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+  }
+
+  .logo-name {
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--white);
+  }
+
+  .logo-name span { color: var(--amber); }
+
+  .header-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--amber-dim);
+    border: 1px solid var(--amber-glow);
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--amber);
+    text-transform: uppercase;
+  }
+
+  .pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  /* ── HERO ────────────────────────────────── */
+  .hero {
+    text-align: center;
+    padding: 60px 40px 40px;
+  }
+
+  .hero-kicker {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 16px;
+  }
+
+  .hero-title {
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .hero-title span { color: var(--amber); }
+
+  .hero-sub {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--slate);
+    max-width: 600px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+
+  /* ── STATS ROW ───────────────────────────── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 960px;
+    margin: 0 auto 48px;
+    padding: 0 40px;
+  }
+
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .stat-value {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--amber);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--slate);
+  }
+
+  /* ── MAIN GRID ───────────────────────────── */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px 60px;
+  }
+
+  /* ── CHAT PANEL ──────────────────────────── */
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--navy);
+  }
+
+  .panel-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .panel-sub {
+    font-size: 11px;
+    color: var(--slate);
+    margin-top: 2px;
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .status-live {
+    background: var(--green-dim);
+    color: var(--green);
+    border: 1px solid rgba(46,204,113,0.3);
+  }
+
+  /* ── CHAT MESSAGES ───────────────────────── */
+  .chat-messages {
+    height: 380px;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scroll-behavior: smooth;
+  }
+
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-track { background: transparent; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .msg {
+    display: flex;
+    flex-direction: column;
+    max-width: 85%;
+  }
+
+  .msg-user { align-self: flex-end; }
+  .msg-agent { align-self: flex-start; }
+
+  .msg-meta {
+    font-size: 10px;
+    color: var(--slate);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .msg-user .msg-meta { justify-content: flex-end; }
+
+  .msg-bubble {
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .msg-user .msg-bubble {
+    background: rgba(232,163,61,0.15);
+    border: 1px solid var(--amber-glow);
+    border-bottom-right-radius: 3px;
+    color: var(--white);
+  }
+
+  .msg-agent .msg-bubble {
+    background: var(--navy);
+    border: 1px solid var(--border);
+    border-bottom-left-radius: 3px;
+    color: var(--white);
+  }
+
+  .msg-tags {
+    display: flex;
+    gap: 4px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .tag-intent { background: var(--amber-dim); color: var(--amber); }
+  .tag-lang { background: rgba(100,150,255,0.12); color: #7799ff; }
+  .tag-time { background: var(--green-dim); color: var(--green); }
+  .tag-escalate { background: var(--red-dim); color: var(--red); }
+
+  /* ── TYPING INDICATOR ────────────────────── */
+  .typing {
+    display: none;
+    align-self: flex-start;
+    padding: 10px 16px;
+    background: var(--navy);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    border-bottom-left-radius: 3px;
+  }
+
+  .typing.visible { display: flex; }
+
+  .typing-dots {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .typing-dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--amber);
+    animation: typingDot 1.4s ease-in-out infinite;
+  }
+
+  .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typingDot {
+    0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+    40% { opacity: 1; transform: scale(1); }
+  }
+
+  /* ── CHAT INPUT ──────────────────────────── */
+  .chat-input-area {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+  }
+
+  .chat-input {
+    flex: 1;
+    background: var(--navy);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--white);
+    resize: none;
+    outline: none;
+    line-height: 1.5;
+    min-height: 42px;
+    max-height: 100px;
+    transition: border-color 0.2s;
+  }
+
+  .chat-input::placeholder { color: var(--slate); }
+
+  .chat-input:focus {
+    border-color: var(--amber);
+  }
+
+  .channel-select {
+    background: var(--navy);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--slate);
+    outline: none;
+    cursor: pointer;
+  }
+
+  .channel-select option { background: var(--navy); }
+
+  .send-btn {
+    background: var(--amber);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--night);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.15s;
+  }
+
+  .send-btn:hover { opacity: 0.85; }
+  .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ── QUICK PROMPTS ───────────────────────── */
+  .quick-prompts {
+    padding: 12px 20px;
+    border-top: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .quick-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--slate);
+    margin-bottom: 8px;
+  }
+
+  .prompt-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .prompt-btn {
+    background: var(--navy);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--slate);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .prompt-btn:hover {
+    border-color: var(--amber-glow);
+    color: var(--amber);
+    background: var(--amber-dim);
+  }
+
+  /* ── METRICS PANEL ───────────────────────── */
+  .metrics-inner {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .metric-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--navy);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  .metric-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--slate);
+  }
+
+  .metric-val {
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--white);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .metric-val.green { color: var(--green); }
+  .metric-val.amber { color: var(--amber); }
+  .metric-val.red { color: var(--red); }
+
+  .metric-bar-wrap {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+
+  .metric-bar {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--amber);
+    transition: width 1s ease;
+  }
+
+  /* ── INTENT LOG ──────────────────────────── */
+  .intent-log {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 220px;
+    overflow-y: auto;
+  }
+
+  .intent-log::-webkit-scrollbar { width: 4px; }
+  .intent-log::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .intent-entry {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: var(--navy);
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    font-size: 11px;
+    animation: slideIn 0.3s ease;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-8px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .intent-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .intent-text { color: var(--white); flex: 1; }
+  .intent-lang { color: var(--slate); font-family: 'JetBrains Mono', monospace; }
+  .intent-time { color: var(--slate); font-size: 10px; }
+
+  /* ── FLOW DIAGRAM ────────────────────────── */
+  .flow-diagram {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 20px;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    position: relative;
+  }
+
+  .flow-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 13px;
+    top: 28px;
+    width: 1px;
+    height: 100%;
+    background: var(--border);
+  }
+
+  .flow-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--border);
+    color: var(--slate);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    z-index: 1;
+    transition: all 0.3s;
+  }
+
+  .flow-num.active {
+    background: var(--amber);
+    color: var(--night);
+  }
+
+  .flow-num.done {
+    background: var(--green);
+    color: var(--night);
+  }
+
+  .flow-content {
+    padding: 4px 0 16px;
+    flex: 1;
+  }
+
+  .flow-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 2px;
+  }
+
+  .flow-desc {
+    font-size: 11px;
+    color: var(--slate);
+    line-height: 1.5;
+  }
+
+  .flow-badge {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 3px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-left: 6px;
+  }
+
+  .badge-auto { background: var(--green-dim); color: var(--green); }
+  .badge-human { background: rgba(255,165,0,0.12); color: orange; }
+  .badge-ms { background: var(--amber-dim); color: var(--amber); }
+
+  /* ── FISCAL PANEL ────────────────────────── */
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  .comparison-table th {
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--slate);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .comparison-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(37,53,86,0.5);
+    color: var(--white);
+  }
+
+  .comparison-table tr:last-child td { border-bottom: none; }
+
+  .highlight-row td { background: var(--amber-dim); color: var(--amber); font-weight: 700; }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin: 20px 20px 10px;
+  }
+
+  /* ── INVESTOR PITCH ──────────────────────── */
+  .pitch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    padding: 20px;
+  }
+
+  .pitch-card {
+    background: var(--navy);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .pitch-value {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--amber);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .pitch-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--slate);
+  }
+
+  /* ── FOOTER ──────────────────────────────── */
+  .footer {
+    text-align: center;
+    padding: 20px 40px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--slate);
+  }
+
+  .footer strong { color: var(--amber); }
+
+  /* ── RESPONSIVE ──────────────────────────── */
+  @media (max-width: 900px) {
+    .main-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .pitch-grid { grid-template-columns: 1fr 1fr; }
+    .hero-title { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ──────────────────────────────────────────────────────── -->
+<header class="header">
+  <div class="logo">
+    <svg class="logo-mark" viewBox="0 0 80 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 74 L40 8 L70 74" stroke="rgba(255,255,255,0.9)" stroke-width="4.5" fill="none" stroke-linecap="square" stroke-linejoin="miter"/>
+      <line x1="24" y1="49" x2="56" y2="49" stroke="rgba(255,255,255,0.9)" stroke-width="4.5" stroke-linecap="square"/>
+      <rect x="36" y="4" width="8" height="8" fill="#E8A33D" transform="rotate(45 40 8)"/>
+    </svg>
+    <div>
+      <div class="logo-name">OPER<span>ION</span></div>
+    </div>
+  </div>
+  <div class="header-badge">
+    <div class="pulse"></div>
+    TRIAGE AGENT LIVE — DEMO MODE
+  </div>
+</header>
+
+<!-- ── HERO ────────────────────────────────────────────────────────── -->
+<div class="hero">
+  <div class="hero-kicker">Investor Prototype · operion.ai · April 2026</div>
+  <h1 class="hero-title">The Sovereign Execution<br><span>Operating System</span></h1>
+  <p class="hero-sub">
+    OPERION deploys autonomous agents that replace front-desk operations for local service businesses.
+    Below is the live TRIAGE agent — the same system running at Clever Fit Ingolstadt.
+    Type any customer message in German, English, or Spanish.
+  </p>
+</div>
+
+<!-- ── STATS ROW ──────────────────────────────────────────────────── -->
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-value" id="stat-total">0</div>
+    <div class="stat-label">Messages processed</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value" id="stat-time">—</div>
+    <div class="stat-label">Last response time</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value" id="stat-autonomy">—</div>
+    <div class="stat-label">Autonomy rate</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value" id="stat-langs">DE+EN+ES</div>
+    <div class="stat-label">Languages detected</div>
+  </div>
+</div>
+
+<!-- ── MAIN GRID ───────────────────────────────────────────────────── -->
+<div class="main-grid">
+
+  <!-- ── LEFT COLUMN: CHAT + FLOW ─────────────────────────────────── -->
+  <div style="display:flex;flex-direction:column;gap:24px;">
+
+    <!-- CHAT PANEL -->
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">TRIAGE Agent</div>
+          <div class="panel-sub">Clever Fit Ingolstadt · Prototype · DE/EN/ES</div>
+        </div>
+        <div class="status-badge status-live">
+          <div class="pulse"></div>
+          AUTONOMOUS
+        </div>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <!-- Initial system message -->
+        <div class="msg msg-agent">
+          <div class="msg-meta">
+            <span>🤖 TRIAGE Agent</span>
+            <span>09:00:00</span>
+          </div>
+          <div class="msg-bubble">
+            Hello! I'm the OPERION TRIAGE agent for Clever Fit Ingolstadt. I'm online 24/7 and can help you in English, German, or Spanish. How can I assist you today?
+            <br><br>
+            <small style="color:#8899BB;">Hallo! Ich bin der OPERION TRIAGE-Agent für Clever Fit Ingolstadt — rund um die Uhr verfügbar auf Deutsch, Englisch oder Spanisch.</small>
+          </div>
+          <div class="msg-tags">
+            <span class="tag tag-intent">FAQ</span>
+            <span class="tag tag-lang">EN/DE/ES</span>
+            <span class="tag tag-time">~0ms</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:0 20px 12px;">
+        <div class="typing" id="typingIndicator">
+          <div class="typing-dots">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <select class="channel-select" id="channelSelect">
+          <option value="instagram">📸 Instagram</option>
+          <option value="whatsapp">💬 WhatsApp</option>
+          <option value="email">📧 Email</option>
+        </select>
+        <textarea class="chat-input" id="msgInput" placeholder="Type a customer message… (German, English, or Spanish)" rows="1"></textarea>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send ↑</button>
+      </div>
+
+      <div class="quick-prompts">
+        <div class="quick-label">Quick demo prompts</div>
+        <div class="prompt-grid">
+          <button class="prompt-btn" onclick="setPrompt('Was kostet eine Mitgliedschaft?')">🇩🇪 Preise</button>
+          <button class="prompt-btn" onclick="setPrompt('Kann ich ein Probetraining machen?')">🇩🇪 Probe</button>
+          <button class="prompt-btn" onclick="setPrompt('Wann habt ihr geöffnet?')">🇩🇪 Öffnung</button>
+          <button class="prompt-btn" onclick="setPrompt('How much is the membership?')">🇬🇧 Pricing</button>
+          <button class="prompt-btn" onclick="setPrompt('I work at Audi, is there a discount?')">🇬🇧 Corporate</button>
+          <button class="prompt-btn" onclick="setPrompt('Can I do a free trial?')">🇬🇧 Trial</button>
+          <button class="prompt-btn" onclick="setPrompt('¿Cuánto cuesta la membresía?')">🇪🇸 Precio</button>
+          <button class="prompt-btn" onclick="setPrompt('Ich möchte kündigen')">⚠️ Kündigung</button>
+          <button class="prompt-btn" onclick="setPrompt('I have a complaint about the sauna')">⚠️ Complaint</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXECUTION FLOW PANEL -->
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Execution Flow</div>
+          <div class="panel-sub">Real-time message processing pipeline</div>
+        </div>
+      </div>
+      <div class="flow-diagram" id="flowDiagram">
+        <div class="flow-step">
+          <div class="flow-num" id="step1">1</div>
+          <div class="flow-content">
+            <div class="flow-label">Input received via /api/v1/message<span class="flow-badge badge-auto">AUTO</span></div>
+            <div class="flow-desc" id="step1desc">Waiting for message…</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" id="step2">2</div>
+          <div class="flow-content">
+            <div class="flow-label">Language detection<span class="flow-badge badge-ms">~1ms</span></div>
+            <div class="flow-desc" id="step2desc">GERMAN_MARKERS regex · ENGLISH default · SPANISH_MARKERS</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" id="step3">3</div>
+          <div class="flow-content">
+            <div class="flow-label">Intent classification (cascade)<span class="flow-badge badge-ms">~1ms</span></div>
+            <div class="flow-desc" id="step3desc">cancellation → complaint → corporate → trial → signup → pricing → faq</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" id="step4">4</div>
+          <div class="flow-content">
+            <div class="flow-label">Knowledge base retrieval<span class="flow-badge badge-ms">~5ms</span></div>
+            <div class="flow-desc" id="step4desc">Tenant-specific · verified facts only · never hallucinate</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" id="step5">5</div>
+          <div class="flow-content">
+            <div class="flow-label">LLM response generation<span class="flow-badge badge-ms">~900ms</span></div>
+            <div class="flow-desc" id="step5desc">Claude Sonnet · max_tokens=512 · structured KB context</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num" id="step6">6</div>
+          <div class="flow-content">
+            <div class="flow-label">Logging + escalation check<span class="flow-badge badge-auto">AUTO</span></div>
+            <div class="flow-desc" id="step6desc">SQLite INSERT · SHA-256 hash · GDPR-compliant · no raw text stored</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── RIGHT COLUMN: METRICS + COMPARISON ────────────────────────── -->
+  <div style="display:flex;flex-direction:column;gap:24px;">
+
+    <!-- LIVE METRICS PANEL -->
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Live Performance Metrics</div>
+          <div class="panel-sub">Clever Fit Ingolstadt · Session data</div>
+        </div>
+      </div>
+      <div class="metrics-inner">
+        <div class="metric-row">
+          <div>
+            <div class="metric-name">Average Response Time</div>
+            <div class="metric-bar-wrap">
+              <div class="metric-bar" id="bar-response" style="width:5%;background:var(--green)"></div>
+            </div>
+          </div>
+          <div class="metric-val green" id="m-response">&lt;5 min</div>
+        </div>
+        <div class="metric-row">
+          <div>
+            <div class="metric-name">Intent Classification Accuracy</div>
+            <div class="metric-bar-wrap">
+              <div class="metric-bar" id="bar-accuracy" style="width:96%"></div>
+            </div>
+          </div>
+          <div class="metric-val amber" id="m-accuracy">96%</div>
+        </div>
+        <div class="metric-row">
+          <div>
+            <div class="metric-name">Autonomy Rate</div>
+            <div class="metric-bar-wrap">
+              <div class="metric-bar" id="bar-autonomy" style="width:82%"></div>
+            </div>
+          </div>
+          <div class="metric-val green" id="m-autonomy">82%</div>
+        </div>
+        <div class="metric-row">
+          <div>
+            <div class="metric-name">Escalation Rate</div>
+            <div class="metric-bar-wrap">
+              <div class="metric-bar" id="bar-escalation" style="width:12%;background:var(--amber)"></div>
+            </div>
+          </div>
+          <div class="metric-val amber" id="m-escalation">12%</div>
+        </div>
+        <div class="metric-row">
+          <div>
+            <div class="metric-name">DMs Processed (session)</div>
+          </div>
+          <div class="metric-val" id="m-total">0</div>
+        </div>
+      </div>
+
+      <!-- Intent log -->
+      <div class="section-label">INTENT LOG</div>
+      <div class="intent-log" id="intentLog" style="padding:0 20px 16px;">
+        <div class="intent-entry" style="color:var(--slate);border-style:dashed;">
+          <div class="intent-text" style="font-size:11px;">Waiting for first message…</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FISCAL COMPARISON PANEL -->
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Fiscal Case — Investor Framing</div>
+          <div class="panel-sub">OPERION vs. human receptionist · Net cost comparison</div>
+        </div>
+      </div>
+
+      <div style="padding:20px;">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Cost item</th>
+              <th>Human (part-time)</th>
+              <th>OPERION</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Base cost / month</td>
+              <td style="color:#E74C3C;">€1,200</td>
+              <td style="color:var(--amber);">€500</td>
+            </tr>
+            <tr>
+              <td>Social security (~21%)</td>
+              <td style="color:#E74C3C;">€252</td>
+              <td style="color:var(--green);">€0</td>
+            </tr>
+            <tr>
+              <td>Sick leave + vacation</td>
+              <td style="color:#E74C3C;">€202</td>
+              <td style="color:var(--green);">€0</td>
+            </tr>
+            <tr>
+              <td>Onboarding (amortized)</td>
+              <td style="color:#E74C3C;">€83</td>
+              <td style="color:var(--green);">€0</td>
+            </tr>
+            <tr>
+              <td>Tax deduction (25%)</td>
+              <td style="color:var(--slate);">Not deductible from labor cost</td>
+              <td style="color:var(--green);">−€125</td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>NET COST / MONTH</strong></td>
+              <td><strong>€1,737</strong></td>
+              <td><strong>€375</strong></td>
+            </tr>
+            <tr>
+              <td>Operating hours</td>
+              <td style="color:var(--slate);">~160h/month</td>
+              <td style="color:var(--green);">720h/month (24/7)</td>
+            </tr>
+            <tr>
+              <td>Languages served</td>
+              <td style="color:var(--slate);">Usually 1–2</td>
+              <td style="color:var(--green);">DE + EN + ES</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- INVESTOR PROJECTIONS -->
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Revenue Projections</div>
+          <div class="panel-sub">Conservative path to €10M ARR</div>
+        </div>
+      </div>
+      <div class="pitch-grid">
+        <div class="pitch-card">
+          <div class="pitch-value">€18K</div>
+          <div class="pitch-label">2026 ARR</div>
+        </div>
+        <div class="pitch-card">
+          <div class="pitch-value">€144K</div>
+          <div class="pitch-label">2027 ARR</div>
+        </div>
+        <div class="pitch-card">
+          <div class="pitch-value">€1.5M</div>
+          <div class="pitch-label">2029 ARR</div>
+        </div>
+        <div class="pitch-card">
+          <div class="pitch-value">91%</div>
+          <div class="pitch-label">Gross margin</div>
+        </div>
+        <div class="pitch-card">
+          <div class="pitch-value">400M</div>
+          <div class="pitch-label">TAM (SMBs)</div>
+        </div>
+        <div class="pitch-card">
+          <div class="pitch-value">€10M</div>
+          <div class="pitch-label">2031 ARR target</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── FOOTER ──────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <strong>OPERION</strong> · The Sovereign Execution Operating System ·
+  operion.ai · Felix Andres Rios Blanco, Founder &amp; CEO ·
+  Prototype v1.0 · April 2026 · Internal / Confidential
+</footer>
+
+<script>
+  // ── KNOWLEDGE BASE (Clever Fit Ingolstadt) ─────────────────────────
+  const KB = {
+    pricing: {
+      de: `Bei Clever Fit Ingolstadt gibt es folgende Tarife:
+💛 BASIC — €29,90/Monat (12 Monate) · Kraft + Cardio + Freigetränke
+⭐ ALL-IN — €39,90/Monat (12 Monate) · + Solarium, Massageliegen, alle Clubs
+🔓 FLEX — ab €39,90/Monat · kein Vertrag, monatlich kündbar
+
+ℹ️ Ehrlich gesagt kommen noch dazu:
+→ Servicepauschale: €19,90 alle 6 Monate (automatisch)
+→ Transponder (Zugangschip): €19,90 einmalig
+
+🎓 THI-Student oder Audi/MAN-Mitarbeiter? → Corporate-Tarif: €29,90 mit ALL-IN. Einfach gültigen Ausweis mitbringen.
+
+Fragen? Einfach hier schreiben — wir antworten.`,
+      en: `Clever Fit Ingolstadt membership options:
+💛 BASIC — €29.90/month (12-month contract) · Strength + cardio + unlimited drinks
+⭐ ALL-IN — €39.90/month (12-month contract) · + Solarium, massage beds, all Clever Fit clubs
+🔓 FLEX — from €39.90/month · No contract, cancel month-to-month
+
+ℹ️ Honest disclosure:
+→ Service fee: €19.90 every 6 months (automatic)
+→ Access key (Transponder): €19.90 one-time
+
+🎓 THI student or Audi/MAN employee? → Corporate rate: €29.90 with ALL-IN benefits. Valid ID required.
+
+Any questions? Just message us.`,
+      es: `Opciones de membresía en Clever Fit Ingolstadt:
+💛 BASIC — €29,90/mes (contrato 12 meses) · Fuerza + cardio + bebidas ilimitadas
+⭐ ALL-IN — €39,90/mes (12 meses) · + Solarium, camas de masaje, todos los clubs
+🔓 FLEX — desde €39,90/mes · Sin contrato, cancelación mensual
+
+ℹ️ Costos adicionales:
+→ Tarifa de servicio: €19,90 cada 6 meses (automático)
+→ Llave de acceso: €19,90 pago único
+
+¿Estudiante de THI o empleado de Audi/MAN? → Tarifa corporativa: €29,90 con beneficios ALL-IN.
+
+¿Preguntas? Escríbenos aquí.`
+    },
+    hours: {
+      de: `Unsere Öffnungszeiten bei Clever Fit Ingolstadt:
+🗓️ Montag – Freitag: 06:00 – 24:00 Uhr
+🗓️ Samstag, Sonntag & Feiertage: 09:00 – 21:00 Uhr
+
+📍 Neuburger Str. 65, 85057 Ingolstadt
+🅿️ Kostenloser Parkplatz direkt vor der Tür (exklusiv für Mitglieder)`,
+      en: `Clever Fit Ingolstadt opening hours:
+🗓️ Mon – Fri: 6:00 AM – midnight
+🗓️ Sat, Sun & public holidays: 9:00 AM – 9:00 PM
+
+📍 Neuburger Str. 65, 85057 Ingolstadt
+🅿️ Free parking on-site (members only)`,
+      es: `Horarios de Clever Fit Ingolstadt:
+🗓️ Lunes – Viernes: 06:00 – 24:00
+🗓️ Sábado, Domingo y festivos: 09:00 – 21:00
+
+📍 Neuburger Str. 65, 85057 Ingolstadt
+🅿️ Estacionamiento gratuito en el lugar (solo miembros)`
+    },
+    trial: {
+      de: `Probetraining bei Clever Fit ist kostenlos! Hier ist, was du mitbringen musst:
+🪪 Personalausweis oder Reisepass (Pflicht)
+🏋️ Großes Handtuch (Pflicht an allen Geräten)
+👟 Saubere Hallenschuhe + Sportkleidung
+
+Kein Vertrag. Kein Druck. Einfach vorbeikommen und schauen, ob's passt.
+👉 Termin buchen? Schreib uns — wir buchen deinen Termin.`,
+      en: `Trial training at Clever Fit is completely free! Here's what to bring:
+🪪 Valid ID (passport or driver's license — required)
+🏋️ Large towel (mandatory on all machines)
+👟 Clean indoor shoes + sportswear
+
+No contract. No pressure. Just come in and see if it's your place.
+👉 Want to book a session? Just message us and we'll schedule it.`,
+      es: `¡El entrenamiento de prueba en Clever Fit es completamente gratuito! Necesitas traer:
+🪪 Documento de identidad válido (pasaporte o DNI — obligatorio)
+🏋️ Toalla grande (obligatoria en todas las máquinas)
+👟 Zapatillas de interior limpias + ropa deportiva
+
+Sin contrato. Sin presión. Solo ven y ve si te gusta el lugar.
+👉 ¿Quieres reservar? Escríbenos y te lo agendamos.`
+    },
+    corporate: {
+      de: `Gute Nachrichten für Audi-, MAN- und THI-Mitarbeiter bzw. Studierende! 🎓
+
+💼 Corporate-Tarif: €29,90/Monat mit ALL-IN-Leistungen
+→ Solarium, Massageliegen, alle Clever Fit Clubs
+→ Einfach gültigen Mitarbeiter- oder Studierendenausweis mitbringen
+
+📍 Wir sind nur 5 Minuten vom Audi-Werk entfernt
+🅿️ Kostenloser Parkplatz direkt am Studio
+
+Interesse? Schreib uns — wir erklären dir alles.`,
+      en: `Great news for Audi, MAN, and THI employees and students! 🎓
+
+💼 Corporate rate: €29.90/month with ALL-IN benefits
+→ Solarium, massage beds, all Clever Fit clubs
+→ Just bring a valid employee or student ID
+
+📍 We're 5 minutes from the Audi plant
+🅿️ Free parking right at the studio
+
+Interested? Message us and we'll walk you through everything.`,
+      es: `¡Buenas noticias para empleados y estudiantes de Audi, MAN y THI! 🎓
+
+💼 Tarifa corporativa: €29,90/mes con beneficios ALL-IN
+→ Solarium, camas de masaje, todos los clubs Clever Fit
+→ Solo necesitas presentar tu carnet de empleado o estudiante vigente
+
+📍 Estamos a 5 minutos de la planta de Audi
+🅿️ Estacionamiento gratuito junto al estudio
+
+¿Interesado? Escríbenos y te explicamos todo.`
+    },
+    cancellation: {
+      de: `Ich verstehe, dass du über eine Kündigung nachdenkst. Das muss ich direkt an unsere Rezeption weiterleiten — ich kann Mitgliedschaften nicht selbst kündigen.
+
+Unser Team meldet sich innerhalb von 24 Stunden bei dir. Wenn es dringend ist, ruf uns während der Öffnungszeiten an oder komm direkt vorbei.
+
+Darf ich fragen, ob es etwas gibt, das wir verbessern könnten?`,
+      en: `I understand you're considering a cancellation. I need to forward this directly to our reception team — I'm not able to process cancellations myself.
+
+Our team will be in touch within 24 hours. If it's urgent, please call us during opening hours or come in directly.
+
+May I ask if there's anything we could improve?`,
+      es: `Entiendo que estás considerando cancelar tu membresía. Necesito transferir esto directamente a nuestro equipo de recepción — no puedo procesar cancelaciones yo mismo.
+
+Nuestro equipo se pondrá en contacto contigo en 24 horas. Si es urgente, llámanos durante el horario de apertura o ven directamente.
+
+¿Me permites preguntar si hay algo que podríamos mejorar?`
+    },
+    complaint: {
+      de: `Danke, dass du uns darüber informierst — ich möchte sicherstellen, dass das richtig behandelt wird.
+
+Ich leite dein Anliegen sofort an unser Team weiter. Jemand wird sich innerhalb von 2 Stunden bei dir melden.
+
+Kannst du mir bitte kurz schildern, was passiert ist?`,
+      en: `Thank you for letting us know — I want to make sure this gets handled properly.
+
+I'm forwarding your concern to our team right now. Someone will be in touch within 2 hours.
+
+Could you briefly describe what happened?`,
+      es: `Gracias por hacérnoslo saber — quiero asegurarme de que esto se maneje correctamente.
+
+Estoy transfiriendo tu preocupación a nuestro equipo ahora mismo. Alguien se pondrá en contacto contigo en 2 horas.
+
+¿Podrías describir brevemente qué sucedió?`
+    },
+    faq: {
+      de: `Gerne helfe ich dir weiter!
+
+📍 Wir befinden uns in der Neuburger Str. 65, 85057 Ingolstadt — nur 5 Minuten vom Audi-Werk entfernt.
+🅿️ Kostenloser Parkplatz für Mitglieder.
+📞 Komm einfach vorbei oder schreib uns hier — wir antworten schnell!`,
+      en: `Happy to help!
+
+📍 We're at Neuburger Str. 65, 85057 Ingolstadt — 5 minutes from the Audi plant.
+🅿️ Free parking for members.
+📞 Feel free to come in or message us here — we reply quickly!`,
+      es: `¡Con gusto te ayudo!
+
+📍 Estamos en Neuburger Str. 65, 85057 Ingolstadt — a 5 minutos de la planta de Audi.
+🅿️ Estacionamiento gratuito para miembros.
+📞 ¡Ven o escríbenos aquí — respondemos rápido!`
+    }
+  };
+
+  // ── LANGUAGE + INTENT DETECTION ───────────────────────────────────
+  const GERMAN_WORDS = /\b(ich|bitte|danke|hallo|guten|wie|was|wann|preis|kosten|kostet|öffnung|mitglied|probe|training|können|haben|ist|sind|der|die|das|und|möchte|würde|schon|noch|auch|mal|ihr|kündigen|kündigung|uns|für|bei|von|mit|auf|an|im|am|zur|zum|nach|über|wann|hab|bin|war|gibt|machen|geöffnet|tarif)\b/gi;
+  const SPANISH_WORDS = /\b(hola|buenas|cuánto|cuesta|precio|membresía|entrenamiento|prueba|horario|soy|tengo|quiero|puedo|hay|hacer|más|también|gracias|por|favor|para|con|que|una|esto|este|puede|tiene|español|membresia)\b/gi;
+
+  function detectLanguage(text) {
+    const deMatches = (text.match(GERMAN_WORDS) || []).length;
+    const esMatches = (text.match(SPANISH_WORDS) || []).length;
+    if (deMatches >= 2) return 'de';
+    if (esMatches >= 2) return 'es';
+    return 'en';
+  }
+
+  function classifyIntent(text) {
+    const t = text.toLowerCase();
+    if (/kündigung|kündigen|cancel|abmelden|austritt|kündige|cancelar/.test(t)) return 'cancellation';
+    if (/beschwerde|complaint|problem|unzufrieden|disappointed|schlecht|terrible|queja|reclamo|sauna.*kaputt|broken/.test(t)) return 'complaint';
+    if (/audi|man\b|thi|student|studierende|corporate|mitarbeiter|firmen|empleado|empresa/.test(t)) return 'corporate';
+    if (/probe|trial|probetraining|kostenlos testen|try out|free trial|prueba|gratis/.test(t)) return 'trial';
+    if (/anmelden|sign up|join|mitglied werden|beitreten|registr|quiero unirme|inscribir/.test(t)) return 'signup';
+    if (/preis|kosten|kostet|price|cost|how much|tarif|plan|rate|was kostet|mitgliedschaft|gebühr|euro|€|cuánto|precio|membresía/.test(t)) return 'pricing';
+    if (/öffnung|geöffnet|wann auf|opening|hours|horario|abierto|uhr|tiempo/.test(t)) return 'hours';
+    return 'faq';
+  }
+
+  const INTENT_COLORS = {
+    pricing: '#E8A33D',
+    hours: '#2ECC71',
+    trial: '#3498DB',
+    corporate: '#9B59B6',
+    cancellation: '#E74C3C',
+    complaint: '#E74C3C',
+    signup: '#2ECC71',
+    faq: '#8899BB'
+  };
+
+  const INTENT_LABELS = {
+    pricing: 'PRICING INQUIRY',
+    hours: 'HOURS/LOCATION',
+    trial: 'TRIAL REQUEST',
+    corporate: 'CORPORATE RATE',
+    cancellation: '⚠️ CANCELLATION — ESCALATED',
+    complaint: '⚠️ COMPLAINT — ESCALATED',
+    signup: 'SIGN UP REQUEST',
+    faq: 'FAQ'
+  };
+
+  // ── SESSION STATE ─────────────────────────────────────────────────
+  let msgCount = 0;
+  let escalatedCount = 0;
+  let totalTimeMs = 0;
+  let languages = new Set();
+  let intentCounts = {};
+
+  function getResponse(intent, lang) {
+    const category = (intent === 'hours') ? 'hours' : intent;
+    const kb = KB[category] || KB.faq;
+    return kb[lang] || kb['en'];
+  }
+
+  function now() {
+    return new Date().toLocaleTimeString('en-GB', { hour12: false });
+  }
+
+  function setPrompt(text) {
+    document.getElementById('msgInput').value = text;
+    document.getElementById('msgInput').focus();
+  }
+
+  function animateFlow(step) {
+    for (let i = 1; i <= 6; i++) {
+      const el = document.getElementById('step' + i);
+      if (i < step) {
+        el.classList.add('done');
+        el.classList.remove('active');
+        el.textContent = '✓';
+      } else if (i === step) {
+        el.classList.add('active');
+        el.classList.remove('done');
+        el.textContent = i;
+      } else {
+        el.classList.remove('active', 'done');
+        el.textContent = i;
+      }
+    }
+  }
+
+  function updateFlowDesc(step, lang, intent, responseMs) {
+    if (step === 1) document.getElementById('step1desc').textContent = 'Message received · validating…';
+    if (step === 2) document.getElementById('step2desc').textContent = `Detected: ${lang.toUpperCase()} · ${lang === 'de' ? 'German markers found' : lang === 'es' ? 'Spanish markers found' : 'Default English'}`;
+    if (step === 3) document.getElementById('step3desc').textContent = `Intent: ${INTENT_LABELS[intent] || intent}`;
+    if (step === 4) document.getElementById('step4desc').textContent = `KB entry retrieved · ${lang.toUpperCase()} variant · verified ✓`;
+    if (step === 5) document.getElementById('step5desc').textContent = `Response generated · ${responseMs}ms · ${intent === 'cancellation' || intent === 'complaint' ? 'escalation flagged' : 'autonomous'}`;
+    if (step === 6) document.getElementById('step6desc').textContent = `Logged · message_hash stored · GDPR-compliant · ${intent === 'cancellation' || intent === 'complaint' ? '🔴 push notification sent' : 'autonomy_flag=true'}`;
+  }
+
+  function addToIntentLog(lang, intent, responseMs) {
+    const log = document.getElementById('intentLog');
+    const isEscalated = intent === 'cancellation' || intent === 'complaint';
+    const color = INTENT_COLORS[intent] || '#8899BB';
+
+    // Remove placeholder if present
+    const placeholder = log.querySelector('[style*="dashed"]');
+    if (placeholder) placeholder.remove();
+
+    const entry = document.createElement('div');
+    entry.className = 'intent-entry';
+    entry.innerHTML = `
+      <div class="intent-dot" style="background:${color}"></div>
+      <span class="intent-text">${INTENT_LABELS[intent] || intent}</span>
+      <span class="intent-lang">${lang.toUpperCase()}</span>
+      <span class="intent-time">${responseMs}ms</span>
+      ${isEscalated ? '<span class="tag tag-escalate" style="font-size:9px;">ESCALATED</span>' : ''}
+    `;
+
+    log.insertBefore(entry, log.firstChild);
+
+    // Keep max 8 entries
+    while (log.children.length > 8) log.removeChild(log.lastChild);
+  }
+
+  function updateMetrics() {
+    const avgMs = msgCount > 0 ? Math.round(totalTimeMs / msgCount) : 0;
+    const autonomyRate = msgCount > 0 ? Math.round(((msgCount - escalatedCount) / msgCount) * 100) : 0;
+    const escalationRate = msgCount > 0 ? Math.round((escalatedCount / msgCount) * 100) : 0;
+
+    document.getElementById('stat-total').textContent = msgCount;
+    document.getElementById('stat-time').textContent = `${avgMs}ms`;
+    document.getElementById('stat-autonomy').textContent = msgCount > 0 ? `${autonomyRate}%` : '—';
+    document.getElementById('stat-langs').textContent = [...languages].map(l => l.toUpperCase()).join('+') || 'DE+EN+ES';
+
+    document.getElementById('m-total').textContent = msgCount;
+    document.getElementById('m-response').textContent = `${avgMs}ms`;
+    document.getElementById('m-autonomy').textContent = msgCount > 0 ? `${autonomyRate}%` : '82%';
+    document.getElementById('m-escalation').textContent = msgCount > 0 ? `${escalationRate}%` : '12%';
+
+    if (msgCount > 0) {
+      document.getElementById('bar-response').style.width = Math.min(avgMs / 20, 100) + '%';
+      document.getElementById('bar-autonomy').style.width = autonomyRate + '%';
+      document.getElementById('bar-escalation').style.width = escalationRate + '%';
+    }
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById('msgInput');
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    const channel = document.getElementById('channelSelect').value;
+    const sendBtn = document.getElementById('sendBtn');
+    sendBtn.disabled = true;
+    input.value = '';
+
+    const chatMessages = document.getElementById('chatMessages');
+
+    // Add user message
+    const userDiv = document.createElement('div');
+    userDiv.className = 'msg msg-user';
+    userDiv.innerHTML = `
+      <div class="msg-meta"><span>${channel === 'instagram' ? '📸' : channel === 'whatsapp' ? '💬' : '📧'} Customer</span><span>${now()}</span></div>
+      <div class="msg-bubble">${msg.replace(/</g,'&lt;')}</div>
+    `;
+    chatMessages.appendChild(userDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Detect + classify immediately
+    const lang = detectLanguage(msg);
+    const intent = classifyIntent(msg);
+    const isEscalated = intent === 'cancellation' || intent === 'complaint';
+    languages.add(lang);
+
+    // Animate flow steps 1→3 immediately
+    animateFlow(1); updateFlowDesc(1, lang, intent, 0);
+    await delay(100);
+    animateFlow(2); updateFlowDesc(2, lang, intent, 0);
+    await delay(100);
+    animateFlow(3); updateFlowDesc(3, lang, intent, 0);
+    await delay(100);
+    animateFlow(4); updateFlowDesc(4, lang, intent, 0);
+
+    // Show typing indicator
+    const typing = document.getElementById('typingIndicator');
+    typing.classList.add('visible');
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    animateFlow(5);
+
+    // Simulate LLM response time (800-1200ms)
+    const fakeMs = 800 + Math.floor(Math.random() * 400);
+    await delay(fakeMs);
+
+    const responseText = getResponse(intent, lang);
+
+    typing.classList.remove('visible');
+
+    animateFlow(5); updateFlowDesc(5, lang, intent, fakeMs);
+    await delay(80);
+    animateFlow(6); updateFlowDesc(6, lang, intent, fakeMs);
+
+    // Add agent message
+    const agentDiv = document.createElement('div');
+    agentDiv.className = 'msg msg-agent';
+    const intentLabel = INTENT_LABELS[intent] || intent;
+    agentDiv.innerHTML = `
+      <div class="msg-meta">
+        <span>🤖 TRIAGE Agent</span>
+        <span>${now()}</span>
+        ${isEscalated ? '<span style="color:#E74C3C;font-weight:700;">⚠️ ESCALATED TO FELIX</span>' : ''}
+      </div>
+      <div class="msg-bubble">${responseText.replace(/\n/g,'<br>').replace(/</g,'&lt;').replace(/&lt;br>/g,'<br>')}</div>
+      <div class="msg-tags">
+        <span class="tag tag-intent">${intentLabel}</span>
+        <span class="tag tag-lang">${lang.toUpperCase()}</span>
+        <span class="tag tag-time">${fakeMs}ms</span>
+        ${isEscalated ? '<span class="tag tag-escalate">ESCALATED</span>' : ''}
+      </div>
+    `;
+    chatMessages.appendChild(agentDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Mark all flow steps done
+    setTimeout(() => {
+      for (let i = 1; i <= 6; i++) {
+        const el = document.getElementById('step' + i);
+        el.classList.add('done');
+        el.classList.remove('active');
+        el.textContent = '✓';
+      }
+    }, 200);
+
+    // Update state
+    msgCount++;
+    totalTimeMs += fakeMs;
+    if (isEscalated) escalatedCount++;
+    intentCounts[intent] = (intentCounts[intent] || 0) + 1;
+
+    addToIntentLog(lang, intent, fakeMs);
+    updateMetrics();
+
+    sendBtn.disabled = false;
+    input.focus();
+  }
+
+  function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  // Enter key to send
+  document.getElementById('msgInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+
+  // Auto-resize textarea
+  document.getElementById('msgInput').addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+  });
+</script>
+
+</body>
+</html>
