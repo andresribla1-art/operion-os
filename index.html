@@ -1,14 +1,22 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>OPERION LLC · Autonomes Betriebssystem · operion.llc</title>
+<title>OPERION LLC — Autonomes Betriebssystem · operion.llc</title>
+<meta name="ext-resource-dependency" content="brand_assets/OPERION_Sovereign_Emblem_FINAL.svg" data-resource-id="emblem"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap"/>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<template id="__bundler_thumbnail" data-bg-color="#FFFFFF">
+  <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="100,30 165,68 165,144 100,182 35,144 35,68" fill="none" stroke="#0D0D0D" stroke-width="1.5"/>
+    <circle cx="100" cy="106" r="14" fill="#0D0D0D"/>
+    <text x="100" y="225" font-family="Inter, sans-serif" font-size="20" font-weight="700" letter-spacing="6" text-anchor="middle" fill="#0D0D0D">OPERION</text>
+  </svg>
+</template>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -60,7 +68,7 @@ const T={
 de:{
   nav:{links:[['Architektur','#arch'],['Preise','#pricing'],['Investor','#investor']],cta:'Demo anfragen'},
   hero:{
-    story:'23:00 · Samstag · Ingolstadt. Ein Student aus Nigeria schreibt an ein Fitnessstudio. Der Inhaber schläft. OPERION antwortet in 4 Sekunden — auf Englisch. Der Lead ist geschlossen, bevor der Inhaber aufwacht.',
+    story:'23:00 Uhr · Samstag. Eine Anfrage erreicht Ihr Geschäft auf Englisch. Sie schlafen. OPERION antwortet in 4 Sekunden — in der Sprache des Kunden. Der Lead ist gewonnen, bevor Sie aufwachen.',
     eyebrow:'Ingolstadt, DE · operion.llc',
     h1:'Ihr Betrieb.',h1b:'Autonom.',
     h1desc:'Paz Mental.',
@@ -70,13 +78,13 @@ de:{
     stats:[['<5 Min','Reaktionszeit'],['24/7','Verfügbarkeit'],['14 Tage','Deployment'],['≥90%','HDR-Ziel']],
   },
   proof:{
-    badge:'Produktionsbetrieb · April 2026',client:'Clever Fit Ingolstadt',
+    badge:'Produktionsbetrieb · April 2026',client:'Pilotkunde · Ingolstadt',
     metrics:[['240 Min → 4 Sek.','Reaktionszeit'],['≥80% HDR','30 Tage'],['DE · EN · ES','Aktiv']],
     note:'Erster Produktionsklient. Der Beachhead ist validiert.',
   },
   thesis:{
-    label:'01 · Autonomiethese',h:'Operative Arbeit',hb:'ist eine strukturelle Ineffizienz.',
-    sub:'Jede Aufgabe, die vollständig in einem Entscheidungsbaum beschrieben werden kann, hat kein Recht, von einem Menschen ausgeführt zu werden.',
+    label:'01 · Autonomiethese',h:'Mehr Umsatz.',hb:'Weniger Kosten.',
+    sub:'OPERION ersetzt keine Menschen — es entlastet sie. Während Ihr Team sich auf Wachstum konzentriert, bearbeitet OPERION jeden Lead, jede Stunde, in jeder Sprache. Ihr Umsatz steigt. Ihre Fixkosten sinken.',
     principles:[
       {n:'I',t:'Ausführung geht vor Existenz.',b:'Ein Prozess, der vollständig beschrieben werden kann, wird von OPERION ausgeführt. Nicht von einer Person.'},
       {n:'II',t:'Überwachung ist keine Eliminierung.',b:'Ein System, das einen Menschen zur Überwachung erfordert, hat den Menschen nicht ersetzt — es hat ihm einen neuen Job gegeben.'},
@@ -104,7 +112,7 @@ de:{
   },
   metrics:{
     label:'04 · Sovereign Metriken',
-    hdr:{h:'90%.',hb:'HDR.',sub:'Human Displacement Ratio: Autonome Ausführungen ÷ Gesamtaufgaben im Scope. Ziel: ≥90% bis Tag 90.',note:'Gemessen über 90 Tage Produktionsbetrieb · Clever Fit Ingolstadt'},
+    hdr:{h:'90%.',hb:'HDR.',sub:'Human Displacement Ratio: Autonome Ausführungen ÷ Gesamtaufgaben im Scope. Ziel: ≥90% bis Tag 90.',note:'Gemessen über 90 Tage Produktionsbetrieb · Pilotkunde · Ingolstadt'},
     oii:{h:'5/5.',hb:'OII.',sub:'Operational Immunity Index: Kann der Betrieb bei vollständiger menschlicher Abwesenheit auf vollem Niveau operieren?',scenarios:['DM-Anfrage · 23:00 Samstag','Buchung auf Englisch','Reklamation · Sofortreaktion','Content-Posting · Kein Briefing','Wochenbericht · Montagmorgen']},
   },
   agents:{
@@ -135,7 +143,7 @@ de:{
     label:'07 · Roadmap',h:'Deliberate',hb:'Execution.',
     sub:'"Slow is smooth. Smooth is fast." — Jede Phase muss HDR ≥90% und OII 100% nachweisen, bevor geografisch oder vertikal skaliert wird.',
     phases:[
-      {n:'Phase 1',t:'Ingolstadt Beachhead',d:'Monat 1–6',b:'Beachhead validieren. Clever Fit vollständig souverän. Eine verifizierte Fallstudie. Infrastruktur stabil.',done:true},
+      {n:'Phase 1',t:'Ingolstadt Beachhead',d:'Monat 1–6',b:'Beachhead validieren. Pilotkunde vollständig souverän. Eine verifizierte Fallstudie. Infrastruktur stabil.',done:true},
       {n:'Phase 2',t:'München Metro',d:'Monat 7–12',b:'Modell replizieren. 8–10 Kunden. Fitness + angrenzende Vertikalen. MRR >€4.000. Wyoming LLC.'},
       {n:'Phase 3',t:'DACH Sovereign',d:'Monat 13–18',b:'15 Kunden. MRR >€8.000. Erster VA. Operations-Agent live. Österreich + Schweiz.'},
       {n:'Phase 4',t:'LATAM Entry',d:'Monat 19–24',b:'Lima, Peru als Einstiegspunkt. LATAM-Fiskalwillkür: Teilzeitkraft $400–600 vs. OPERION Starter $180–220.'},
@@ -154,46 +162,46 @@ de:{
   },
   pricing:{
     label:'09 · Preise',h:'Transparent.',hb:'Keine Überraschungen.',
-    note:'Erste 5 Kunden: 50% Rabatt auf Lebenszeit gegen öffentliche Fallstudie + Video-Testimonial.',
+    note:'Modell mit gewonnenem Kunden: niedrige monatliche Grundgebühr + Erfolgsbeteiligung pro abgeschlossenem Lead. Sie zahlen nur, wenn OPERION Umsatz generiert.',
     tiers:[
-      {name:'Starter',price:'€200',p:'/mo',setup:'Setup: €500',feats:['1 Agent (TRIAGE)','1 Kanal (WhatsApp/IG)','Autom. Wochenbericht','SLA <10 Min.','E-Mail-Support'],cta:'Anfragen'},
-      {name:'Growth',price:'€500',p:'/mo',setup:'Setup: €1.500',feats:['3 Agenten','Multi-Kanal','Zweiwöch. Strategieanruf','SLA <5 Min.','PDF-Berichte'],cta:'Anfragen',feat:true},
-      {name:'Enterprise',price:'Custom',p:'',setup:'Setup ab €3.000',feats:['5 Agenten (Full Suite)','Custom-Integrationen','Dedizierter Slack-Kanal','SLA <2 Min.','Früher Zugang'],cta:'Gespräch'},
+      {name:'Starter',price:'€150',p:'/mo + 5%',setup:'Setup: €500 · Erfolgsbeteiligung 5% pro Lead',feats:['1 Agent (TRIAGE)','1 Kanal (WhatsApp/IG)','Erfolgsbeteiligung pro Lead','Wochenbericht','SLA <10 Min.'],cta:'Anfragen'},
+      {name:'Growth',price:'€350',p:'/mo + 4%',setup:'Setup: €1.500 · Erfolgsbeteiligung 4% pro Lead',feats:['3 Agenten','Multi-Kanal','Erfolgsbeteiligung pro Lead','Strategieanruf 14-tägig','SLA <5 Min.'],cta:'Anfragen',feat:true},
+      {name:'Enterprise',price:'Custom',p:'',setup:'Verhandelte Erfolgsbeteiligung',feats:['5 Agenten (Full Suite)','Custom-Integrationen','Verhandelte Beteiligung','Dedizierter Slack-Kanal','SLA <2 Min.'],cta:'Gespräch'},
     ],
   },
   founder:{
     label:'10 · Gründer',h:'Felix',hb:'Rios.',
     role:'Gründer & CEO · OPERION LLC',
-    bio:'Native-Spanischsprecher. Deutscher Einwohner. Englisch fließend. Supply Chain Management · KI-Architektur · Prozessoptimierung — drei Disziplinen in einer Person.',
-    creds:[['Python 3.12, Anthropic SDK, Flask, MCP','Technische Tiefe'],['Supply Chain · KPI-Reporting · Power BI · Prozessoptimierung','Strategische & analytische Expertise'],['DE / EN / ES native','Trilingualer Betrieb'],['OPER- (lat. Operatio: Aktion, Werk) · -ION (Hyperion · Ion-Energie)','Souveränität in der Ausführung']],
-    contact:'felix@operion.llc',
+    bio:'Native-Spanischsprecher. Deutscher Einwohner. Englisch fließend. Die drei Sprachen des OPERION-Marktes sind seine drei Muttersprachen.',
+    creds:[['Python 3.12 · Anthropic SDK · Flask · MCP','Technische Tiefe'],['Supply Chain · KPI-Reporting · Power BI · Prozessoptimierung','Strategische & analytische Expertise'],['DE / EN / ES nativ','Trilingualer Betrieb'],['OPER- (lat. Operatio: Handlung, Werk) · -ION (Hyperion · Energie des Ions)','Souveränität in der Ausführung']],
+    contact:'frios@operion.llc',
   },
   cta:{label:'11 · Erste 5 Kunden',h:'Bereit,',hb:'wenn Sie es sind.',sub:'Gründerpreis: 50% Rabatt auf Lebenszeit gegen eine öffentliche Fallstudie. Begrenzte Plätze.',btn:'Gründerzugang anfragen'},
-  footer:{q:'"OPERION" — OPER- (lat. Operatio: Aktion, Ausführung) · -ION (Hyperion · Ion-Energie) · Souveränität in der Ausführung.'},
+  footer:{q:'"OPERION" — aus dem Quechua: tun, machen, ausführen.'},
 },
 en:{
   nav:{links:[['Architecture','#arch'],['Pricing','#pricing'],['Investors','#investor']],cta:'Request Demo'},
   hero:{
-    story:"23:00 · Saturday · Ingolstadt. A student from Nigeria messages a gym. The owner is asleep. OPERION responds in 4 seconds — in English. The lead is closed before the owner wakes up.",
+    story:'23:00 · Saturday. An inquiry reaches your business in a language you don\u2019t handle at night. You\u2019re asleep. OPERION responds in 4 seconds — in the customer\u2019s language. The lead is closed before you wake up.',
     eyebrow:'Ingolstadt, DE · operion.llc',
     h1:'Your business.',h1b:'Autonomous.',
     h1desc:'Paz Mental.',
-    sub:"OPERION is not software, not a chatbot, not an automation platform. It is the certainty that your business never sleeps, never forgets, and never fails to respond in your customer's language.",
+    sub:'OPERION is not software, not a chatbot, not an automation platform. It is the certainty that your business never sleeps, never forgets, and never fails to respond in your customer\'s language.',
     cta:'Watch the demo',ghost:'Request a call',
     note:'Deployed in 14 days · No client code · DE / EN / ES',
     stats:[['<5 min','Response time'],['24/7','Availability'],['14 days','Deployment'],['≥90%','HDR target']],
   },
   proof:{
-    badge:'Production · April 2026',client:'Clever Fit Ingolstadt',
+    badge:'Production · April 2026',client:'Pilot client · Ingolstadt',
     metrics:[['240 min → 4 sec','Response time'],['≥80% HDR','30 days'],['DE · EN · ES','Active']],
     note:'First production client. The beachhead is validated.',
   },
   thesis:{
-    label:'01 · Autonomy Thesis',h:'Operational labor',hb:'is a structural inefficiency.',
-    sub:'Every task that can be fully described in a decision tree has no business being executed by a human being.',
+    label:'01 · Autonomy Thesis',h:'More revenue.',hb:'Lower costs.',
+    sub:'OPERION does not replace people — it frees them. While your team focuses on growth, OPERION handles every lead, every hour, in every language. Your revenue rises. Your fixed costs drop.',
     principles:[
       {n:'I',t:'Execution precedes existence.',b:'A process that can be fully described is run by OPERION. Not by a person.'},
-      {n:'II',t:'Oversight is not elimination.',b:"A system that requires a human to monitor it has not replaced the human — it has given them a new job."},
+      {n:'II',t:'Oversight is not elimination.',b:'A system that requires a human to monitor it has not replaced the human — it has given them a new job.'},
       {n:'III',t:'Substitution is permanent.',b:'The roles OPERION eliminates do not return when the contract ends. This is an architectural transformation, not a subscription service.'},
     ],
   },
@@ -218,7 +226,7 @@ en:{
   },
   metrics:{
     label:'04 · Sovereign Metrics',
-    hdr:{h:'90%.',hb:'HDR.',sub:'Human Displacement Ratio: Autonomous executions ÷ Total tasks in scope. Target: ≥90% by Day 90.',note:'Measured over 90 days of production · Clever Fit Ingolstadt'},
+    hdr:{h:'90%.',hb:'HDR.',sub:'Human Displacement Ratio: Autonomous executions ÷ Total tasks in scope. Target: ≥90% by Day 90.',note:'Measured over 90 days of production · Pilot client · Ingolstadt'},
     oii:{h:'5/5.',hb:'OII.',sub:'Operational Immunity Index: Can the business operate at full capacity during complete human absence?',scenarios:['DM inquiry · 23:00 Saturday','Booking in English','Complaint · Immediate response','Content posting · No brief','Weekly report · Monday 08:00']},
   },
   agents:{
@@ -268,7 +276,7 @@ en:{
   },
   pricing:{
     label:'09 · Pricing',h:'Transparent.',hb:'No surprises.',
-    note:'First 5 clients: 50% off for life in exchange for public case study + video testimonial.',
+    note:'Per-won-customer model: a low monthly base + a success fee on every closed lead. You pay when OPERION generates revenue.',
     tiers:[
       {name:'Starter',price:'€200',p:'/mo',setup:'One-time: €500',feats:['1 agent (TRIAGE)','1 channel','Automated weekly report','SLA <10 min','Email support'],cta:'Request'},
       {name:'Growth',price:'€500',p:'/mo',setup:'One-time: €1,500',feats:['3 agents','Multi-channel','Bi-weekly strategy call','SLA <5 min','PDF reports'],cta:'Request',feat:true},
@@ -278,32 +286,32 @@ en:{
   founder:{
     label:'10 · Founder',h:'Felix',hb:'Rios.',
     role:'Founder & CEO · OPERION LLC',
-    bio:"Native Spanish speaker. German resident. English-fluent. Supply Chain Management · AI Architecture · Process Optimization — three disciplines in one person.",
-    creds:[['Python 3.12, Anthropic SDK, Flask, MCP','Technical depth'],['Supply Chain · KPI Reporting · Power BI · Process Optimization','Strategic & analytical expertise'],['DE / EN / ES native','Trilingual operation'],['OPER- (lat. Operatio: action, work) · -ION (Hyperion · Ion energy)','Sovereignty in Execution']],
-    contact:'felix@operion.llc',
+    bio:'Native Spanish speaker. German resident. English-fluent. The three languages of OPERION\'s primary market are his three native languages.',
+    creds:[['Python 3.12 · Anthropic SDK · Flask · MCP','Technical depth'],['Supply Chain · KPI Reporting · Power BI · Process optimization','Strategic & analytical expertise'],['DE / EN / ES native','Trilingual operation'],['OPER- (lat. Operatio: action, work) · -ION (Hyperion · energy of the Ion)','Sovereignty in execution']],
+    contact:'frios@operion.llc',
   },
   cta:{label:'11 · First 5 clients',h:'Ready,',hb:'when you are.',sub:'Founding price: 50% off for life in exchange for a public case study. Limited spots.',btn:'Request Founding Access'},
-  footer:{q:'"OPERION" — OPER- (lat. Operatio: action, execution) · -ION (Hyperion · Ion energy) · Sovereignty in Execution.'},
+  footer:{q:'"OPERION" — from Quechua: to do, to make, to execute.'},
 },
 es:{
   nav:{links:[['Arquitectura','#arch'],['Precios','#pricing'],['Inversores','#investor']],cta:'Solicitar Demo'},
   hero:{
-    story:'23:00 · Sábado · Ingolstadt. Un estudiante de Nigeria escribe al gimnasio. El dueño duerme. OPERION responde en 4 segundos — en inglés. El lead se cierra antes de que el dueño despierte.',
+    story:'23:00 · Sábado. Una consulta llega a su negocio en un idioma que usted no maneja de noche. Usted duerme. OPERION responde en 4 segundos — en el idioma del cliente. El lead se cierra antes de que despierte.',
     eyebrow:'Ingolstadt, DE · operion.llc',
     h1:'Su negocio.',h1b:'Autónomo.',
     h1desc:'Paz Mental.',
-    sub:'OPERION no es software, no es un chatbot, no es una plataforma de automatización. Es la certeza de que su negocio nunca duerme, nunca olvida y nunca deja de responder en el idioma de su cliente.',
+    sub:'OPERION no es software, ni un chatbot, ni una plataforma de automatización. Es la certeza de que su negocio nunca duerme, captura cada lead y hace crecer sus ingresos — mientras sus costos operativos bajan.',
     cta:'Ver la demo',ghost:'Solicitar llamada',
     note:'Desplegado en 14 días · Sin código del cliente · DE / EN / ES',
     stats:[['<5 min','Tiempo respuesta'],['24/7','Disponibilidad'],['14 días','Despliegue'],['≥90%','Objetivo HDR']],
   },
   proof:{
-    badge:'Producción · Abril 2026',client:'Clever Fit Ingolstadt',
+    badge:'Producción · Abril 2026',client:'Cliente piloto · Ingolstadt',
     metrics:[['240 min → 4 seg.','Tiempo respuesta'],['≥80% HDR','30 días'],['DE · EN · ES','Activo']],
     note:'Primer cliente en producción. El beachhead está validado.',
   },
   thesis:{
-    label:'01 · Tesis de Autonomía',h:'El trabajo operativo',hb:'es una ineficiencia estructural.',
+    label:'01 · Tesis de Autonomía',h:'Más ingresos.',hb:'Menos costos.',
     sub:'Toda tarea que puede describirse completamente en un árbol de decisión no tiene razón de ser ejecutada por un ser humano.',
     principles:[
       {n:'I',t:'La ejecución precede a la existencia.',b:'Un proceso que puede describirse completamente lo ejecuta OPERION. No una persona.'},
@@ -332,7 +340,7 @@ es:{
   },
   metrics:{
     label:'04 · Métricas Soberanas',
-    hdr:{h:'90 %.',hb:'HDR.',sub:'Human Displacement Rate: Ejecuciones autónomas ÷ Tareas totales en scope. Objetivo: ≥90% al Día 90.',note:'Medido en 90 días de producción · Clever Fit Ingolstadt'},
+    hdr:{h:'90 %.',hb:'HDR.',sub:'Human Displacement Rate: Ejecuciones autónomas ÷ Tareas totales en scope. Objetivo: ≥90% al Día 90.',note:'Medido en 90 días de producción · Cliente piloto · Ingolstadt'},
     oii:{h:'5/5.',hb:'OII.',sub:'Operational Immunity Index: ¿Puede el negocio operar a plena capacidad durante ausencia humana completa?',scenarios:['Consulta DM · 23:00 sábado','Reserva en inglés','Reclamación · Respuesta inmediata','Publicación de contenido · Sin brief','Informe semanal · Lunes 08:00']},
   },
   agents:{
@@ -382,7 +390,7 @@ es:{
   },
   pricing:{
     label:'09 · Pricing',h:'Transparente.',hb:'Sin sorpresas.',
-    note:'Primeros 5 clientes: 50% de descuento de por vida a cambio de caso de estudio público + testimonial en video.',
+    note:'Modelo por cliente ganado: tarifa mensual baja + comisión de éxito por cada lead cerrado. Usted paga cuando OPERION genera ingresos.',
     tiers:[
       {name:'Starter',price:'€200',p:'/mo',setup:'Setup único: €500',feats:['1 agente (TRIAGE)','1 canal','Informe semanal autom.','SLA <10 min','Soporte email'],cta:'Solicitar'},
       {name:'Growth',price:'€500',p:'/mo',setup:'Setup único: €1.500',feats:['3 agentes','Multi-canal','Llamada quincenal','SLA <5 min','Informes PDF'],cta:'Solicitar',feat:true},
@@ -392,16 +400,16 @@ es:{
   founder:{
     label:'10 · Fundador',h:'Felix',hb:'Rios.',
     role:'Fundador & CEO · OPERION LLC',
-    bio:'Hispanohablante nativo. Residente en Alemania. Inglés fluido. Supply Chain Management · Arquitectura IA · Optimización de procesos — tres disciplinas en una persona.',
-    creds:[['Python 3.12, Anthropic SDK, Flask, MCP','Profundidad técnica'],['Supply Chain · KPI Reporting · Power BI · Optimización de procesos','Expertise estratégica y analítica'],['DE / EN / ES nativo','Operación trilingüe'],['OPER- (lat. Operatio: acción, obra) · -ION (Hiperión · energía del Ión)','Soberanía en la Ejecución']],
-    contact:'felix@operion.llc',
+    bio:'Hispanohablante nativo. Residente en Alemania. Inglés fluido. Los tres idiomas del mercado primario de OPERION son sus tres lenguas nativas.',
+    creds:[['Python 3.12 · SDK Anthropic · Flask · MCP','Profundidad técnica'],['Cadena de suministro · Informes de KPI · Power BI · Optimización de procesos','Expertise estratégica y analítica'],['DE / EN / ES nativo','Operación trilingüe'],['OPER- (lat. Operatio: acción, obra) · -ION (Hiperión · energía del Ión)','Soberanía en la Ejecución']],
+    contact:'frios@operion.llc',
   },
   cta:{label:'11 · Primeros 5 clientes',h:'Listo,',hb:'cuando usted lo esté.',sub:'Precio fundacional: 50% de descuento de por vida a cambio de un caso de estudio público.',btn:'Solicitar Acceso Fundacional'},
-  footer:{q:'"OPERION" — OPER- (lat. Operatio: acción, ejecución) · -ION (Hiperión · energía del Ión) · Soberanía en la Ejecución.'},
+  footer:{q:'"OPERION" — del quechua: hacer, ejecutar, llevar a cabo.'},
 },
 };
 
-/* ── HOOKS & ATOMS ──────────────────────────────────────────────────── */
+/* ── HOOKS & ATOMS ──────────────────────────────────────────── */
 function useFadeIn() {
   React.useEffect(() => {
     const t = setTimeout(() => {
@@ -414,29 +422,9 @@ function useFadeIn() {
   }, []);
 }
 
-/* ── EMBLEM — logo component ──────────────────────────────────────── */
-/* ghost=true uses the transparent SVG (for low-opacity watermark uses) */
-function Emblem({ size=40, opacity=1, ghost=false }) {
-  const style = {
-    display: 'block',
-    height: size,
-    width: 'auto',
-    maxWidth: '100%',
-    aspectRatio: 'auto',
-    objectFit: 'contain',
-    objectPosition: 'center',
-    opacity,
-    flexShrink: 0,
-  };
-  if (ghost) {
-    return <img src="brand_assets/operion_emblem_light.svg" alt="OPERION" style={style}/>;
-  }
-  return <img
-    src="brand_assets/OPERION_REDUCED.png"
-    alt="OPERION"
-    style={style}
-    onError={e => { e.target.onerror = null; e.target.src = 'brand_assets/operion_emblem_light.svg'; }}
-  />;
+function Emblem({ size=40, opacity=1 }) {
+  return <img src={(window.__resources && window.__resources.emblem) || "brand_assets/OPERION_Sovereign_Emblem_FINAL.svg"} alt="OPERION" width={size*.8} height={size}
+    style={{ objectFit:'contain', display:'block', opacity, filter:'drop-shadow(0 1px 8px rgba(13,13,13,.18)) drop-shadow(0 0 1px rgba(13,13,13,.10))' }}/>;
 }
 
 function SL({ text }) {
@@ -468,15 +456,15 @@ function Icon({ type, size=20 }) {
   return null;
 }
 
-/* ── NAV ──────────────────────────────────────────────────────────── */
+/* ── NAV ──────────────────────────────────────────────────── */
 function Nav({ lang, setLang }) {
   const t = T[lang].nav;
   return (
     <nav style={{ background:'rgba(255,255,255,.90)', backdropFilter:'blur(24px)', WebkitBackdropFilter:'blur(24px)', borderBottom:`1px solid ${C.ln}`, position:'sticky', top:0, zIndex:100 }}>
       <div style={{ ...W, height:60, display:'flex', alignItems:'center', justifyContent:'space-between' }}>
-        <div style={{ display:'flex', alignItems:'center', gap:12, flexShrink:0 }}>
-          <Emblem size={40} ghost={true}/>
-          <span style={{ fontFamily:FB, fontSize:12, fontWeight:700, letterSpacing:'.24em', textTransform:'uppercase', color:C.obs, marginLeft:4 }}>OPERION</span>
+        <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+          <Emblem size={28}/>
+          <span style={{ fontFamily:FB, fontSize:12, fontWeight:700, letterSpacing:'.24em', textTransform:'uppercase', color:C.obs }}>OPERION</span>
         </div>
         <ul style={{ display:'flex', gap:32, listStyle:'none' }}>
           {t.links.map(([label,href],i) => <li key={i}><a href={href} style={{ fontFamily:FB, fontSize:12, color:C.ti, textDecoration:'none', letterSpacing:'.03em', transition:'color .2s' }}>{label}</a></li>)}
@@ -485,14 +473,14 @@ function Nav({ lang, setLang }) {
           <div style={{ display:'flex', border:`1px solid ${C.ln}` }}>
             {['de','en','es'].map(l => <button key={l} onClick={()=>setLang(l)} style={{ fontFamily:FB, fontSize:10, fontWeight:500, letterSpacing:'.10em', textTransform:'uppercase', padding:'6px 10px', background:lang===l?C.obs:'transparent', border:'none', borderRight:l!=='es'?`1px solid ${C.ln}`:'none', cursor:'pointer', color:lang===l?'#fff':C.ti, transition:'all .15s' }}>{l.toUpperCase()}</button>)}
           </div>
-          <a href="mailto:felix@operion.llc" className="btn-obs" style={{ padding:'9px 20px' }}>{t.cta}</a>
+          <a href="mailto:frios@operion.llc" className="btn-obs" style={{ padding:'9px 20px' }}>{t.cta}</a>
         </div>
       </div>
     </nav>
   );
 }
 
-/* ── HERO ─────────────────────────────────────────────────────────── */
+/* ── HERO ─────────────────────────────────────────────────── */
 function Hero({ lang }) {
   const t = T[lang].hero;
   return (
@@ -518,18 +506,12 @@ function Hero({ lang }) {
             <p className="fade fd2" style={{ fontFamily:FB, fontSize:16, fontWeight:300, color:C.ti, maxWidth:460, lineHeight:1.8, marginBottom:40 }}>{t.sub}</p>
             <div className="fade fd3" style={{ display:'flex', gap:12, marginBottom:18 }}>
               <a href="#" className="btn-obs">{t.cta}</a>
-              <a href="mailto:felix@operion.llc" className="btn-ghost">{t.ghost}</a>
+              <a href="mailto:frios@operion.llc" className="btn-ghost">{t.ghost}</a>
             </div>
             <p className="fade fd4" style={{ fontFamily:FM, fontSize:10, color:'rgba(13,13,13,.28)', letterSpacing:'.06em' }}>{t.note}</p>
           </div>
-          {/* Hero emblem — transparent SVG, sovereign mark + spaced wordmark */}
-          <div className="fade fd2" style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:28, flexShrink:0 }}>
-            <img
-              src="brand_assets/operion_emblem_light.svg"
-              alt="OPERION Sovereign Emblem"
-              style={{ height:220, width:'auto', display:'block', objectFit:'contain' }}
-            />
-            <span style={{ fontFamily:FB, fontSize:11, fontWeight:500, letterSpacing:'.55em', textTransform:'uppercase', color:'rgba(13,20,32,.22)', display:'block', textAlign:'center', paddingLeft:'.55em' }}>OPERION</span>
+          <div className="fade fd2" style={{ display:'flex', justifyContent:'center' }}>
+            <Emblem size={320} opacity={1}/>
           </div>
         </div>
 
@@ -547,7 +529,7 @@ function Hero({ lang }) {
   );
 }
 
-/* ── PROOF BAR ────────────────────────────────────────────────────── */
+/* ── PROOF BAR ────────────────────────────────────────────── */
 function ProofBar({ lang }) {
   const t = T[lang].proof;
   return (
@@ -571,7 +553,7 @@ function ProofBar({ lang }) {
   );
 }
 
-/* ── THESIS ───────────────────────────────────────────────────────── */
+/* ── THESIS ───────────────────────────────────────────────── */
 function Thesis({ lang }) {
   const t = T[lang].thesis;
   return (
@@ -596,7 +578,7 @@ function Thesis({ lang }) {
   );
 }
 
-/* ── COMPETITIVE LANE ─────────────────────────────────────────────── */
+/* ── COMPETITIVE LANE ─────────────────────────────────────── */
 function Lane({ lang }) {
   const t = T[lang].lane;
   return (
@@ -608,6 +590,7 @@ function Lane({ lang }) {
           <p style={{ fontFamily:FB, fontSize:15, fontWeight:300, color:C.ti, lineHeight:1.8, paddingTop:4 }}>{t.sub}</p>
         </div>
         <div style={{ border:`1px solid ${C.ln}` }}>
+          {/* Header */}
           <div style={{ display:'grid', gridTemplateColumns:'80px 180px 1fr 1fr', borderBottom:`1px solid ${C.ln}`, background:C.snow }}>
             {['','Categoria','Ejemplo','¿Por qué falla?'].map((h,i) => (
               <div key={i} style={{ padding:'10px 20px', fontFamily:FM, fontSize:9, color:C.ch, letterSpacing:'.10em', textTransform:'uppercase', borderRight:i<3?`1px solid ${C.ln}`:'none' }}>{h}</div>
@@ -617,7 +600,7 @@ function Lane({ lang }) {
             const act = l.active;
             return (
               <div key={i} className="fade" style={{ display:'grid', gridTemplateColumns:'80px 180px 1fr 1fr', borderBottom:i<3?`1px solid ${C.ln}`:'none', background:act?C.obs:C.white }}>
-                <div style={{ padding:'20px 20px', borderRight:`1px solid ${act?'rgba(255,255,255,.08)':C.ln}`, fontFamily:FM, fontSize:10, color:C.ch, letterSpacing:'.06em', display:'flex', alignItems:'center' }}>{l.n}</div>
+                <div style={{ padding:'20px 20px', borderRight:`1px solid ${act?'rgba(255,255,255,.08)':C.ln}`, fontFamily:FM, fontSize:10, color:act?C.ch:C.ch, letterSpacing:'.06em', display:'flex', alignItems:'center' }}>{l.n}</div>
                 <div style={{ padding:'20px 20px', borderRight:`1px solid ${act?'rgba(255,255,255,.08)':C.ln}`, fontFamily:FB, fontSize:13, fontWeight:act?600:400, color:act?'#FFFFFF':C.obs, display:'flex', alignItems:'center' }}>{l.who}</div>
                 <div style={{ padding:'20px 20px', borderRight:`1px solid ${act?'rgba(255,255,255,.08)':C.ln}`, fontFamily:FM, fontSize:11, color:act?'rgba(255,255,255,.5)':C.ch, display:'flex', alignItems:'center' }}>{l.ex}</div>
                 <div style={{ padding:'20px 20px', fontFamily:FB, fontSize:12, fontWeight:300, color:act?'rgba(255,255,255,.70)':C.ti, lineHeight:1.6, display:'flex', alignItems:'center' }}>{l.why}</div>
@@ -630,7 +613,7 @@ function Lane({ lang }) {
   );
 }
 
-/* ── TRIAD ────────────────────────────────────────────────────────── */
+/* ── TRIAD ────────────────────────────────────────────────── */
 function Triad({ lang }) {
   const t = T[lang].arch;
   const nodes = [{x:80,y:110,id:'KB'},{x:260,y:36,id:'ADE'},{x:440,y:110,id:'OUT'}];
@@ -679,7 +662,7 @@ function Triad({ lang }) {
   );
 }
 
-/* ── METRICS (HDR + OII) ──────────────────────────────────────────── */
+/* ── METRICS (HDR + OII) ──────────────────────────────────── */
 function Metrics({ lang }) {
   const t = T[lang].metrics;
   const R=45; const circ=2*Math.PI*R;
@@ -688,6 +671,7 @@ function Metrics({ lang }) {
       <div style={W}>
         <SL text={t.label}/>
         <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:0, border:`1px solid ${C.ln}` }}>
+          {/* HDR */}
           <div className="fade" style={{ padding:'48px 40px', borderRight:`1px solid ${C.ln}` }}>
             <div style={{ display:'grid', gridTemplateColumns:'auto 1fr', gap:40, alignItems:'center' }}>
               <div className="glass" style={{ width:140, height:140, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', position:'relative', flexShrink:0 }}>
@@ -707,6 +691,7 @@ function Metrics({ lang }) {
               </div>
             </div>
           </div>
+          {/* OII */}
           <div className="fade" style={{ padding:'48px 40px' }}>
             <div style={{ display:'grid', gridTemplateColumns:'auto 1fr', gap:40, alignItems:'center' }}>
               <div style={{ display:'flex', flexDirection:'column', gap:8, flexShrink:0 }}>
@@ -731,7 +716,7 @@ function Metrics({ lang }) {
   );
 }
 
-/* ── AGENTS ───────────────────────────────────────────────────────── */
+/* ── AGENTS ───────────────────────────────────────────────── */
 function Agents({ lang }) {
   const t = T[lang].agents;
   return (
@@ -745,7 +730,8 @@ function Agents({ lang }) {
         <div style={{ display:'grid', gridTemplateColumns:'repeat(5,1fr)', border:`1px solid ${C.ln}` }}>
           {t.names.map((name,i) => {
             const live = i===0;
-            const bg = live?'rgba(34,197,94,.07)':`rgba(13,13,13,.03)`;
+            const soon = i>=1&&i<=3;
+            const bg = live?'rgba(34,197,94,.07)':soon?`rgba(13,13,13,.03)`:`rgba(13,13,13,.02)`;
             const fg = live?'#22C55E':C.ch;
             const bd = live?'rgba(34,197,94,.18)':C.ln;
             return (
@@ -767,7 +753,7 @@ function Agents({ lang }) {
   );
 }
 
-/* ── KNOWLEDGE MOAT ───────────────────────────────────────────────── */
+/* ── KNOWLEDGE MOAT ───────────────────────────────────────── */
 function Moat({ lang }) {
   const t = T[lang].moat;
   return (
@@ -778,6 +764,7 @@ function Moat({ lang }) {
           <H h={t.h} hb={t.hb}/>
           <p style={{ fontFamily:FB, fontSize:15, fontWeight:300, color:C.ti, lineHeight:1.8, paddingTop:4 }}>{t.sub}</p>
         </div>
+        {/* Compounding table */}
         <div className="fade" style={{ border:`1px solid ${C.ln}`, marginBottom:24 }}>
           <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', borderBottom:`1px solid ${C.ln}`, background:C.white }}>
             {['Dimensión','Día 1','Mes 6'].map((h,i) => (
@@ -793,6 +780,7 @@ function Moat({ lang }) {
           ))}
         </div>
         <p className="fade" style={{ fontFamily:FM, fontSize:11, color:C.ti, fontStyle:'italic', marginBottom:40 }}>{t.note}</p>
+        {/* Docker / GDPR items */}
         <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', border:`1px solid ${C.ln}` }}>
           {t.items.map((item,i) => (
             <div key={i} className="fade glass" style={{ padding:'32px 28px', borderRight:i<2?`1px solid ${C.ln}`:'none', display:'flex', gap:16, alignItems:'flex-start' }}>
@@ -809,7 +797,7 @@ function Moat({ lang }) {
   );
 }
 
-/* ── ROADMAP ──────────────────────────────────────────────────────── */
+/* ── ROADMAP ──────────────────────────────────────────────── */
 function Roadmap({ lang }) {
   const t = T[lang].roadmap;
   return (
@@ -839,7 +827,7 @@ function Roadmap({ lang }) {
   );
 }
 
-/* ── FISCAL ───────────────────────────────────────────────────────── */
+/* ── FISCAL ───────────────────────────────────────────────── */
 function Fiscal({ lang }) {
   const t = T[lang].fiscal;
   const row = { display:'flex', justifyContent:'space-between', padding:'11px 24px', borderBottom:`1px solid ${C.ln}`, fontFamily:FB, fontSize:13 };
@@ -883,7 +871,7 @@ function Fiscal({ lang }) {
   );
 }
 
-/* ── PRICING ──────────────────────────────────────────────────────── */
+/* ── PRICING ──────────────────────────────────────────────── */
 function Pricing({ lang }) {
   const t = T[lang].pricing;
   return (
@@ -910,7 +898,7 @@ function Pricing({ lang }) {
                     </li>
                   ))}
                 </ul>
-                <a href="mailto:felix@operion.llc" style={{ marginTop:24, display:'flex', justifyContent:'center', padding:'12px 20px', fontFamily:FB, fontSize:12, fontWeight:500, letterSpacing:'.08em', textTransform:'uppercase', background:f?C.white:'transparent', border:f?'none':`1px solid ${C.ln}`, color:f?C.obs:C.obs, textDecoration:'none' }}>{tier.cta}</a>
+                <a href="mailto:frios@operion.llc" style={{ marginTop:24, display:'flex', justifyContent:'center', padding:'12px 20px', fontFamily:FB, fontSize:12, fontWeight:500, letterSpacing:'.08em', textTransform:'uppercase', background:f?C.white:'transparent', border:f?'none':`1px solid ${C.ln}`, color:f?C.obs:C.obs, textDecoration:'none' }}>{tier.cta}</a>
               </div>
             );
           })}
@@ -920,7 +908,7 @@ function Pricing({ lang }) {
   );
 }
 
-/* ── FOUNDER ──────────────────────────────────────────────────────── */
+/* ── FOUNDER ──────────────────────────────────────────────── */
 function Founder({ lang }) {
   const t = T[lang].founder;
   return (
@@ -948,7 +936,7 @@ function Founder({ lang }) {
   );
 }
 
-/* ── CTA ──────────────────────────────────────────────────────────── */
+/* ── CTA ──────────────────────────────────────────────────── */
 function CTA({ lang }) {
   const t = T[lang].cta;
   return (
@@ -961,36 +949,34 @@ function CTA({ lang }) {
             <div style={{ fontFamily:FB, fontSize:'clamp(36px,5vw,68px)', fontWeight:200, textTransform:'uppercase', lineHeight:1.0, letterSpacing:'-.025em', color:C.ti, marginBottom:32 }}>{t.hb}</div>
           </div>
           <p className="fade fd2" style={{ fontFamily:FB, fontSize:16, fontWeight:300, color:C.ti, maxWidth:480, lineHeight:1.8, marginBottom:44 }}>{t.sub}</p>
-          <a href="mailto:felix@operion.llc" className="btn-obs fade fd3">{t.btn}</a>
+          <a href="mailto:frios@operion.llc" className="btn-obs fade fd3">{t.btn}</a>
         </div>
-        {/* Ghost watermark — transparent SVG, no background box at low opacity */}
-        <div style={{ opacity:.06 }}><Emblem size={200} opacity={1} ghost={true}/></div>
+        <div style={{ opacity:.06 }}><Emblem size={200} opacity={1}/></div>
       </div>
     </section>
   );
 }
 
-/* ── FOOTER ───────────────────────────────────────────────────────── */
+/* ── FOOTER ───────────────────────────────────────────────── */
 function Footer({ lang }) {
   const t = T[lang].footer;
   return (
     <footer style={{ background:C.white, borderTop:`1px solid ${C.ln}`, padding:'36px 0' }}>
       <div style={{ ...W, display:'flex', alignItems:'center', justifyContent:'space-between' }}>
         <div style={{ display:'flex', alignItems:'center', gap:12 }}>
-          {/* Ghost SVG — transparent, reads cleanly at low opacity */}
-          <Emblem size={24} opacity={0.3} ghost={true}/>
+          <Emblem size={24} opacity={0.3}/>
           <span style={{ fontFamily:FB, fontSize:11, fontWeight:700, letterSpacing:'.24em', textTransform:'uppercase', color:'rgba(13,13,13,.28)' }}>OPERION LLC</span>
         </div>
         <div style={{ textAlign:'right' }}>
           <p style={{ fontFamily:FM, fontSize:11, color:C.ch, fontStyle:'italic', marginBottom:3 }}>{t.q}</p>
-          <p style={{ fontFamily:FM, fontSize:10, color:'rgba(13,13,13,.25)', letterSpacing:'.04em' }}>© 2026 OPERION LLC · felix@operion.llc · operion.llc · Ingolstadt, DE</p>
+          <p style={{ fontFamily:FM, fontSize:10, color:'rgba(13,13,13,.25)', letterSpacing:'.04em' }}>© 2026 OPERION LLC · frios@operion.llc · operion.llc · Ingolstadt, DE</p>
         </div>
       </div>
     </footer>
   );
 }
 
-/* ── APP ──────────────────────────────────────────────────────────── */
+/* ── APP ──────────────────────────────────────────────────── */
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "lang": "es"
 }/*EDITMODE-END*/;
@@ -1046,3 +1032,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>
 </body>
 </html>
+
